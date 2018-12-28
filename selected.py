@@ -81,7 +81,6 @@ def is_palindrome(A):
     return True
 
 def print_palindrome_extensions(prefix, remaining_counts):
-
     if not remaining_counts:
         if is_palindrome(prefix):
             print("".join(prefix))
@@ -123,7 +122,6 @@ def make_ordered_trie(words):
             if not letter in current:
                 current[letter] = OrderedDict()
             current = current[letter]
-
         current[_end] = _end
 
     return trie
@@ -137,7 +135,9 @@ def build_graph(G, trie):
             G[letter] = []
 
     """
-        OrderedDict keys do not support indexing: TypeError        
+        OrderedDict keys do not support indexing: TypeError
+        Therefore we have to explicitly cast the keys to list type
+        in order to iterate through them with an index        
     """
     
     keys = list(trie.keys())
