@@ -38,17 +38,11 @@ def get_next_chars(s, prefix):
 
 
 def print_extensions(prefix, remaining_counts):
-
     if not remaining_counts:
         print("".join(prefix))
         
     next_chars = [char for char in remaining_counts]
 
-    """
-        Learning: Earlier I had written the for loop as follows
-                 >> for char in remaining_counts: ...
-                 This gives wrong results because remaining_counts changes in every iteration.
-    """
     for char in next_chars:
 
         """
@@ -114,8 +108,7 @@ def print_palindrome_perms(s):
     
 
 """
-    [25 Dec 2018]
-    [AirBnB] Alien Dictionary
+    Alien Dictionary
     Input: words (list of string) - alphabetically sorted words
     Output: alphabetical_order (list of chars) - a possible order of alphabets
 """
@@ -160,7 +153,7 @@ def build_graph(G, trie):
 
     
 """
-    O(n^2) implementation
+    O(n^2) implementation of topological sort
 """
 _undefined = -1    
 def get_sink(G):
@@ -188,12 +181,10 @@ def topological_sort(G):
 
 
 """
-   O(m + n) implementation  
+   O(m + n) implementation of topological sort
 """
 
 def get_vertex_to_indegree(G):
-    # vertex_to_indegree = defaultdict(lambda: 0) # this did not work
-    
     vertex_to_indegree = {}
     for u in G:
         vertex_to_indegree[u] = 0
@@ -241,51 +232,14 @@ def top_sort(G):
 
     return output    
 
-        
-
-    
-
-    
-    
-
-
 """
-    The appraoch below was wrong:
-        - trie is already built
-        - trie keys are not processed in the order they were inserted
-
-    Possible fixes:
-        - use ordered dict for trie
-    
+    Combining the subroutines
 """
-def make_graph_wrong(words):
-    
-    G = defaultdict(list)
-    
-    trie = make_trie(words)
-
-    for word in words:
-        current = trie
-        
-        for letter in word:
-            for char in current:
-                if  char != letter :
-                    if letter not in G[char]:
-                        G[char].append(letter)
-        
-
-            current = current[letter]
-
-    return G
-    
 def get_alphabetical_order(words):
-
     trie = make_ordered_trie(words)
     
     G = {}
-    
     G = build_graph(G, trie)
 
     alphabetical_order = top_sort(G)
-
     return alphabetical_order    
