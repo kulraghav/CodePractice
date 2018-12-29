@@ -1093,7 +1093,28 @@ def checkMagazine(magazine, note):
             answer = 'No'
             break
 
-    return answer    
+    return answer
+
+def sherlockAndAnagrams(s):
+    anagrams = {}
+
+    for i in range(len(s)):
+        for j in range(i, len(s)):
+            sub = list(s[i:j+1])
+            sub.sort()
+            sub_hash = "".join(sub)
+            if not sub_hash in anagrams:
+                anagrams[sub_hash] = 1
+            else:
+                anagrams[sub_hash] = anagrams[sub_hash] + 1
+
+    count = 0
+    for key in anagrams:
+        if anagrams[key] > 1:
+            count = count + int(anagrams[key]*(anagrams[key]-1)/2)
+    print(count)
+    return count        
+
 
         
     
