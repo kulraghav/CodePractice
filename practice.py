@@ -1058,9 +1058,45 @@ def rotLeft(a, d):
     return a
 
 
-
+"""
+    [29 Dec 2018]
+    Problems to practice:
+    1. Generate all permutations of a string with repeated characters
+    2. Johnson-Trotter: iteratively generate all permutations
+    3. Generate all valid parenthesis obtained by removing minimum number of parenthesis from a string
+    4. Lexicographically next number
+    5. Solving cryptarithmetic puzzle
+"""
     
 
+# Complete the checkMagazine function below.
+def checkMagazine(magazine, note):
+    note_words = {}
+
+    for word in note:
+        if not word in note_words:
+            note_words[word] = 1
+        else:
+            note_words[word] = note_words[word] + 1
+   
+    magazine_words = {}
+    for word in magazine:
+        if not word in magazine_words:
+            magazine_words[word]  = 1
+        else:
+            magazine_words[word] = magazine_words[word] + 1
+
+    answer = 'Yes'
+    for word in note_words:
+
+        if not (word in magazine_words) or note_words[word] > magazine_words[word]:
+            answer = 'No'
+            break
+
+    return answer    
+
+        
+    
     
                 
     
