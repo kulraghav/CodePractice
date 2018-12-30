@@ -1294,3 +1294,43 @@ def abbreviation(a, b):
         return 'YES'
     else:
         return 'NO'
+
+
+def get_slides(arr):
+    up_slides = []
+    down_slides = []
+    """
+        up_slides[i] = longest up-slide ending in i
+        down_slides[i] = longest down-slide starting at i
+    """
+    for i in range(len(arr)):
+        up_slides.append(1)
+        down_slides.append(1)
+
+    for i in range(1, len(arr)):
+        if arr[i] > arr[i-1]:
+            up_slides[i] = up_slides[i-1] + 1
+        else:
+            up_slides[i] = 1    
+
+    for i in range(len(arr)-2, -1, -1):
+        if arr[i] > arr[i+1]:
+            down_slides[i] = down_slides[i+1] + 1
+        else:
+            down_slides[i] = 1    
+
+    return up_slides, down_slides   
+
+# Complete the candies function below.
+def candies(arr):
+    if not arr:
+        return 0
+
+    up_slides, down_slides = get_slides(arr)
+
+    count = 0
+    for i in range(len(arr)):
+        count = count + max(up_slides[i], down_slides[i])
+        
+    return count           
+
