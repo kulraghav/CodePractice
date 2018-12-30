@@ -1317,7 +1317,8 @@ def get_slides(arr):
         if arr[i] > arr[i+1]:
             down_slides[i] = down_slides[i+1] + 1
         else:
-            down_slides[i] = 1    
+            down_slides[i] = 1
+
 
     return up_slides, down_slides   
 
@@ -1334,3 +1335,10 @@ def candies(arr):
         
     return count           
 
+
+def alternatingCharacters(s):
+    count = 0
+    for i in range(len(s)-1):
+        if s[i] == s[i+1]:
+            count = count + 1
+    return count        
