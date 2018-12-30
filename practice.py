@@ -1153,8 +1153,74 @@ def freqQuery(queries):
     return answer        
     
     
-                
+from collections import defaultdict
+
+def construct_graph(arr, r):
+    G = defaultdict(list)
+
+    for i in range(len(arr)):
+        for j in range(i+1, len(arr)):
+            if arr[j] == r * arr[i]:
+                G[i].append(j)
+
+    return G
+
+
+# Complete the countTriplets function below.
+def countTriplets(arr, r):
+
+    G = construct_graph(arr, r)
     
-            
+    count = 0
+    for i in range(len(arr)):
+        for j in G[i]:
+            count = count + len(G[j])        
+
+    return count                  
+    
+from collections import defaultdict
+# Complete the countTriplets function below.
+def countTriplets(arr, r):
+
+    edge_counts = {}
+    triplet_counts = {}
+    
+    count = 0
+    value_to_indices = defaultdict(list)
+    for i in range(len(arr)-1, -1, -1):
+        edge_counts[i] = len(value_to_indices[r*arr[i]]) 
+        triplet_counts[i] = sum([edge_counts[i] for i in value_to_indices[r*arr[i]]])
+        value_to_indices[arr[i]].append(i)
+        count = count + triplet_counts[i]
+        
+    return count      
+
+from collections import defaultdict
+# Complete the countTriplets function below.
+def countTriplets(arr, r):
+    indegrees = {}
+    outdegrees = {}
+    triplet_counts = {}
+    
+    count = 0
+    value_to_indices = defaultdict(list)
+    for i in range(len(arr)):
+        if arr[i] % r == 0:
+            indegrees[i] = len(value_to_indices[int(arr[i]/r)])
+        else:
+            indegrees[i] = 0
+        value_to_indices[arr[i]].append(i)    
+
+
+    value_to_indices = defaultdict(list)
+    for i in range(len(arr)-1, -1, -1):
+        outdegrees[i] = len(value_to_indices[r*arr[i]]) 
+        value_to_indices[arr[i]].append(i)
+
+    for i in range(len(arr)):
+        triplet_counts[i] = indegrees[i] * outdegrees[i]
+        count = count + triplet_counts[i]
+
+    return count  
     
     
