@@ -1224,7 +1224,7 @@ def countTriplets(arr, r):
     return count  
 
 
-ef maxSubsetSum(arr):
+def maxSubsetSum(arr):
     max_sub_sums = {-2: 0, -1: 0}
 
     for i in range(len(arr)):
@@ -1232,3 +1232,65 @@ ef maxSubsetSum(arr):
 
     return max_sub_sums[len(arr)-1]  
     
+
+def abbreviation(a, b):
+    matches = {(0,0): True}
+
+    for i in range(len(a)+1):
+        for j in range(i+1, len(b)+1):
+            matches[(i,j)] = False
+
+    for i in range(1, len(a)+1):
+        if a[:i].islower():
+            matches[(i, 0)] = True
+        else:
+            matches[(i, 0)] = False
+   
+    for i in range(1, len(a)+1):
+        for j in range(1, min(i+1, len(b)+1)):
+            print(i,j)
+            if a[i-1].upper() == b[j-1]:
+                matches[(i,j)] = matches[(i-1, j-1)]
+            else:
+                if a[i-1].isupper():
+                    matches[(i,j)] = False
+                else:
+                    matches[(i,j)] = matches[(i-1, j)]        
+
+    return matches[(len(a), len(b))]
+
+def update(i,j, matches):
+    if  a[i-1] == b[j-1]:
+        matches[(i,j)] = matches[(i-1, j-1)]
+    
+    if a[i-1].isupper() and a[i-1] != b[j-1]:
+        matches[(i,j)] = False
+    if a[i-1].islower() and a[i-1].upper() != b[j-1]:
+        matches[(i,j)] = matches[(i-1, j)]
+    if a[i-1].islower() and a[i-1].upper() == b[j-1]:
+        matches[(i,j)] = matches[(i-1, j-1)] or matches[(i-1, j)]      
+    return matches
+
+# Complete the abbreviation function below.
+def abbreviation(a, b):
+    matches = {(0,0): True}
+
+    for i in range(len(a)+1):
+        for j in range(i+1, len(b)+1):
+            matches[(i,j)] = False
+
+    for i in range(1, len(a)+1):
+        if a[:i].islower():
+            matches[(i, 0)] = True
+        else:
+            matches[(i, 0)] = False
+   
+    for i in range(1, len(a)+1):
+        for j in range(1, min(i+1, len(b)+1)):
+            update(i,j, matches)  
+
+
+    if matches[(len(a), len(b))]:
+        return 'YES'
+    else:
+        return 'NO'
