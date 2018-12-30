@@ -1116,7 +1116,41 @@ def sherlockAndAnagrams(s):
     return count        
 
 
-        
+from collections import defaultdict
+# Complete the freqQuery function below.
+def freqQuery(queries):
+
+    frequencies = defaultdict(lambda:0)
+    answers = []
+
+    freq_to_elems = defaultdict(list)
+
+    for i in range(len(queries)):
+        query_type, a = queries[i]
+        if query_type == 1:
+            if frequencies[a] > 0:
+                freq_to_elems[frequencies[a]].remove(a)
+
+            frequencies[a] = frequencies[a] + 1
+            freq_to_elems[frequencies[a]].append(a)
+
+        elif query_type == 2:
+            if frequencies[a] > 0:
+                freq_to_elems[frequencies[a]].remove(a)
+                frequencies[a] = frequencies[a] - 1
+                freq_to_elems[frequencies[a]].append(a)
+
+            #if frequencies[a] < 0:
+                #raise Exception("Keyerror for key {}".format(a))
+        else:
+            if not freq_to_elems[a]:
+                answer = 0
+            else:
+                answer = 1
+
+            answers.append(answer)
+
+    return answer        
     
     
                 
