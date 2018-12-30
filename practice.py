@@ -1368,7 +1368,6 @@ def is_annihilating(char, stack):
     else:
         return False
 
-
         
 # Complete the isBalanced function below.
 def isBalanced(s):
@@ -1384,3 +1383,30 @@ def isBalanced(s):
         return 'YES'
     else:
         return 'NO'  
+
+
+def minimum_bribes(q):
+    count = 0
+    for i in range(len(q)):
+        if q[i] - (i+1) > 2:
+            return 'Too chaotic'
+        if q[i] - (i+1) > 0:
+            count = count + q[i] - (i+1)
+    return count
+
+def minimumBribes(q):
+    for i in range(len(q)):
+        if q[i] - (i+1) > 2:
+            return "Too chaotic"
+            
+    count = 0
+    for i in range(len(q)):
+       for j in range(i-1, -1, -1):
+            if q[j+1] < q[j]:
+               temp = q[j+1]
+               q[j+1] = q[j]
+               q[j] = temp
+               count = count + 1
+            else:  
+                break      
+    return count
