@@ -1410,3 +1410,39 @@ def minimumBribes(q):
             else:  
                 break      
     return count
+
+
+####
+def value(a):
+    return a-1
+
+_undefined = -1
+def get_next_unvisited(root, visited):
+    for i in range(root+1, len(visited)):
+        if visited[i] == False:
+            return i
+    return _undefined        
+
+# Complete the minimumSwaps function below.
+def minimumSwaps(arr):
+    if not arr:
+        return 0
+
+    visited = len(arr)*[False]
+    root = 0
+    count = 0
+
+    while root != _undefined:
+        count = count + 1
+        print(root, visited)
+        visited[root] = True
+        current = root
+
+        while value(arr[current]) != root:
+            visited[current] = True
+            current = value(arr[current])
+
+        root = get_next_unvisited(root, visited)
+
+    return len(arr) - count
+
