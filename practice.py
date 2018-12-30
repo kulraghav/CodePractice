@@ -1222,5 +1222,13 @@ def countTriplets(arr, r):
         count = count + triplet_counts[i]
 
     return count  
-    
+
+
+ef maxSubsetSum(arr):
+    max_sub_sums = {-2: 0, -1: 0}
+
+    for i in range(len(arr)):
+        max_sub_sums[i] = max(arr[i] + max_sub_sums[i-2], max_sub_sums[i-1])
+
+    return max_sub_sums[len(arr)-1]  
     
