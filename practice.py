@@ -1342,3 +1342,45 @@ def alternatingCharacters(s):
         if s[i] == s[i+1]:
             count = count + 1
     return count        
+
+partners = {"(": ")", "{": "}", "[": "]"}
+
+def is_open(c):
+    if c == "(" or c == "{" or c == "[":
+        return True
+    else:
+        return False
+
+def is_annihilating(char, stack):
+    if not stack:
+        return False
+    
+    if is_open(char):
+        return False
+
+    top = stack[-1]
+
+    if not is_open(top):
+        return False
+
+    if partners[top] == char:
+        return True
+    else:
+        return False
+
+
+        
+# Complete the isBalanced function below.
+def isBalanced(s):
+    stack = []
+
+    for i in range(len(s)):
+        if is_annihilating(s[i], stack):
+            stack.pop(-1)
+        else:
+            stack.append(s[i])            
+
+    if not stack:
+        return 'YES'
+    else:
+        return 'NO'  
