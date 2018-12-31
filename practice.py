@@ -1615,3 +1615,40 @@ for i in range(n):
 data = sorted(data, key=cmp_to_key(Player.comparator))
 for i in data:
     print(i.name, i.score)
+
+
+"""
+    moving medians: simple
+"""
+
+def get_median(trail):
+    if not trail:
+        return -1
+
+    trail.sort()
+
+    if len(trail) == 0 % 2:
+        median = (trail[(len(trail)//2)-1] + trail[len(trail)//2])/2
+    else:
+        median = trail[len(trail)//2]
+
+    return median    
+
+
+
+# Complete the activityNotifications function below.
+def activityNotifications(expenditure, d):
+
+    trail = expenditure[:d]
+    median = get_median(trail)
+    medians = [median]
+    count = 0
+    for i in range(d, len(expenditure)):
+        trail.append(expenditure[i])
+        trail.pop(0)
+        if expenditure[i] >= 2*median:
+            count = count + 1
+        median = get_median(trail)
+        medians.append(median)
+
+    return(count)
