@@ -1537,5 +1537,46 @@ class statsArray(object):
 
 
 
+def luckBalance(k, contests):
+    contests.sort(key=lambda contest: (contest[0], -contest[1]), reverse=True)
+    print contests
+
+    luck_losses = [contest[1] for contest in contests if contests[0] == 1]
+
+    return(sum(luck_losses[:-k]))
+
+def luckBalance(k, contests):
+    if not contests:
+        return 0
+    zero_luck_sum = 0
+    for contest in contests:
+        if contest[1] == 0:
+            zero_luck_sum = zero_luck_sum + contest[0]
+
+    
+
+    one_lucks = []
+    for contest in contests:
+        if contest[1] == 1:
+            one_lucks.append(contest[0])
+
+
+
+    one_lucks.sort()
+
+    
+
+    one_win_sum = 0
+    num_wins = max(len(one_lucks) - k, 0)
+
+    for i in range(num_wins):
+        one_win_sum = one_win_sum + one_lucks[i]
+  
+    one_loss_sum = 0
+    for i in range(num_wins, len(one_lucks)):
+        one_loss_sum = one_loss_sum + one_lucks[i] 
+
+    return one_loss_sum + zero_luck_sum - one_win_sum      
+
     
 
