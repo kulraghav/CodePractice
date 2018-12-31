@@ -1522,5 +1522,20 @@ class statsArray(object):
             counts[A[i]] = counts[A[i]] + 1
 
         mode = sorted(counts, key=counts.get, reverse=True)[0]
-        return mode 
+        return mode
+
+    def weighted_mean(self, W):
+        X = self.X
+        weighted_mean = 0
+
+        w_sum = 0
+        for i in range(len(X)):
+            if not W[i] == 0:
+                weighted_mean = (w_sum / (w_sum + W[i]))*weighted_mean + (W[i]/(w_sum + W[i]))*X[i]
+                w_sum = w_sum + W[i]    
+        return weighted_mean
+
+
+
+    
 
