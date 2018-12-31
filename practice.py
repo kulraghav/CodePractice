@@ -1685,4 +1685,43 @@ def lca(root, v1, v2):
             return lca(root.left, v1, v2)
         else:
             return lca(root.right, v1, v2) 
-            
+
+
+_infinity = 99999999
+def get_max(root):
+    if not root:
+        return -_infinity
+    
+    current = root
+    current_max = current.data
+    while current.right:
+        current = current.right
+        current_max = max(current_max, current.data)
+    return current_max
+        
+def get_min(root):
+    if not root:
+        return _infinity
+    
+    current = root
+    current_min = current.data
+    while current.left:
+        current = current.left
+        current_min = min(current_min, current.data)
+    return current_min    
+    
+def checkBST(root):
+    if not root:
+        return True
+    
+    if not (checkBST(root.left) and checkBST(root.right)):
+        return False
+    
+    max_left = get_max(root.left)
+    min_right = get_min(root.right)
+    
+    if max_left > root.data or min_right < root.data:
+        return False
+    
+    if max_left < root.data and min_right > root.data:
+        return True        
