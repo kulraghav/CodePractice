@@ -1462,3 +1462,17 @@ def countSwaps(a):
     last = a[-1]
     return num_swaps, first, last
 
+def maximumToys(prices, k):
+    prices.sort()
+
+    num_toys = 0
+    remaining_budget = k
+
+    for i in range(len(prices)):
+        if prices[i] <= remaining_budget:
+            num_toys = num_toys + 1
+            remaining_budget = remaining_budget - prices[i]
+        else:
+            break    
+
+    return num_toys
