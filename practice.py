@@ -1652,3 +1652,11 @@ def activityNotifications(expenditure, d):
         medians.append(median)
 
     return(count)
+
+
+undefined = -1
+def height(root):
+    if not root:
+        return _undefined
+    
+    return 1 + max(height(root.left), height(root.right))
