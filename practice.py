@@ -1446,3 +1446,19 @@ def minimumSwaps(arr):
 
     return len(arr) - count
 
+def countSwaps(a):
+    num_swaps = 0
+
+    for i in range(len(a)):
+        for j in range(len(a)-i-1):
+            if a[j] > a[j+1]:
+                temp = a[j]
+                a[j] = a[j+1]
+                a[j+1] = temp
+                num_swaps = num_swaps + 1    
+
+
+    first = a[0]
+    last = a[-1]
+    return num_swaps, first, last
+
