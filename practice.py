@@ -1476,3 +1476,51 @@ def maximumToys(prices, k):
             break    
 
     return num_toys
+
+from collections import defaultdict
+
+class statsArray(object):
+    def __init__(self, X):
+        self.X = X
+
+    def mean(self):
+        mean = 0
+
+        """
+            numerically stable formula
+            Learning: divisionbyzero error for (i/i+1) or (1/i+1)
+        """
+        for i in range(len(self.X)):
+            mean = (i/(i+1))*mean + (1/(i+1))*self.X[i]
+
+        return mean  
+
+    def median(self):
+        _undefined = None  
+        A = sorted(self.X)
+        if not A:
+            return _undefined
+
+        if len(A) == 0 % 2:
+            median = (A[len(A)//2] + A[(len(A)//2)-1])/2
+        else:
+            median = A[len(A)//2]
+        return median     
+
+    def mode(self):
+        """
+            if you are using defaultdict then do not forget to initialize
+            the default value, otherwise it might give keyerror
+        """
+        if not self.X:
+            return None
+        
+        counts = defaultdict(lambda:0)
+
+        A = self.X
+        for i in range(len(A)):
+            counts[A[i]] = counts[A[i]] + 1
+
+        mode = sorted(counts, key=counts.get, reverse=True)[0]
+        return mode 
+
