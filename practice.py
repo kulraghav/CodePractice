@@ -1660,3 +1660,29 @@ def height(root):
         return _undefined
     
     return 1 + max(height(root.left), height(root.right))
+
+
+def is_left(v, root):
+    if v < root.info:
+        return True
+    else:
+        return False
+
+
+def lca(root, v1, v2):
+  #Enter your code here
+
+  if root.info == v1 or root.info == v2:
+      return root
+
+  s1 = is_left(v1, root)
+  s2 = is_left(v2, root) 
+
+  if s1 != s2:
+      return root
+  else:
+        if s1 == True:
+            return lca(root.left, v1, v2)
+        else:
+            return lca(root.right, v1, v2) 
+            
