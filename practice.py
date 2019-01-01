@@ -1725,3 +1725,26 @@ def checkBST(root):
     
     if max_left < root.data and min_right > root.data:
         return True        
+
+
+def stepPerms(n):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+    if n == 2:
+        return 2
+    if n == 3:
+        return 4
+
+    # N = 10**9 + 7
+
+    output = [1, 2, 4] 
+
+    for i in range(3, n):
+        output.append((output[i-1] + output[i-2] + output[i-3]))  
+
+    return output[-1]                  
+
+    
+    
