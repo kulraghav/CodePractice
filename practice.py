@@ -1539,7 +1539,7 @@ class statsArray(object):
 
 def luckBalance(k, contests):
     contests.sort(key=lambda contest: (contest[0], -contest[1]), reverse=True)
-    print contests
+    print(contests)
 
     luck_losses = [contest[1] for contest in contests if contests[0] == 1]
 
@@ -1578,7 +1578,7 @@ def luckBalance(k, contests):
 
     return one_loss_sum + zero_luck_sum - one_win_sum      
 
-    
+"""    
 
 from functools import cmp_to_key
 class Player:
@@ -1616,6 +1616,7 @@ data = sorted(data, key=cmp_to_key(Player.comparator))
 for i in data:
     print(i.name, i.score)
 
+"""
 
 """
     moving medians: simple
@@ -1746,5 +1747,55 @@ def stepPerms(n):
 
     return output[-1]                  
 
+"""
+    Fast Fibonacci
+"""
+def matrix_mult(A, B):
+    a = A[0][0]*B[0][0] + A[0][1]*B[1][0]
+    b = A[0][0]*B[0][1] + A[0][1]*B[1][1]
+    c = A[1][0]*B[0][0] + A[1][1]*B[1][0]
+    d = A[1][0]*B[0][1] + A[1][1]*B[1][1]
+
+    return [[a, b], [c, d]]
+    
+
+
+def matrix_pow(M, n):
+    if n == 0:
+        return [[1, 0], [0, 1]]
+    if n % 2 == 1:
+        return matrix_mult(M, matrix_pow(M, n-1))
+    if n % 2 == 0:
+        R = matrix_pow(M, n//2)
+        return matrix_mult(R, R)
+
+def right_mult(v, M):
+    a = v[0]*M[0][0] + v[1]*M[1][0]
+    b = v[0]*M[1][0] + v[1]*M[1][1]
+
+    return (a, b)
+
+    
+    
+    
+def fibo(n):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+
+    F = [[0, 1], [1, 1]]
+
+    F_n = matrix_pow(F, n)
+
+    (a, b) = right_mult((0, 1), F_n)
+
+    return a
+
+    
+
+    
+
+    
     
     
