@@ -1793,9 +1793,60 @@ def fibo(n):
     return a
 
     
+    
+from heapq import heapify, heappush, heappop   
+def moving_medians(A, k):
+    """
+        Assume len(A) >= 2k  and A has no duplicate elements
+    """
+    left = [-a for a in A[:k]]
+    right = A[k:2*k]
+
+    heapify(left)
+    heapify(right)
+
+    for i in range(2*k, len(A)):
+        a = A[i-2*k]
+        b = A[i]
+
+        #print(left, right)
+
+        if -a in left and b < right[0]:
+            i_a = left.index(-a)
+            left[i_a] = -b
+            heapify(left)
+
+        elif -a in left and b > right[0]:
+            heappush(right, b)
+            left.remove(-a)
+            c = heappop(right)
+            heappush(left, -c)
+
+        elif a in right and b > -left[0]:
+            i_a = right.index(a)
+            right[i_a] = b
+            heapify(right)
+
+        elif a in right and b < -left[0]:
+            heappush(left, -b)
+            right.remove(a)
+            c = heappop(left)
+            heappush(right, -c)
+
+        else:
+            pass
+
+
+        print(-left[0], right[0])     
+
+            
+
+            
+            
+
+                
+            
 
     
 
-    
-    
     
