@@ -1792,7 +1792,44 @@ def fibo(n):
 
     return a
 
+def intersect(A, B):
+    if not A or not B:
+        return []
+    C = []
+    i = 0
+    j = 0
     
+    while i < len(A) and j < len(B):
+        if A[i] == B[j]:
+            C.append(A[i])
+            i = i + 1
+            j = j + 1
+        elif A[i] < B[j]:
+            i = i + 1
+        else:
+            j = j + 1
+
+    return C
+
+def factors(m):
+    divisors = []
+    for i in range(1, m+1):
+        if m % i == 0:
+            divisors.append(i)
+    return divisors
+
+def gcd(m, n):
+    m_factors = factors(m)
+    n_factors = factors(n)
+
+    common_factors = intersect(m_factors, n_factors)
+    
+<<<<<<< HEAD
+=======
+    return common_factors[-1] 
+       
+
+>>>>>>> 7654638ec63016d2b447ef0dbcf4fde66e9e7591
     
 from heapq import heapify, heappush, heappop   
 def moving_medians(A, k):
