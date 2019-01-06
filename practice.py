@@ -1824,12 +1824,8 @@ def gcd(m, n):
 
     common_factors = intersect(m_factors, n_factors)
     
-<<<<<<< HEAD
-=======
     return common_factors[-1] 
        
-
->>>>>>> 7654638ec63016d2b447ef0dbcf4fde66e9e7591
     
 from heapq import heapify, heappush, heappop   
 def moving_medians(A, k):
@@ -1877,9 +1873,34 @@ def moving_medians(A, k):
         print(-left[0], right[0])     
 
             
+def square_root(n):
+    if n == 0:
+        return 0
 
-            
-            
+    if n == 1:
+        return 1
+
+    begin = 2
+    end = n
+
+    """
+        begin <= sqrt(n) <= end
+    """
+    while begin < end:
+        mid = (begin + end)//2
+
+        if mid*mid == n:
+            return mid
+        if mid*mid < n:
+            begin = mid + 1
+        if mid*mid > n:
+            end = mid - 1
+
+    if begin == end and begin*begin == n:
+        return begin
+    else:
+        raise Exception("square root is not an integer")
+    return None
 
                 
             
