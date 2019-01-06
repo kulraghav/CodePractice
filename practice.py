@@ -1902,7 +1902,34 @@ def square_root(n):
         raise Exception("square root is not an integer")
     return None
 
-                
+def is_approx_equal(x, y, eps):
+    if abs(x-y) < eps:
+        return True
+    else:
+        return False
+
+def approx_square_root(number, eps=0.01):
+    if number == 0:
+        return 0
+    
+    begin = 0
+    end = number
+
+    """
+        begin <= sqrt(number) <= end
+    """
+    while begin < end + eps:
+        mid = (begin + end)/2
+        if is_approx_equal(mid*mid, number, eps):
+            return mid
+
+        if mid*mid < number:
+            begin = mid
+
+        if mid*mid > number:
+            end = mid
+
+    return begin        
             
 
     
