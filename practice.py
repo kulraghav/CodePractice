@@ -1930,8 +1930,46 @@ def approx_square_root(number, eps=0.01):
             end = mid
 
     return begin        
-            
 
+def is_right(p, line):
+    x = float(p[0])
+    y = float(p[1])
+
+    x1 = float(line[0][0])
+    y1 = float(line[0][1])
+
+    x2 = float(line[1][0])
+    y2 = float(line[1][1])
+
+    d = (x2-x1)*(y-y1) - (y2-y1)*(x-x1)
+
+    if d <= 0:
+        return True
+    else:
+        return False
+    
+
+def is_inside(p, polygon):
+    """
+        Args: p (tuple of ints)
+              polygon (list of tuples of ints)
+
+        Return: True/False   
+    """
+    if len(polygon) < 3:
+        return False
+
+    for i in range(len(polygon)):
+        line = polygon[i], polygon[(i+1) % len(polygon)]
+        if not is_right(p, line):
+            print(p, line)
+            return False
+
+    return True    
+
+        
+
+    
     
 
     
