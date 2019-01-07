@@ -1969,7 +1969,75 @@ def is_inside(p, polygon):
 
         
 
-    
+"""
+    Number of swipe patterns of length k
+"""
+
+def get_neighbors(number):
+    if number ==  1:
+        return [2, 4]
+    if number == 2:
+        return [1, 3]
+    if number == 3:
+        return [2, 6]
+    if number == 4:
+        return [1, 5, 7]
+    if number == 5:
+        return [2, 4, 6, 8]
+    if number == 6:
+        return [3, 5, 9]
+    if number == 7:
+        return [4, 8]
+    if number == 8:
+        return [5, 7, 9]
+    if number == 9:
+        return [6, 8]
+
+def get_extensions(prefix):
+    if not prefix:
+        raise Exception("Prefix is empty")
+
+    last_number = prefix[-1]
+
+    neighbors = get_neighbors(last_number)
+
+    extensions = []
+    for neighbor in neighbors:
+        if not neighbor in prefix:
+            extensions.append(neighbor)
+
+    return extensions
+
+def is_extendible(prefix):
+    if not get_extensions(prefix):
+        return False
+    else:
+        return True
+
+def count_extensions(prefix, k):
+    if len(prefix) == k:
+        return 1
+
+    if not is_extendible(prefix):
+        return 0
+
+    extensions = get_extensions(prefix)
+
+    count = 0
+    for extension in extensions:
+        # new_prefix = [number for number in prefix]
+        #new_prefix.append(extension)
+        count = count + count_extensions(prefix + [extension], k)
+        #new_prefix.pop(-1)
+
+    return count
+        
     
 
     
+def count_swipes(k):
+    count = 0
+    for i in range(1, 10):
+        prefix = [i]
+        count = count + count_extensions(prefix, k)
+    return count
