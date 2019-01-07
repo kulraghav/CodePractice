@@ -2032,9 +2032,6 @@ def count_extensions(prefix, k):
 
     return count
         
-    
-
-    
 def count_swipes(k):
     count = 0
     for i in range(1, 10):
