@@ -2038,3 +2038,33 @@ def count_swipes(k):
         prefix = [i]
         count = count + count_extensions(prefix, k)
     return count
+
+"""
+   maximum value path in a grid
+"""
+def update(i, j, table, matrix):
+    table[(i,j)] = matrix[i][j] + max(table[(i+1, j)], table[(i,j+1)])
+    return table
+
+_zero = 0
+def get_max_path(matrix):
+    if not matrix:
+        return _zero
+    max_values = {}
+    m = len(matrix)
+    n = len(matrix[0])
+
+    max_values[(m-1, n-1)] = matrix[m-1][n-1]
+
+    for i in range(m+1):
+        max_values[(i, n)] = _zero
+
+    for j in range(n+1):
+        max_values[(m, j)] = _zero
+
+
+    for i in range(m-1, -1, -1):
+        for j in range(n-1, -1, -1):
+            update(i, j, max_values, matrix)
+
+    return max_values[(0,0)]
