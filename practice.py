@@ -1967,77 +1967,35 @@ def is_inside(p, polygon):
 
     return True    
 
-        
 
-"""
-    Number of swipe patterns of length k
-"""
+def update(i, j, table, matrix):
+    table[(i,j)] = matrix[i][j] + max(table[(i+1, j)], table[(i,j+1)])
+    return table
 
-def get_neighbors(number):
-    if number ==  1:
-        return [2, 4]
-    if number == 2:
-        return [1, 3]
-    if number == 3:
-        return [2, 6]
-    if number == 4:
-        return [1, 5, 7]
-    if number == 5:
-        return [2, 4, 6, 8]
-    if number == 6:
-        return [3, 5, 9]
-    if number == 7:
-        return [4, 8]
-    if number == 8:
-        return [5, 7, 9]
-    if number == 9:
-        return [6, 8]
+_zero = 0
+def get_max_path(matrix):
+    if not matrix:
+        return _zero
+    max_values = {}
+    m = len(matrix)
+    n = len(matrix[0])
 
-def get_extensions(prefix):
-    if not prefix:
-        raise Exception("Prefix is empty")
+    max_values[(m-1, n-1)] = matrix[m-1][n-1]
 
-    last_number = prefix[-1]
+    for i in range(m+1):
+        max_values[(i, n)] = _zero
 
-    neighbors = get_neighbors(last_number)
+    for j in range(n+1):
+        max_values[(m, j)] = _zero
 
-    extensions = []
-    for neighbor in neighbors:
-        if not neighbor in prefix:
-            extensions.append(neighbor)
 
-    return extensions
+    for i in range(m-1, -1, -1):
+        for j in range(n-1, -1, -1):
+            update(i, j, max_values, matrix)
 
-def is_extendible(prefix):
-    if not get_extensions(prefix):
-        return False
-    else:
-        return True
+    return max_values[(0,0)]     
 
-def count_extensions(prefix, k):
-    if len(prefix) == k:
-        return 1
-
-    if not is_extendible(prefix):
-        return 0
-
-    extensions = get_extensions(prefix)
-
-    count = 0
-    for extension in extensions:
-        # new_prefix = [number for number in prefix]
-        #new_prefix.append(extension)
-        count = count + count_extensions(prefix + [extension], k)
-        #new_prefix.pop(-1)
-
-    return count
-        
+    
     
 
     
-def count_swipes(k):
-    count = 0
-    for i in range(1, 10):
-        prefix = [i]
-        count = count + count_extensions(prefix, k)
-    return count
