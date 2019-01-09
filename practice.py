@@ -2074,6 +2074,31 @@ def h_index(A):
     for i in range(len(A)):
         counts[A[i]] = counts[A[i]] + 1
 
-    return counts     
+    h = len(A)
+
+    cums = defaultdict(lambda:0)
+    
+    cums[h] = len([a for a in A if a >= h])
+
+    for i in range(h-1, -1, -1):
+        cums[i] = cums[i+1] + counts[i]
+    
+
+    for i in range(len(A)):
+        if cums[i] < i:
+            return i-1
+    return len(A)    
+    """
+        n log n version
+    """    
+    """
+    B = sorted(A, reverse=True)
+
+    for i in range(len(B)):
+        if B[i] < i+1:
+            return 3
+
+    return len(B)     
+    """        
 
         
