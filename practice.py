@@ -2068,3 +2068,12 @@ def get_max_path(matrix):
             update(i, j, max_values, matrix)
 
     return max_values[(0,0)]
+
+def h_index(A):
+    counts = defaultdict(lambda: 0)
+    for i in range(len(A)):
+        counts[A[i]] = counts[A[i]] + 1
+
+    return counts     
+
+        
