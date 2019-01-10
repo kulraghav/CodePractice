@@ -2117,4 +2117,29 @@ def isBST(tree):
 
     return True
 
+
+def remove_duplicates(chars):
+    if len(chars) < 2:
+        return chars
+
+    chars.sort()
     
+    i = 0
+    while i < len(chars)-1:
+        while i+1 < len(chars) and chars[i+1] == chars[i]:
+            chars.pop(i)
+
+        i = i + 1
+
+    return chars     
+   
+    
+        
+
+        
+            
+    
+    
+
+    
+ 
