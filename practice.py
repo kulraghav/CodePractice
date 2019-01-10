@@ -2102,3 +2102,19 @@ def h_index(A):
     """        
 
         
+def isBST(tree):
+    if not tree:
+        return True
+
+    if not isBST(tree.left) or not isBST(tree.right):
+        return False
+
+    if not tree.left and tree.left.value > tree.value:
+        return False
+
+    if not tree.right and tree.right.value < tree.value:
+        return False
+
+    return True
+
+    
