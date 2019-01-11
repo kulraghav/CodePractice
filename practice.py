@@ -2133,7 +2133,7 @@ def remove_duplicates(chars):
 
     return chars     
    
-_undefined = 0
+_undefined = -1
 def get_offset(A):
     if not A:
         return _undefined
@@ -2154,10 +2154,45 @@ def get_offset(A):
     return begin         
 
 
-            
+def adjust(mid, offset, A):
+    return (mid + offset) % len(A)
+
 def rotated_search(x, A):
+    if not A:
+        return _undefined
+
+    if len(A) == 1 and x == A[0]:
+        return 0
+
     offset = get_offset(A)
-    return shifted_binary_search(x, A, offset)
+
+    print(offset)
+
+    
+
+    begin = 0
+    end = len(A)-1
+
+    while begin < end:
+        mid = (begin + end)//2 
+
+        if A[adjust(mid, offset, A)] == x:
+            return adjust(mid, offset, A)
+
+        if A[adjust(mid, offset, A)] > x:
+            end = (mid - 1) 
+
+        if A[adjust(mid, offset, A)] < x:
+            begin = (mid + 1)
+
+    if A[adjust(begin, offset, A)] == x:
+        return adjust(begin, offset, A)
+
+    return _undefined             
+
+            
+        
+
     
         
 
