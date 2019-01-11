@@ -2133,6 +2133,31 @@ def remove_duplicates(chars):
 
     return chars     
    
+_undefined = 0
+def get_offset(A):
+    if not A:
+        return _undefined
+
+    if len(A) == 0:
+        return 0
+
+    begin = 0
+    end = len(A)-1
+
+    while begin < end:
+        mid = (begin + end)//2
+        if A[mid] < A[end]:
+            end = mid
+        else:
+            begin = mid+1
+
+   return begin         
+
+
+            
+def rotated_search(x, A):
+    offset = get_offset(A)
+    return shifted_binary_search(x, A, offset)
     
         
 
