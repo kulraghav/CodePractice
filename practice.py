@@ -2151,7 +2151,7 @@ def get_offset(A):
         else:
             begin = mid+1
 
-   return begin         
+    return begin         
 
 
             
