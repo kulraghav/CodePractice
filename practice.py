@@ -2238,7 +2238,6 @@ def detect_loop(node):
         if slow == fast:
             return True
         
-
     return False    
             
 
@@ -2251,6 +2250,8 @@ def test_detect_loop():
     assert detect_loop(mynode) == True
     print(".")
 
+    print(correct_loop(mynode))
+
     mynode = Node(1, Node(2, Node(3, None)))
 
     assert detect_loop(mynode) == False
@@ -2259,7 +2260,45 @@ def test_detect_loop():
     return("Successfuly passed all tests!")
 
     
+def correct_loop(node):
+    slow = node
+    fast = node
 
+    """
+        Assuming non_loop_size < loop_size
+    """
+
+    count = 0
+    while slow and slow.next_node and fast and fast.next_node and fast.next_node.next_node:
+        count = count + 1
+        slow = slow.next_node
+        fast = fast.next_node.next_node
+
+        if slow == fast:
+            break
+        
+    loop_size = count
+    
+    slow = node
+    for i in range(loop_size):
+        slow = slow.next_node
+
+    fast = node
+   
+    count = 0    
+    while slow and slow.next_node and fast and fast.next_node and fast.next_node.next_node:
+        count = count + 1
+        slow = slow.next_node
+        fast = fast.next_node.next_node
+
+        if slow == fast:
+            break    
+
+    non_loop_size = count // 2
+
+    return non_loop_size
+         
+            
 
     
             
