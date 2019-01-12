@@ -2331,7 +2331,22 @@ def find_missing(A):
         if counts[i] == 0:
             return i
 
-    return -1     
+    return -1
+
+def find_dup_miss(A):
+    for i in range(len(A)):
+        if A[abs(A[i])-1] < 0:
+            duplicate = abs(A[i])
+
+        else:
+            A[abs(A[i])-1] = - A[abs(A[i])-1]
+
+    for i in range(len(A)):
+        if A[i] > 0:
+            missing = i+1
+            break
+
+    return duplicate, missing     
 
     
     
