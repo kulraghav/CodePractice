@@ -2210,6 +2210,58 @@ def run_length_encode(s):
 
     return encoding
 
+class Node:
+    def __init__(self, value=-1, next_node=None):
+        self.value = value
+        self.next_node = next_node
+
+    def show(self, n=5):
+        current = self
+        count = 0
+
+        values = []
+        while current and count < n:
+            values.append(current.value)
+            current = current.next_node
+            count = count + 1
+
+        return values
+    
+def detect_loop(node):
+    slow = node
+    fast = node
+
+    while slow and slow.next_node and fast and fast.next_node and fast.next_node.next_node:
+        slow = slow.next_node
+        fast = fast.next_node.next_node
+
+        if slow == fast:
+            return True
+        
+
+    return False    
+            
+
+def test_detect_loop():
+    loop = Node(2, Node(3, Node(4, Node(5, None))))
+    loop.next_node.next_node.next_node.next_node = loop 
+    mynode = Node(1, loop)
+
+    
+    assert detect_loop(mynode) == True
+    print(".")
+
+    mynode = Node(1, Node(2, Node(3, None)))
+
+    assert detect_loop(mynode) == False
+    print(".")
+
+    return("Successfuly passed all tests!")
+
+    
+
+
+    
             
 
     
