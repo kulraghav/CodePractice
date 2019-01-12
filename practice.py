@@ -2260,7 +2260,7 @@ def test_detect_loop():
     return("Successfuly passed all tests!")
 
     
-def correct_loop(node):
+def correct_loop_partial(node):
     slow = node
     fast = node
 
@@ -2297,6 +2297,32 @@ def correct_loop(node):
     non_loop_size = count // 2
 
     return non_loop_size
+
+def correct_loop(node):
+    slow = node
+    fast = node
+
+    """
+        Assuming non_loop_size < loop_size
+    """
+
+    
+    while slow and slow.next_node and fast and fast.next_node and fast.next_node.next_node:
+        slow = slow.next_node
+        fast = fast.next_node.next_node
+
+        if slow == fast:
+            break
+
+    slow = node   
+    while slow and slow.next_node and fast and fast.next_node and fast.next_node.next_node:
+        slow = slow.next_node
+        fast = fast.next_node
+
+        if slow == fast:
+            break    
+
+    return slow.value
          
             
 
