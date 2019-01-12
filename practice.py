@@ -2346,7 +2346,25 @@ def find_dup_miss(A):
             missing = i+1
             break
 
-    return duplicate, missing     
+    return duplicate, missing
+
+_infinity = 99999999
+def min_jumps(A):
+    if len(A) < 2:
+        return 0
+
+    jumps = {}
+    jumps[len(A)-1] = 0
+
+    for i in range(len(A)-2, -1, -1):
+        min_jumps = _infinity
+        for j in range(1, A[i]+1):
+            if i + j < len(A):
+                min_jumps = min(min_jumps, 1 + jumps[i+j])
+
+        jumps[i] = min_jumps
+
+    return jumps[0]    
 
     
     
