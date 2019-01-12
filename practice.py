@@ -2191,7 +2191,28 @@ def rotated_search(x, A):
     return _undefined             
 
             
-        
+def run_length_encode(s):
+    if not s:
+        return ""
+
+    current_char = s[0]
+    current_char_count = 0
+    encoding = ""
+    for i in range(len(s)):
+        if s[i] == current_char:
+            current_char_count = current_char_count + 1
+        else:
+            encoding = encoding + current_char + str(current_char_count)
+            current_char = s[i]
+            current_char_count = 1
+
+    encoding = encoding + current_char + str(current_char_count)
+
+    return encoding
+
+            
+
+    
 
     
         
