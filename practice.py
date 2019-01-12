@@ -2301,12 +2301,9 @@ def correct_loop_partial(node):
 def correct_loop(node):
     slow = node
     fast = node
-
     """
-        Assuming non_loop_size < loop_size
+        Returns the place at which the loop start
     """
-
-    
     while slow and slow.next_node and fast and fast.next_node and fast.next_node.next_node:
         slow = slow.next_node
         fast = fast.next_node.next_node
@@ -2323,6 +2320,21 @@ def correct_loop(node):
             break    
 
     return slow.value
+
+def find_missing(A):
+    counts = defaultdict(lambda: 0)
+
+    for i in range(len(A)):
+        counts[A[i]] = counts[A[i]] + 1
+
+    for i in range(len(A)+1):
+        if counts[i] == 0:
+            return i
+
+    return -1     
+
+    
+    
          
             
 
