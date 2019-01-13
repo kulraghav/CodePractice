@@ -2378,8 +2378,49 @@ def get_min(bst):
         current = current.left
     return current.value    
 
+
+class digitNode:
+    def __init__(self, digit, next_node=None):
+        self.digit = digit
+        self.next_node = next_node
+
+    def show(self):
+        number = ""
+        current = self
+
+        while current:
+            number = str(current.digit) + number
+            current = current.next_node
+            
+        return number    
+
+def add_single_digit(A, digit):
+    if not A:
+        return digitNode(digit, None)
+
+    last_digit = (A.digit + digit) % 10
+    carry = (A.digit + digit - last_digit)//10
+
+    return digitNode(last_digit, add_single_digit(A.next_node, carry))
+        
+def add_numbers(A, B, carry=0):
+    if not A:
+        return add_single_digit(B, carry)
+    if not B:
+        return add_single_digit(A, carry)
+
+    last_digit = (A.digit + B.digit + carry) % 10
+    new_carry = (A.digit + B.digit + carry - last_digit)//10
     
+    return digitNode(last_digit, add_numbers(A.next_node, B.next_node, new_carry))
+
+def test_add_numbers():
+    A = digitNode(1, digitNode(2, digitNode(3, None)))
+    B = digitNode(9, digitNode(8, digitNode(7, None)))
     
+    C = add_numbers(A, B)
+
+    print(A.show(), B.show(), C.show())
          
             
 
