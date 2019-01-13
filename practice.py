@@ -2421,8 +2421,39 @@ def test_add_numbers():
     C = add_numbers(A, B)
 
     print(A.show(), B.show(), C.show())
-         
-            
+
+
+"""
+    Find majority: works when the frequency of majority element is strictly greater than half
+"""    
+def pair_reduce(A):
+    if not A:
+        return A
+
+    B = []
+    if len(A) % 2 == 1:
+        B.append(A[-1])
+
+    for i in range(len(A)//2):
+        if A[2*i] == A[2*i + 1]:
+            B.append(A[2*i])
+
+    return B
+
+def find_majority(A):
+    current = A
+
+    while len(current) > 1:
+        current = pair_reduce(current)
+
+    if not current:
+        return _undefined
+    else:
+        return current[0]
+
+    
+
+        
 
     
             
