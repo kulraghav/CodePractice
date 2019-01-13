@@ -2452,8 +2452,15 @@ def find_majority(A):
         return current[0]
 
     
+def distribute_candies(ranks):
+    up_slides = get_up_slides(ranks)
+    down_slides = get_down_slides(ranks)
 
-        
+    candies = []
+    for i in range(len(ranks)):
+        candies.append(max(up_slides[i], down_slides[i]))
+
+    return candies    
 
     
             
