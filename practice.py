@@ -2366,6 +2366,18 @@ def min_jumps(A):
 
     return jumps[0]    
 
+class bstNode:
+    def __init__(self, value, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+        
+def get_min(bst):
+    current = bst
+    while current.left:
+        current = current.left
+    return current.value    
+
     
     
          
