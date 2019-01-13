@@ -2490,7 +2490,7 @@ def distribute_candies(ranks):
     return candies    
 
 """
-    Longest increasing subsequence
+    Longest increasing subsequence: O(n^2)
 """
 def update(i, j, lcs, A, B):
     if A[i-1] == B[j-1]:
@@ -2518,7 +2518,39 @@ def lcs(A, B):
 def longest_increasing_subseq(A):
     B = sorted(A)
     return lcs(A, B)
+
+"""
+    Max product subarray
+"""
+
+def max_product_subarray(A):
+    if not A:
+        return 0
     
+    neg_prods = []
+    pos_prods = []
+
+    if A[0] > 0:
+        neg_prods.append(0)
+        pos_prods.append(A[0])
+    else:
+        neg_prods.append(A[0])
+        pos_prods.append(0)
+        
+    for i in range(1, len(A)):
+        if A[i] > 0:
+            pos_prod = max(A[i], A[i]*pos_prods[i-1])
+            neg_prod = min(0, A[i]*neg_prods[i-1])
+        else:
+            pos_prod = max(0, A[i]*neg_prods[i-1])
+            neg_prod = min(A[i], A[i]*pos_prods[i-1])
+
+        neg_prods.append(neg_prod)
+        pos_prods.append(pos_prod)
+
+    return max(pos_prods)    
+        
+                
     
             
 
