@@ -2918,7 +2918,12 @@ def max_rectangle(M):
     return current_max         
 
 """
-    longest increasing subsequence: O(n log n)
+    longest increasing subsequence: O(n k) where k = len of longest
+
+    In order to make the algo O(n log k) we need to maintain a bst 
+    on k nodes. 
+    Then find the smallest index i such that a < seq[i]
+    set seq[i] = a
 """
 
 def insert(a, seq):
@@ -2941,9 +2946,6 @@ def insert(a, seq):
         seq[0] = a
         
     return seq    
-
-        
-
             
 def lis(A):
     if not A:
@@ -2957,8 +2959,38 @@ def lis(A):
     
     
         
+"""
+    merge two sorted lists
+"""
 
-        
+def merge(A, B):
+    if not A:
+        return B
+    if not B:
+        return A
+    
+    C = []
+
+    i = 0
+    j = 0
+
+    while i < len(A) and j < len(B):
+        if A[i] <= B[j]:
+            C.append(A[i])
+            i = i + 1
+        else:    
+            C.append(B[j])
+            j = j + 1
+
+    if i == len(A):
+        for k in range(j, len(B)):
+            C.append(B[k])
+
+    if j == len(B):
+        for k in range(i, len(A)):
+            C.append(A[k])
+
+    return C        
         
     
     
