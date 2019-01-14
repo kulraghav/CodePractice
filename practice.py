@@ -2765,6 +2765,7 @@ def edit_dist(A, B):
     max rectangle in binary matrix
 """
 
+"""
 def get_left_span(h, A):
     A = list(A)
     left_span = 0
@@ -2786,6 +2787,59 @@ def get_right_span(h, B):
             right_span = right_span + 1
 
     return right_span        
+"""
+
+def get_left_span(h, A):
+    if not A:
+        return 0
+
+    """
+        Find the last index such thatt A[i] < h
+        learning: test case of size 2
+    """
+    begin = 0
+    end = len(A)-1
+
+    while begin < end:
+        mid = (begin + end)//2
+        if A[mid] < h:
+            begin = mid+1
+        else:
+            end = mid-1
+
+    if A[begin] < h:
+        last_index = begin
+    else:
+        last_index = begin - 1
+
+    span = len(A) -  last_index - 1
+    return span
+
+def get_right_span(h, B):
+    if not B:
+        return 0
+
+    begin = 0
+    end = len(B)-1
+
+    """
+        find first index i such that A[i] < h
+    """
+    while begin < end:
+        mid = (begin + end)//2
+        if B[mid] < h:
+            end = mid -1
+        else:
+            begin = mid + 1
+
+    if B[begin] < h:
+        first_index = begin
+    else:
+        first_index = begin + 1
+
+    span = first_index 
+
+    return span
 
 def get_suffix_mins(left):
     if not left:
