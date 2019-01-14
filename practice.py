@@ -2106,15 +2106,15 @@ def isBST(tree):
     if not tree:
         return True
 
-    if not isBST(tree.left) or not isBST(tree.right):
-        return False
-
     if not tree.left and tree.left.value > tree.value:
         return False
-
+    
     if not tree.right and tree.right.value < tree.value:
         return False
-
+    
+    if not isBST(tree.left) or not isBST(tree.right):
+        return False
+    
     return True
 
 
@@ -2993,9 +2993,31 @@ def merge(A, B):
     return C        
         
     
-    
+"""
+    Product of other numbers
+"""
 
-    
+def get_prefix_prods(A):
+    prefix_prods = {-1: 1}
+    for i in range(len(A)):
+        prefix_prods[i] = prefix_prods[i-1]*A[i]
+    return prefix_prods
+
+def get_suffix_prods(A):
+    suffix_prods = {len(A): 1}
+    for i in range(len(A)-1, -1, -1):
+        suffix_prods[i] = suffix_prods[i+1]*A[i]
+    return suffix_prods
+
+def other_prods(A):
+    prefix_prods = get_prefix_prods(A)
+    suffix_prods = get_suffix_prods(A)
+
+    other_prods = {}
+    for i in range(len(A)):
+        other_prods[i] = prefix_prods[i-1]*suffix_prods[i+1]
+    return other_prods    
+        
             
 
     
