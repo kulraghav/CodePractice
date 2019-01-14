@@ -2706,6 +2706,11 @@ def interlieve(left, right):
     left_head = left
     right_head = right
 
+    """
+        learnings: 
+        - two temp pointers are helpful
+        - odd length case needs to be handled with additional if
+    """
     while left_head and right_head:
         print(left_head.value, right_head.value)
         temp_left = left_head.next_node
@@ -2728,9 +2733,33 @@ def reorder(node):
     right_reversed = reverse(right)
     return interlieve(left, right_reversed)
 
-    
-    
 
+"""
+    insert, delete, replace
+"""
+def update(i, j, dists, A, B):
+    if A[i-1] == B[j-1]:
+        dists[(i,j)] = dists[(i-1,j-1)]
+    else:
+        dists[(i,j)] = 1 + min(dists[(i, j-1)], dists[(i-1, j)], dists[(i-1, j-1)])
+        
+def edit_dist(A, B):
+    dists = {}
+    m = len(A)
+    n = len(B)
+
+    for i in range(m+1):
+        dists[(i, 0)] = 0
+
+    for j in range(n+1):
+        dists[(0, j)] = 0
+
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            update(i, j, dists, A, B)
+        
+    return dists[(m, n)]        
+    
     
 
 
