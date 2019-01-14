@@ -2549,10 +2549,20 @@ def max_product_subarray(A):
         pos_prods.append(pos_prod)
 
     return max(pos_prods)    
-        
+
+"""
+    '?' matches any single character
+    '*' matches any sequence of characters including the empty one
+"""
+def is_all_star(p):
+    for i in range(len(p)):
+        if not p[i] == '*':
+            False
+    return True
+
 def wild_match(s, p):
     if not s:
-        if p == '*' or p == '':
+        if is_all_star(p):
             return True
         else:
             return False
@@ -2578,8 +2588,64 @@ def wild_match(s, p):
     if is_wild(p[0]) and p[0] == '*':
         return (wild_match(s, p[1:]) or wild_match(s[1:], p))
     
-    
+"""
+    ? matches single character
+    * matches zero or more of the preceding characters
+"""
+def is_wild(c):
+        if c == '?' or c == '*':
+            return True
+        else:
+            return False
 
+def is_all_astar(p):
+    for i in range(len(p)//2):
+        if p[2*i + 1] != '*':
+            return False
+    return True    
+        
+        
+def wild_match_two(s, p):
+    if not s:
+        if is_all_astar(p):
+            return True
+        else:
+            return False
+
+    if not p:
+        if not s:
+            return True
+        else:
+            return False
+
+    if len(s) == 1 and len(p) == 1:
+        if s[0] == p[0] or p[0] == '?':
+            return True
+        else:
+            return False
+
+    if not p[1] == '*' and s[0] == p[0]:
+        return wild_match_two(s[1:], p[1:])
+    if not p[1] == '*' and p[0] == '?':
+        return wild_match_two(s[1:], p[1:])
+    if p[1] == '*' and not p[0] == '?':
+        if p[0] == s[0]:
+            return wild_match_two(s[1:], p) or wild_match_two(s, p[2:])
+        else:
+            return wild_match_two(s, p[2:])
+    if p[1] == '*' and p[0] == '?':
+        return wild_match_two(s[1:], s[0]+p[1:]) or wild_match_two(s, p[2:])
+
+    
+        
+        
+
+        
+
+        
+        
+    
+    
 
     
             
