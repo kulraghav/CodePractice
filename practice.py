@@ -2766,6 +2766,7 @@ def edit_dist(A, B):
 """
 
 def get_left_span(h, A):
+    A = list(A)
     left_span = 0
     for i in range(len(A)-1, -1, -1):
         if A[i] < h:
@@ -2776,6 +2777,7 @@ def get_left_span(h, A):
     return left_span
 
 def get_right_span(h, B):
+    B = list(B)
     right_span = 0
     for i in range(len(B)):
         if B[i] < h:
@@ -2794,7 +2796,7 @@ def get_suffix_mins(left):
     for i in range(len(left)-2, -1, -1):
         suffix_mins.append(min(suffix_mins[-1], left[i]))
 
-    return reversed(suffix_mins)
+    return list(reversed(suffix_mins))
 
 def get_prefix_mins(right):
     if not right:
@@ -2818,19 +2820,18 @@ def get_max(support, max_height):
     left = support[:mid]
     right = support[mid:]
     
-    left_max = get_max(left)
-    right_max = get_max(right)
+    left_max = get_max(left, max_height)
+    right_max = get_max(right, max_height)
 
     current_max = max(left_max, right_max)
     
     left_suffix_mins = get_suffix_mins(left)
     right_prefix_mins = get_prefix_mins(right)
 
-    for i in range(1, max_height+1):
-        left_span = get_left_span(i, left_suffix_mins)
-        right_span = get_right_span(i, right_prefix_mins)
-
-        current_max = max(i*(left_span + right_span), current_max)
+    for h in range(1, max_height+1):
+        left_span = get_left_span(h, left_suffix_mins)
+        right_span = get_right_span(h, right_prefix_mins)
+        current_max = max(h*(left_span + right_span), current_max)
 
     return current_max    
         
@@ -2854,9 +2855,11 @@ def max_rectangle(M):
     current_max = get_max(support, 1)
     for i in range(1, len(M)):
         new_support = extend_support(support, M[i])
+        support = new_support
         new_max = get_max(new_support, i+1)
         if new_max > current_max:
             current_max = new_max
+           
 
     return current_max         
 
