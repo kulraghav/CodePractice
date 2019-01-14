@@ -2550,7 +2550,37 @@ def max_product_subarray(A):
 
     return max(pos_prods)    
         
-                
+def wild_match(s, p):
+    if not s:
+        if p == '*' or p == '':
+            return True
+        else:
+            return False
+
+    if not p:
+        if s == "":
+            return True
+        else:
+            return False
+
+    def is_wild(c):
+        if c == '?' or c == '*':
+            return True
+        else:
+            return False
+        
+    if not is_wild(p[0]) and p[0] == s[0]:
+        return wild_match(s[1:], p[1:])
+    if not is_wild(p[0]) and p[0] != s[0]:
+        return False
+    if is_wild(p[0]) and p[0] == '?':
+        return wild_match(s[1:], p[1:])
+    if is_wild(p[0]) and p[0] == '*':
+        return (wild_match(s, p[1:]) or wild_match(s[1:], p))
+    
+    
+
+
     
             
 
