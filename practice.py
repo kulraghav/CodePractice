@@ -2917,7 +2917,43 @@ def max_rectangle(M):
 
     return current_max         
 
-     
+"""
+    longest increasing subsequence: O(n log n)
+"""
+
+def insert(a, seq):
+    if not seq:
+        return [a]
+
+    if a > seq[-1]:
+        seq.append(a)
+        return seq
+
+    count = 0
+    for i in range(len(seq)-1, -1, -1):
+        if a < seq[i]:
+            count = count + 1
+        else:
+            seq[i+1] = a
+            break
+        
+    if count == len(seq):
+        seq[0] = a
+        
+    return seq    
+
+        
+
+            
+def lis(A):
+    if not A:
+        return 0
+
+    seq = []
+    for i in range(len(A)):
+        seq = insert(A[i], seq)
+
+    return len(seq)     
     
     
         
