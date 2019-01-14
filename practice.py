@@ -2736,6 +2736,7 @@ def reorder(node):
 
 """
     insert, delete, replace
+    learning: insert and delete give rise to same recurrence
 """
 def update(i, j, dists, A, B):
     if A[i-1] == B[j-1]:
@@ -2760,8 +2761,104 @@ def edit_dist(A, B):
         
     return dists[(m, n)]        
     
-    
+"""
+    max rectangle in binary matrix
+"""
 
+def get_left_span(h, A):
+    left_span = 0
+    for i in range(len(A)-1, -1, -1):
+        if A[i] < h:
+            break
+        else:
+            left_span = left_span + 1
+
+    return left_span
+
+def get_right_span(h, B):
+    right_span = 0
+    for i in range(len(B)):
+        if B[i] < h:
+            break
+        else:
+            right_span = right_span + 1
+
+    return right_span        
+
+def get_suffix_mins(left):
+    if not left:
+        return left
+
+    suffix_mins = [left[-1]]
+
+    for i in range(len(left)-2, -1, -1):
+        suffix_mins.append(min(suffix_mins[-1], left[i]))
+
+    return reversed(suffix_mins)
+
+def get_prefix_mins(right):
+    if not right:
+        return right
+
+    prefix_mins = [right[0]]
+
+    for i in range(1, len(right)):
+        prefix_mins.append(min(prefix_mins[-1], right[i]))
+
+    return prefix_mins
+
+def get_max(support, max_height):
+    if not support:
+        return 0
+
+    if len(support) == 1:
+        return support[0]
+
+    mid = len(support)//2
+    left = support[:mid]
+    right = support[mid:]
+    
+    left_max = get_max(left)
+    right_max = get_max(right)
+
+    current_max = max(left_max, right_max)
+    
+    left_suffix_mins = get_suffix_mins(left)
+    right_prefix_mins = get_prefix_mins(right)
+
+    for i in range(1, max_height+1):
+        left_span = get_left_span(i, left_suffix_mins)
+        right_span = get_right_span(i, right_prefix_mins)
+
+        current_max = max(i*(left_span + right_span), current_max)
+
+    return current_max    
+        
+
+def extend_support(support, row):
+    new_support = []
+    for i in range(len(row)):
+        if row[i] == 0:
+            new_support.append(0)
+        else:
+            new_support.append(support[i] + 1)
+
+    return new_support
+
+def max_rectangle(M):
+    if not M:
+        return 0
+
+    support = [a for a in M[0]]
+
+    current_max = get_max(support, 1)
+    for i in range(1, len(M)):
+        new_support = extend_support(support, M[i])
+        new_max = get_max(new_support, i+1)
+        if new_max > current_max:
+            current_max = new_max
+
+    return current_max         
 
      
     
