@@ -2664,6 +2664,76 @@ def swap_pairs(node):
 
     return temp
 
+def reverse(node):
+    if not node or not node.next_node:
+        return node
+
+    current = node
+    prev = None
+    while current:
+        temp = current.next_node
+        current.next_node = prev
+        prev = current
+        current = temp
+
+    return prev    
+
+def cut_into_half(node):
+    slow = node
+    fast = node
+
+    while fast and fast.next_node:
+        slow = slow.next_node
+        fast = fast.next_node.next_node
+
+    current = node
+    while not current.next_node == slow:
+        current = current.next_node
+
+    current.next_node = None
+
+    left = node
+    right = slow
+
+    return left, right
+
+def interlieve(left, right):
+    if not left:
+        return right
+    if not right:
+        return left
+    
+    left_head = left
+    right_head = right
+
+    while left_head and right_head:
+        print(left_head.value, right_head.value)
+        temp_left = left_head.next_node
+        left_head.next_node = right_head
+        left_head = temp_left
+
+        if left_head:
+            temp_right = right_head.next_node
+            right_head.next_node = left_head
+            right_head = temp_right
+
+    return left    
+
+    
+        
+def reorder(node):
+    if not node or not node.next_node or not node.next_node.next_node:
+        return node
+    left, right = cut_into_half(node)
+    right_reversed = reverse(right)
+    return interlieve(left, right_reversed)
+
+    
+    
+
+    
+
+
      
     
     
