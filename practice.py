@@ -2638,8 +2638,35 @@ def wild_match_two(s, p):
 
     
         
-        
+class Node:
+    def __init__(self, value, next_node=None):
+        self.value = value
+        self.next_node = next_node
 
+    def show(self):
+        current = self
+        values = []
+
+        while current:
+            values.append(current.value)
+            current = current.next_node
+        return values
+    
+def swap_pairs(node):
+    if not node or not node.next_node:
+        return node
+
+    tail = node.next_node.next_node
+
+    temp = node.next_node
+    node.next_node = swap_pairs(tail)
+    temp.next_node = node
+
+    return temp
+
+     
+    
+    
         
 
         
