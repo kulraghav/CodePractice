@@ -3019,6 +3019,32 @@ def other_prods(A):
     return other_prods    
         
             
+"""
+    longest balanced subarray
+"""
+
+_undefined = -1
+def longest_balanced(A):
+    if len(A) < 2:
+        return 0
+
+    longest = 0
+    longest_center = _undefined
+    for i in range(1, len(A)):
+        center = i
+        current_longest = 0
+        balance = 0
+        for j in range(1, len(A)):
+            if i-j >= 0 and i+j-1 <= len(A)-1:
+                balance = balance + A[i-j] - A[i+j-1]
+                if balance == 0:
+                    current_longest = j
+        if current_longest > longest:
+            longest = current_longest
+            longest_center = center
+
+    return longest, longest_center    
+    
 
     
 
