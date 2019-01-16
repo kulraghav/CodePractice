@@ -3259,11 +3259,12 @@ def eval_postfix(expression):
             stack.append(apply_op(x, y, op))
     return stack         
             
-def power_set(A):
+def power_set_distinct(A):
     if not A:
         return [[]]
+    
     subsets = []
-    subsets_tail = power_set(A[1:])
+    subsets_tail = power_set_distinct(A[1:])
 
     for s in subsets_tail:
         subsets.append(s)
@@ -3272,7 +3273,45 @@ def power_set(A):
             s_0.append(s[i])
         subsets.append(s_0)
 
-    return subsets    
+    return subsets
+"""
+    duplicate elements
+"""
+
+def pow_set(counts):
+    if not counts:
+        return [[]]
+
+    counts_tail = {}
+    for key in counts:
+        counts_tail[key] = counts[key]
+    
+    a = list(counts_tail.keys())[0]
+    count_a = counts_tail[a]
+
+    del counts_tail[a]
+
+    subsets_tail = pow_set(counts_tail)
+
+    subsets = []
+    for s in subsets_tail:
+        subsets.append(s)
+        for k in range(1, count_a + 1):
+            s_a = k*[a]
+            for i in range(len(s)):
+                s_a.append(s[i])
+            subsets.append(s_a)
+        
+    return subsets     
+
+        
+
+        
+
+    
+def power_set(A):
+    counts = get_counts(A)
+    return pow_set(counts)
     
     
         
