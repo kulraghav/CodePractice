@@ -3165,7 +3165,51 @@ def bipartition(n, E):
             part_two = part_two + layers[key]
 
     return part_one, part_two        
+
+
+"""
+    evaluate infix
+"""
+def reduce(expression, op, i):
+    if op == '*':
+        expression[i] = float(expression[i-1])*float(expression[i+1])
+    if op == '/':
+        expression[i] = float(expression[i-1])/float(expression[i+1])
+    if op == '+':
+        expression[i] = float(expression[i-1]) + float(expression[i+1])
+    if op == '-':
+        expression[i] = float(expression[i-1]) - float(expression[i+1])
+    """
+        learning: first pop i+1 then pop i-1
+    """    
+    expression.pop(i+1)
+    expression.pop(i-1)
+    return expression
+        
+def eval_infix(expression):
+    expression = list(expression)
+    if len(expression) < 2:
+        return expression
     
+    if '*' in expression:
+        i = expression.index('*')
+        expression = reduce(expression, '*', i)
+        return eval_infix(expression)
+    if '/' in expression:
+        i = expression.index('/')
+        expression = reduce(expression, '/', i)
+        return eval_infix(expression)            
+    if '+' in expression:
+        i = expression.index('+')
+        expression = reduce(expression, '+', i)
+        return eval_infix(expression)
+    if '-' in expression:
+        i = expression.index('-')
+        expression = reduce(expression, '-', i)
+        return eval_infix(expression)
+        
+    
+        
 
     
     
