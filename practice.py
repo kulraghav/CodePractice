@@ -3112,6 +3112,11 @@ class treeNode:
         return inorder    
     
 
+def get_inorder(tree):
+    if not tree:
+        return []
+
+    return get_inorder(tree.left) + [tree.root] + get_inorder(tree.right)
     
 
     
