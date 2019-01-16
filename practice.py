@@ -3044,6 +3044,56 @@ def longest_balanced(A):
             longest_center = center
 
     return longest, longest_center    
+
+"""
+    next permutation
+"""
+def next_perm(p):
+    if len(p) < 2:
+        return p
+
+    for i in range(len(p)-1, 0, -1):
+        if p[i-1] < p[i]:
+            temp = p[i-1]
+            p[i-1] = p[i]
+            p[i] = temp
+            return p
+        
+    return list(reversed(p))
+
+"""
+    get fraction
+"""
+        
+def get_whole_part(n, d):
+    return n//d
+
+def get_fraction(n, d):
+    if d == 0:
+        raise Exception('Division by zero!')
+    
+    w = get_whole_part(n, d)
+    n = n - w*d
+
+    whole_part = w
+
+    fraction = []
+    seen = {}
+    while n: 
+        n = 10*n
+        w = get_whole_part(n, d)
+        n = n - w*d
+        if not (w,n) in seen:
+            seen[(w,n)] = len(fraction)
+            fraction.append(w)
+        else:
+            fraction.append((seen[(w,n)], len(fraction)))
+            break
+            
+            
+    return whole_part, fraction     
+
+
     
 
     
