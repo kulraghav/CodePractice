@@ -3093,7 +3093,23 @@ def get_fraction(n, d):
             
     return whole_part, fraction     
 
+class treeNode:
+    def __init__(self, root, left=None, right=None):
+        self.root = root
+        self.left = left
+        self.right = right
 
+    def inorder(self):
+        current = self
+        if not current:
+            return []
+        inorder = []
+        if current.left:
+            inorder = inorder + current.left.inorder()
+        inorder = inorder + [self.root]
+        if current.right:
+            inorder = inorder + current.right.inorder()
+        return inorder    
     
 
     
