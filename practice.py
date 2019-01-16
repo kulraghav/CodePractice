@@ -3118,7 +3118,56 @@ def get_inorder(tree):
 
     return get_inorder(tree.left) + [tree.root] + get_inorder(tree.right)
     
+"""
+    bipartition
+"""
 
+def create_graph(n, E):
+    G = {}
+    for i in range(1, n+1):
+        G[i] = []
+
+    for (a,b) in E:
+        G[a].append(b)
+        G[b].append(a)
+    return G
+
+def get_bfs_layers(s, G):
+    if not G:
+        return {}
+
+    levels = {s: 0}
+    queue = [s]
+
+    while queue:
+        u = queue.pop(0)
+        for v in G[u]:
+            if not v in levels:
+                levels[v] = levels[u] + 1
+                queue.append(v)
+
+    layers = defaultdict(lambda:[])
+    for u in levels:
+        layers[levels[u]].append(u)
+
+    return layers    
+
+def bipartition(n, E):
+    G = create_graph(n, E)
+    layers = get_bfs_layers(1, G)
+
+    part_one = []
+    part_two = []
+    for key in layers:
+        if key % 2 == 1:
+            part_one = part_one + layers[key]
+        else:
+            part_two = part_two + layers[key]
+
+    return part_one, part_two        
+    
+
+    
     
         
 
