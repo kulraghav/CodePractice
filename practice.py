@@ -3259,7 +3259,20 @@ def eval_postfix(expression):
             stack.append(apply_op(x, y, op))
     return stack         
             
-    
+def power_set(A):
+    if not A:
+        return [[]]
+    subsets = []
+    subsets_tail = power_set(A[1:])
+
+    for s in subsets_tail:
+        subsets.append(s)
+        s_0 = [A[0]]
+        for i in range(len(s)):
+            s_0.append(s[i])
+        subsets.append(s_0)
+
+    return subsets    
     
     
         
