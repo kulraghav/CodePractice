@@ -3208,8 +3208,6 @@ def eval_infix(expression):
         expression = reduce(expression, '-', i)
         return eval_infix(expression)
         
-    
-        
 def infix_to_postfix(expression):
     expression = list(expression)
     if len(expression) < 2:
@@ -3228,8 +3226,39 @@ def infix_to_postfix(expression):
         postfix.append(op)
         postfix = postfix + infix_to_postfix(expression[3:])
     return postfix    
-        
 
+def apply_op(x, y, op):
+    x = float(x)
+    y = float(y)
+    
+    if op == '*':
+        return x*y
+    if op == '/':
+        return x/y
+    if op == '+':
+        return x+y
+    if op == '-':
+        return x-y
+    
+def is_op(a):
+    if a in ['*', '/', '+', '-']:
+        return True
+    else:
+        return False
+    
+def eval_postfix(expression):
+    expression = list(expression)
+    stack = []
+    for a in expression:
+        if not is_op(a):
+            stack.append(a)
+        else:
+            x = stack.pop(-1)
+            y = stack.pop(-1)
+            op = a
+            stack.append(apply_op(x, y, op))
+    return stack         
+            
     
     
     
