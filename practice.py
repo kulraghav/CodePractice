@@ -3210,7 +3210,27 @@ def eval_infix(expression):
         
     
         
+def infix_to_postfix(expression):
+    expression = list(expression)
+    if len(expression) < 2:
+        return expression
 
+    op = expression[1]
+    postfix = []
+    if op == '+' or op == '-':
+        postfix.append(expression[0])
+        postfix = postfix + infix_to_postfix(expression[2:])
+        postfix.append(op)
+
+    else:
+        postfix.append(expression[0])
+        postfix.append(expression[2])
+        postfix.append(op)
+        postfix = postfix + infix_to_postfix(expression[3:])
+    return postfix    
+        
+
+    
     
     
         
