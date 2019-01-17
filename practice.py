@@ -3416,7 +3416,27 @@ def max_nesting(A):
             max_nest = current_nest
             
         root = get_next_unvisited(A, root+1)
-    return max_nest    
+    return max_nest
+
+
+def get_nest_depth(A, root, current, current_depth):
+    next_index = A[current]
+    A[current] = -1
+
+    if next_index == root:
+        return current_depth+1
+    else:
+        return get_nest_depth(A, root, next_index, current_depth+1)
+
+    
+    
+def max_nest(A):
+    max_depth = 0
+    for i in range(len(A)):
+        if A[i] >= 0:
+            depth = get_nest_depth(A, i, i, 0)
+            max_depth = max(depth, max_depth)
+    return max_depth        
 
          
 
