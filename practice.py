@@ -3345,8 +3345,36 @@ def longest_bal(A):
 
     return longest    
         
+"""
+    target sum
+    sums[(i,s)]: = number of ways of obtaining sum s from 
+                   +/- combination of the first i elements
+"""
+_max_sum = 1000
+def update_sums(i, s, sums, A):
+    new_sum = 0
+    if s + A[i-1] <= _max_sum:
+        new_sum = new_sum + sums[(i-1, s+A[i-1])]
 
+    if s - A[i-1] >= -_max_sum:
+        new_sum = new_sum + sums[(i-1, s-A[i-1])]
 
+    sums[(i,s)] = new_sum
+    return sums
+        
+    
+
+def target_sum(A, t):
+    sums = {}
+    for s in range(-_max_sum, _max_sum+1):
+        sums[(0, s)] = 0
+
+    sums[(0,0)] = 1    
+    for i in range(1, len(A)+1):
+        for s in range(-_max_sum, _max_sum+1):
+            update_sums(i, s, sums, A)
+
+    return sums[(len(A), t)]            
         
 
          
