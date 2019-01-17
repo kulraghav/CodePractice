@@ -3304,16 +3304,28 @@ def pow_set(counts):
         
     return subsets     
 
-        
-
-        
-
     
 def power_set(A):
     counts = get_counts(A)
     return pow_set(counts)
     
-    
+
+"""
+    longest balanced contiguous subarray
+"""
+
+def to_pm(x):
+    return 1 - 2*x
+
+def longest_bal(A):
+    longest = 0
+    for i in range(len(A)):
+        balance = to_pm(A[i])
+        for j in range(i+1, len(A)):
+            balance = balance + to_pm(A[j])
+            if balance == 0:
+               longest = max(longest, j-i+1)
+    return longest           
         
 
         
