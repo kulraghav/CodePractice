@@ -3395,20 +3395,28 @@ def max_nesting(A):
     V = [a for a in A]
     root = get_next_unvisited(A)
 
-    max_cycle = 0  
+    max_cycle = 0
+    max_nest = set()
     while not root == _undefined:
         current = root
+        current_nest = set()
+        current_nest.add(current)
         V[current] = _visited
         cycle = 1
         while not A[current] == root:
             current = A[current]
+            current_nest.add(current)
             V[current] = _visited
             cycle = cycle + 1
+        current_nest.add(current)    
         V[current] = _visited    
             
-        max_cycle = max(cycle, max_cycle)
+        if cycle > max_cycle:
+            max_cycle = cycle
+            max_nest = current_nest
+            
         root = get_next_unvisited(A, root+1)
-    return max_cycle    
+    return max_nest    
 
          
 
