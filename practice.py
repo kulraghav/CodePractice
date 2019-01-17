@@ -3349,6 +3349,8 @@ def longest_bal(A):
     target sum
     sums[(i,s)]: = number of ways of obtaining sum s from 
                    +/- combination of the first i elements
+
+    learning: be careful about "list index out of range" error
 """
 _max_sum = 1000
 def update_sums(i, s, sums, A):
@@ -3374,8 +3376,39 @@ def target_sum(A, t):
         for s in range(-_max_sum, _max_sum+1):
             update_sums(i, s, sums, A)
 
-    return sums[(len(A), t)]            
+    return sums[(len(A), t)]
+
+
+"""
+    array nesting
+"""
+
+_undefined = -1
+_visited = -1
+def get_next_unvisited(A, start=0):
+    for i in range(start, len(A)):
+        if A[i] >= 0:
+            return i
+    return _undefined
         
+def max_nesting(A):
+    V = [a for a in A]
+    root = get_next_unvisited(A)
+
+    max_cycle = 0  
+    while not root == _undefined:
+        current = root
+        V[current] = _visited
+        cycle = 1
+        while not A[current] == root:
+            current = A[current]
+            V[current] = _visited
+            cycle = cycle + 1
+        V[current] = _visited    
+            
+        max_cycle = max(cycle, max_cycle)
+        root = get_next_unvisited(A, root+1)
+    return max_cycle    
 
          
 
