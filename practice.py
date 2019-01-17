@@ -3317,7 +3317,7 @@ def power_set(A):
 def to_pm(x):
     return 1 - 2*x
 
-def longest_bal(A):
+def longest_bal_slow(A):
     longest = 0
     for i in range(len(A)):
         balance = to_pm(A[i])
@@ -3325,7 +3325,34 @@ def longest_bal(A):
             balance = balance + to_pm(A[j])
             if balance == 0:
                longest = max(longest, j-i+1)
-    return longest           
+    return longest
+
+
+def longest_bal(A):
+    B = [to_pm(a) for a in A]
+
+    prefix_sums = defaultdict(list)
+    prefix_sums[0].append(-1)
+    
+    current_sum = 0
+    for i in range(len(B)):
+        current_sum = current_sum + B[i]
+        prefix_sums[current_sum].append(i)
+
+    longest = 0     
+    for key in prefix_sums:
+        longest = max(longest, max(prefix_sums[key])-min(prefix_sums[key]))
+
+    return longest    
+        
+
+
+        
+
+         
+
+        
+    
         
 
         
