@@ -3471,6 +3471,9 @@ def test_random_subset(k, n):
     return chi_square_test(table)    
 
 """
+    [48, 29, 9]
+"""
+"""
     return True if s2 contains a permutation of s1 as a substring
 """
 
@@ -3521,7 +3524,18 @@ def is_perm_substring(s_1, s_2):
         if is_equal(counts_1, counts_2):
             return True, i-len(s_1) + 1
 
-    return False, -1     
+    return False, -1
+
+def poison_time(A, t):
+    if not A:
+        return 0
+
+    poison_times = [t]
+
+    for i in range(len(A)-2, -1, -1):
+        poison_times.append(min(A[i+1]-A[i], t))
+
+    return sum(poison_times)    
 
                        
     
