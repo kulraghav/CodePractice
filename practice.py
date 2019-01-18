@@ -3535,7 +3535,34 @@ def poison_time(A, t):
     for i in range(len(A)-2, -1, -1):
         poison_times.append(min(A[i+1]-A[i], t))
 
-    return sum(poison_times)    
+    return sum(poison_times)
+
+
+def lonely_pixels(M):
+    if not M:
+        return 0
+    all_bs = []
+    rows = defaultdict(list)
+    columns = defaultdict(list)
+    for i in range(len(M)):
+        for j in range(len(M[0])):
+            if M[i][j] == 'B':
+                rows[i].append((i,j))
+                columns[j].append((i,j))
+                all_bs.append((i,j))
+
+    for key in rows:
+        if len(rows[key]) > 1:
+            for (i, j) in rows[key]:
+                all_bs.remove((i,j))
+    for key in columns:
+        if len(columns[key]) > 1:
+            for (i,j) in columns[key]:
+                all_bs.remove((i,j))
+                
+    return all_bs            
+                       
+                       
 
                        
     
