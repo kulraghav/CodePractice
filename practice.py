@@ -3437,7 +3437,7 @@ def max_nest(A):
     return max_depth        
 
 from random import randint         
-def generate_random_subsets(k, n):
+def generate_random_subset(k, n):
     if k == 0:
         return []
     if k >= n:
@@ -3451,11 +3451,24 @@ def generate_random_subsets(k, n):
 
     return reservoir
 
+from scipy.stats import chi2_contingency
+# from scipy.stats import chi2
+def chi_square_test(table):
+    print(table)
+    print('\n')
+    stat, p, dof, expected = chi2_contingency(table)
+    print('Degrees of freedom = {}'.format(dof))
+    print("The expected values are:")
+    print(expected)
 
-
-        
+    return stat, p
     
-        
+def test_random_subset(k, n):
+    table = []
+    for i in range(5):
+        table.append(generate_random_subset(k, n))
+    
+    return chi_square_test(table)    
 
         
             
