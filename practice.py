@@ -3555,12 +3555,38 @@ def lonely_pixels(M):
         if len(rows[key]) > 1:
             for (i, j) in rows[key]:
                 all_bs.remove((i,j))
+                
     for key in columns:
         if len(columns[key]) > 1:
             for (i,j) in columns[key]:
                 all_bs.remove((i,j))
                 
-    return all_bs            
+    return all_bs
+
+def lonely_pix(M):
+    if not M:
+        return 0
+
+    row_counts = [0]*len(M)
+    column_counts = [0]*len(M[0])
+
+    for i in range(len(M)):
+        for j in range(len(M[0])):
+            if M[i][j] == 'B':
+                row_counts[i] = row_counts[i] + 1
+                column_counts[j] = column_counts[j] + 1
+
+    row_candidates = [i for (i, count) in enumerate(row_counts) if count == 1]
+    column_candidates = [j for (j, count) in enumerate(column_counts) if count == 1]
+
+    lonely_bs = []
+    for i in row_candidates:
+        for j in column_candidates:
+            if M[i][j] == 'B':
+                lonely_bs.append((i,j))
+
+    return lonely_bs            
+                
                        
                        
 
