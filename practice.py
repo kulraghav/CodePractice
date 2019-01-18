@@ -3586,7 +3586,53 @@ def lonely_pix(M):
                 lonely_bs.append((i,j))
 
     return lonely_bs            
-                
+
+
+"""
+    count triplets with small value
+"""
+
+def get_largest(A, limit):
+    if not A:
+        return 0
+
+    begin = 0
+    end = len(A)-1
+
+    while begin < end:    
+        mid = (begin + end)//2
+        if A[mid] < limit:
+            begin = mid + 1
+        else:
+            end = mid - 1
+
+    if A[begin] >= limit:
+        return begin
+    else:
+        return begin + 1
+
+    
+
+            
+
+            
+def count_triplets(A, value):
+    A.sort()
+
+    count = 0
+    for i in range(len(A)):
+        for j in range(i+1, len(A)):
+            limit = value - A[i] - A[j]
+            count = count + get_largest(A[j+1:], limit)
+
+    return count         
+            
+            
+
+            
+
+    
+    
                        
                        
 
