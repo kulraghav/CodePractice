@@ -3428,8 +3428,6 @@ def get_nest_depth(A, root, current, current_depth):
     else:
         return get_nest_depth(A, root, next_index, current_depth+1)
 
-    
-    
 def max_nest(A):
     max_depth = 0
     for i in range(len(A)):
@@ -3438,7 +3436,22 @@ def max_nest(A):
             max_depth = max(depth, max_depth)
     return max_depth        
 
-         
+from random import randint         
+def generate_random_subsets(k, n):
+    if k == 0:
+        return []
+    if k >= n:
+        return list(range(n))
+
+    reservoir = list(range(k))
+    for i in range(k, n):
+        r = randint(0, i+1)
+        if r < k:
+            reservoir[r] = i
+
+    return reservoir
+
+
 
         
     
