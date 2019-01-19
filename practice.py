@@ -3611,9 +3611,6 @@ def get_largest(A, limit):
     else:
         return begin + 1
 
-    
-
-            
 
             
 def count_triplets(A, value):
@@ -3628,7 +3625,31 @@ def count_triplets(A, value):
     return count         
             
             
+"""
+    Leetcode 580: count number of students in each department
+    We have two tables: student, department
 
+    
+    student
+    - student_id
+    - student_name
+    - gender
+    - department_id
+
+    department
+    - department_id
+    - department_name
+
+    Approach:
+    Step 1: department left join student on department_id
+    Step 2: group the joined table by department id and count within each group
+
+    SELECT department_id, COUNT(student_id)
+    FROM department LEFT JOIN student
+    ON department.department_id == student.student_id
+    GROUP BY department_id
+
+"""
             
 
     
