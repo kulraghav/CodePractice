@@ -3733,7 +3733,6 @@ def max_and_second_max(A):
 
 
 """
-
     Given table: S
     country_name: (country_name)
     state_name: (state_name)
@@ -3766,7 +3765,20 @@ Implementation 2:
            S.state_population AS state_population,
            100*S.total_population / C.total_population AS percent_of_country_population 
 """
-        
+
+"""
+    Given table order:
+    order_id|channel|date|month|revenue
+
+    Write a SQL query to compute average revenue by month by channel
+    month|channel|average_revenue
+
+    Approach: group by month,channel and generate avg(revenue)
+
+    SELECT month, channel, AVG(revenue) AS average_revenue
+    FROM order
+    GROUP BY month, channel
+"""
             
     
     
