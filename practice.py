@@ -3767,7 +3767,7 @@ Implementation 2:
 """
 
 """
-    Given table order:
+    Given table: order
     order_id|channel|date|month|revenue
 
     Write a SQL query to compute average revenue by month by channel
@@ -3780,8 +3780,47 @@ Implementation 2:
     GROUP BY month, channel
 """
             
+
+
+"""
+    Given table: shoe_info
+    brand|price
+
+    Write an SQL query to update the price of 'Nike' shoes to 100
+    and price of 'Adidas' shoes to 85
+
+    https://www.w3schools.com/sql/sql_update.asp
+
+    UPDATE shoe_info
+    SET price = 100
+    WHERE brand = 'Nike'
+
+    UPDATE shoe_info
+    SET price = 85
+    WHERE brand = 'Adidas'
     
+
+    Can we do this with a single UPDATE query ?
+"""
+
+"""
+    Employee tenure
+
+    Given table: employee_info
+    employee_name|employee_id|date_joined|age|yrs_of_experience
+
+   
+    https://stackoverflow.com/questions/151199/how-to-calculate-number-of-days-between-two-given-dates
+
+    def get_tenure(date):
+        today = datetime.datetime.today().strftime('%Y-%m-%d')
+        tenure_in_days = (date - today).days
+        return tenure_in_days
+        
+    Generate column: tenure (date_today - date_joined)
+    df['tenure'] = df['date_joined'].apply(get_tenure)
     
+"""
     
             
 
