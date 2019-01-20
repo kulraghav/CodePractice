@@ -3705,6 +3705,27 @@ def count_extensions(i, j, num_moves_left):
 def knight_prob(i,j):
     count = count_extensions(i,j, _max_moves)
     return count/8**_max_moves
+
+def max_and_second_max(A):
+    if len(A) < 2:
+        return list(sorted(A))
+
+    maximum = max(A[:2])
+    second = min(A[:2])
+
+    for i in range(2, len(A)):
+        if A[i] > maximum:
+            second = maximum
+            maximum = A[i]
+
+        elif maximum > A[i] > second:
+            second = A[i]
+        else:
+            continue
+
+    return [maximum, second]
+        
+            
     
     
     
