@@ -3852,14 +3852,41 @@ while n < 3:
     n+= 1
 
 -->
-
+n=1 (m=2 output=3, m=3 output=4)
+n=2 (m=3 output=4)
         
 """
     
             
 
-    
-    
+class listNode:
+    def __init__(self, value, next_node=None):
+        self.value = value
+        self.next_node = next_node
+
+    def show(self):
+        current = self
+        values = []
+        while current:
+            values.append(current.value)
+            current = current.next_node
+        return values    
+            
+
+def reverse(listNode):
+    if not listNode:
+        return listNode
+
+    prev = None
+    current = listNode
+
+    while current:
+        temp = current.next_node
+        current.next_node = prev
+        prev = current
+        current = temp
+
+    return prev    
                        
                        
 
