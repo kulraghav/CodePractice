@@ -3935,7 +3935,48 @@ def common(A, B, C):
 
     return commons        
 
-             
+"""
+    get all subsets
+"""
+
+def get_all_subsets(A):
+    if not A:
+        return [[]]
+    all_subsets = []    
+    a = A[0]
+    tail_subsets = get_all_subsets(A[1:])
+    for subset in tail_subsets:
+        all_subsets.append(subset)
+        subset_with_a = [x for x in subset] + [a]
+        all_subsets.append(subset_with_a)
+    return all_subsets    
+
+
+"""
+    isBST
+"""
+
+
+class bstNode:
+    def __init__(self, value, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+_infinity = 99999999
+def is_bst(tree):
+    if not tree:
+        return True, _infinity, -_infinity
+
+    is_left_bst, left_min, left_max = is_bst(tree.left)
+    is_right_bst, right_min, right_max = is_bst(tree.right)
+
+    if is_left_bst and is_right_bst and left_max <= tree.value < right_min:
+        return True, min([left_min, right_min, tree.value]), max([left_max, right_max, tree.value])
+    else:
+        return False, _infinity, -_infinity
+    
+    
        
             
     
