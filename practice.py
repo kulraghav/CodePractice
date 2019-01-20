@@ -3706,6 +3706,12 @@ def knight_prob(i,j):
     count = count_extensions(i,j, _max_moves)
     return count/8**_max_moves
 
+"""
+   max and second max
+   learning: difference between continue and pass
+             - continue: skips remaining loop and starts next loop
+             - pass: do nothing
+"""
 def max_and_second_max(A):
     if len(A) < 2:
         return list(sorted(A))
@@ -3721,9 +3727,45 @@ def max_and_second_max(A):
         elif maximum > A[i] > second:
             second = A[i]
         else:
-            continue
+            pass
 
     return [maximum, second]
+
+
+"""
+
+    Given table: S
+    country_name: (country_name)
+    state_name: (state_name)
+    total_population: (total_population) #total population for a given state
+
+    Write a function in SQL that returns the following:
+    state_name | total_population | percent_of_country_population
+
+    Approach:
+        1. generate table C: country_name, total_population
+        2. join C with S on S.country_name = C.country_name
+        3. select S.state_name, S.total_population, S.total_population/C.total_population from the join in 2
+
+Implementation 1:
+    SELECT S.state_name AS state_name, 
+           S.total_population AS total_population,
+           100*S.total_population/C.total_population AS percent_of_country_population 
+    FROM 
+        S 
+        JOIN (
+            SELECT country_name, SUM(total_population) as total_population
+            FROM S 
+            GROUP BY country_name
+             ) C
+        ON S.country_name == C.country_name
+
+Implementation 2:
+    WITH C AS (SELECT country_name, SUM(total_population) as total_population)
+    SELECT S.state_name AS state_name, 
+           S.state_population AS state_population,
+           100*S.total_population / C.total_population AS percent_of_country_population 
+"""
         
             
     
