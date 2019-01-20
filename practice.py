@@ -3649,7 +3649,35 @@ def count_triplets(A, value):
     ON department.department_id == student.student_id
     GROUP BY department_id
 
+    https://academy.vertabelo.com/blog/null-values-group-clause/
 """
+
+def get_frequencies(A):
+    frequencies = defaultdict(lambda:0)
+    for i in range(len(A)):
+        frequencies[A[i]] = frequencies[A[i]] + 1
+    return frequencies
+
+def get_buckets(frequencies):
+    buckets = defaultdict(list)
+    for key in frequencies:
+        buckets[frequencies[key]].append(key)
+    return buckets
+
+def get_top_frequent(A, k):
+    frequencies = get_frequencies(A)
+    buckets = get_buckets(frequencies)
+
+    top_k = []
+
+    for f in range(len(A), -1, -1):
+        top_k = top_k + [(x, f) for x in buckets[f][:(k-len(top_k))]]
+        if len(top_k) == k:
+            return top_k
+    return top_k    
+
+    
+    
             
 
     
