@@ -3889,7 +3889,12 @@ def reverse(listNode):
     return prev    
                        
                        
+"""
+    k th bit from right
+"""
 
+def get_k_th_bit(n, k):
+    return int(bool(n & (1 << (k-1))))
                        
     
         
