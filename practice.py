@@ -3675,7 +3675,37 @@ def get_top_frequent(A, k):
         if len(top_k) == k:
             return top_k
     return top_k    
+"""
+    knight's probability of staying on the chessboard after 8 moves
+"""
+_max_moves = 8
 
+def is_inside(i,j):
+    if 0 <= i < 8 and 0 <=j < 8:
+        return True
+    else:
+        return False
+
+def get_next_positions(i,j):
+    next_positions = [(i-2, j-1), (i-1, j-2), (i+1, j-2), (i+2, j-1)]
+    next_positions = next_positions + [(i-2, j+1), (i-1, j+2), (i+1, j+2), (i+2, j+1)]
+    return next_positions
+    
+def count_extensions(i, j, num_moves_left):
+    if not is_inside(i,j):
+        return 0
+    if is_inside(i,j) and num_moves_left == 0:
+        return 1
+    count = 0
+    next_positions = get_next_positions(i,j)
+    for (a, b) in next_positions:
+       count = count + count_extensions(a, b, num_moves_left-1)
+    return count   
+
+def knight_prob(i,j):
+    count = count_extensions(i,j, _max_moves)
+    return count/8**_max_moves
+    
     
     
             
