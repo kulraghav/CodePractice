@@ -3898,7 +3898,47 @@ def get_k_th_bit(n, k):
                        
     
         
+"""
+    find common elements of sorted lists: inplace
+"""
+def move(i, A):
+    while i < len(A)-1:
+        if A[i] == A[i+1]:
+            i = i + 1
+        else:
+            return i + 1
+    return i + 1    
+
+def common(A, B, C):
+    i = 0
+    j = 0
+    k = 0
+
+    commons = []
+    while i < len(A) and j < len(B) and k < len(C):
+        if A[i] == B[j] and B[j] == C[k]:
+            commons.append(A[i])
+            i = move(i, A)
+            j = move(j, B)
+            k = move(k, C)
+            continue
+        
+        heads = [A[i], B[j], C[k]]
+        i_min = heads.index(min(heads))
+
+        if i_min == 0:
+            i = i + 1
+        if i_min == 1:
+            j = j + 1
+        if i_min == 2:
+            k = k + 1
+
+    return commons        
+
+             
+       
             
+    
     
     
 
