@@ -4068,6 +4068,65 @@ def inorder_successor(root, node):
         
         
 
+"""
+    rotate a square matrix by 90 degrees
+"""
+
+def rotate_corners(M, a, b, c, d):
+    temp = M[a][b]
+    M[a][b] = M[c][b]
+    M[c][b] = M[c][d]
+    M[c][d] = M[a][d]
+    M[a][d] = temp
+    return M
+
+def rotate_interior(M, a, b, c, d):
+    for i in range(1, d-b):
+        temp = M[a][b+i]
+        M[a][b+i] = M[a+i][d]
+        M[a+i][d] = temp
+
+    for i in range(1, d-b):
+        temp = M[a][b+i]
+        M[a][b+i] = M[c][d-i]
+        M[c][d-i] = temp
+
+    for i in range(1, d-b):
+        temp = M[a][b+i]
+        M[a][b+i] = M[c-i][b]
+        M[c-i][b] = temp
+
+    return M    
+    
+def rotate_border(M, top_left, bottom_right):
+    a, b = top_left
+    c, d = bottom_right
+    #a, d = top_right
+    #c, b = bottom_left
+    M = rotate_corners(M, a, b, c, d)
+    M = rotate_interior(M, a, b, c, d)
+    return M
+    
+
+def is_smaller(top_left, bottom_right):
+    a, b = top_left
+    c, d = bottom_right
+    
+    if a < c and b < d:
+        return True
+    else:
+        return False
+def shrink(top_left, bottom_right):
+    a, b = top_left
+    c, d = bottom_right
+
+    return (a+1, b+1), (c-1, d-1)
+def rotate_matrix(M, top_left, bottom_right):
+    while is_smaller(top_left, bottom_right):
+        rotate_border(M, top_left, bottom_right)
+        top_left, bottom_right = shrink(top_left, bottom_right)
+    return M    
+    
     
     
     
