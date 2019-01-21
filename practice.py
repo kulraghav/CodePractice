@@ -4024,7 +4024,23 @@ def find_swapped(tree):
         return [left_max, right_min]
     else:
         raise Exception("Invalid input!")
-            
+
+
+"""
+    find missing: sorted array on length n 
+                  each element is from 1 to n+1
+"""
+
+def find_missing(A):
+    if not A:
+        return 1
+
+    for i in range(len(A)):
+        if not A[i] == i+1:
+            return i+1
+
+    return len(A)+1    
+    
     
     
     
