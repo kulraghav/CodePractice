@@ -4040,6 +4040,35 @@ def find_missing(A):
             return i+1
 
     return len(A)+1    
+
+
+"""
+    inorder successor
+"""
+
+def find_last_left(root, value):
+    current = root
+
+    last_left = root
+    while not current.value == value:
+        if value < current.value:
+            last_left = current
+            current = current.left
+        else:
+            current = current.right
+
+    return last_left        
+
+    
+def inorder_successor(root, node):
+    if node.right:
+        return node.right
+    else:
+        return find_last_left(root, node.value)
+        
+        
+
+    
     
     
     
