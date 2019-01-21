@@ -3976,8 +3976,54 @@ def is_bst(tree):
     else:
         return False, _infinity, -_infinity
     
+"""
+    two nodes are swapped: find the two
+"""
+
+def get_max_bst(tree):
+    if not tree:
+        return -_infinity
+
+    current = tree
+    maximum = current.value
+
+    while current:
+        maximum = max(maximum, current.value)
+        current = current.right
+
+    return maximum    
+        
+
+def get_min_bst(tree):
+    if not tree:
+        return _infinity
+
+    current = tree
+    minimum = current.value
+
+    while current:
+        minimum = min(minimum, current.value)
+        current = current.left
+
+    return minimum    
     
-       
+def find_swapped(tree):
+    if not tree:
+        return []
+
+    if not is_bst(tree.left)[0]:
+        return find_swapped(tree.left)
+
+    if not is_bst(tree.right)[0]:
+        return find_swapped(tree.right)
+
+    left_max = get_max_bst(tree.left)
+    right_min = get_min_bst(tree.right)
+
+    if left_max > tree.value and right_min < tree.value:
+        return [left_max, right_min]
+    else:
+        raise Exception("Invalid input!")
             
     
     
