@@ -4182,12 +4182,13 @@ def reverse_words(s):
 
     return "".join(s)       
 
-def get_top_k(A, k=3):
+from heapq import heapify, heappush, heappop
+
+def get_top_k_slow(A, k=3):
     top_k = A[:k]
     if len(A) < k:
         return top_k
 
-    minimum = min(top_k)
     maximum = max(top_k)
     for i in range(k, len(A)):
         if A[i] < maximum:
@@ -4195,7 +4196,24 @@ def get_top_k(A, k=3):
             top_k.remove(maximum)
             maximum = max(top_k)
 
-    return top_k        
+    return top_k
+
+def get_top_k_heap(A, k=3):
+    top_k = [-a for a in A[:k]]
+    heapify(top_k)
+    if len(A) < k:
+        return [-a for a in top_k]
+
+    for i in range(k, len(A)):
+        maximum = -heappop(top_k)
+        if A[i] < maximum:
+            heappush(top_k, -A[i])
+        else:
+            heappush(top_k, -maximum)
+
+    return [-a for a in top_k]        
+
+    
      
 
      
