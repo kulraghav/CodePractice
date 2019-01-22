@@ -4066,10 +4066,12 @@ def inorder_successor(root, node):
     else:
         return find_last_left(root, node.value)
         
-        
-
 """
     rotate a square matrix by 90 degrees
+
+          alternate easier solution: 
+              1. transpose 
+              2. reverse each column
 """
 
 def rotate_corners(M, a, b, c, d):
@@ -4127,6 +4129,67 @@ def rotate_matrix(M, top_left, bottom_right):
         top_left, bottom_right = shrink(top_left, bottom_right)
     return M    
     
+"""
+    print sequence without using a loop
+"""
+
+def print_seq(N, stop, sign):
+    print(N)
+    if sign == -1 and N == stop:
+        print(N)
+        return
+        
+
+    if N > 0:
+        N = N + sign*5
+        print_seq(N, stop, sign)
+    else:
+        sign = -sign
+        N = N + sign*5
+        print_seq(N, stop, sign)
+
+"""
+     reverse words in a string
+"""
+
+def reverse_chunk(s, begin_index, end_index):
+    begin = begin_index
+    end = end_index
+    while begin < end:
+        temp = s[begin]
+        s[begin] = s[end]
+        s[end] = temp
+        begin = begin + 1
+        end = end - 1
+    return s    
+
+def get_end_index(s, begin_index):
+    end_index = begin_index
+    while end_index + 1 < len(s) and not s[end_index+1] == ' ':
+        end_index = end_index + 1
+    return end_index
+
+def reverse_words(s):
+    if not s:
+        return s
+    s = list(s)
+    s.reverse()
+    begin_index = 0
+    while begin_index < len(s):
+        end_index = get_end_index(s, begin_index)
+        reverse_chunk(s, begin_index, end_index)
+        begin_index = end_index + 2
+
+    return "".join(s)       
+
+     
+
+     
+
+     
+     
+
+
     
     
     
