@@ -4182,12 +4182,26 @@ def reverse_words(s):
 
     return "".join(s)       
 
+def get_top_k(A, k=3):
+    top_k = A[:k]
+    if len(A) < k:
+        return top_k
+
+    minimum = min(top_k)
+    maximum = max(top_k)
+    for i in range(k, len(A)):
+        if A[i] < maximum:
+            top_k.append(A[i])
+            top_k.remove(maximum)
+            maximum = max(top_k)
+
+    return top_k        
      
 
      
 
      
-     
+    
 
 
     
