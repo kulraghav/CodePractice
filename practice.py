@@ -4213,7 +4213,15 @@ def get_top_k_heap(A, k=3):
 
     return [-a for a in top_k]        
 
-    
+_undefined = -1
+def get_unique_element(A):
+    if not A:
+        return _undefined
+
+    unique = A[0]
+    for i in range(1, len(A)):
+        unique = unique^A[i]
+    return unique
      
 
      
