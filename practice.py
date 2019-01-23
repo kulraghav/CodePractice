@@ -4227,7 +4227,7 @@ def get_unique_element(A):
 """
     All-pair shortest paths
 """
-def floyd_warshal(V, E, W):
+def floyd_warshall(V, E, W):
     distances = defaultdict(list:_infinity)
 
     for (u, v) in E:
@@ -4240,7 +4240,20 @@ def floyd_warshal(V, E, W):
                     distances[(i,j)] = distances[(i,k)] + distances[(k,j)]
 
                     
-     
+
+ def bellmann_ford(V, E, W):
+     distances = defaultdic(lambda:_infinity)
+
+     for i in range(len(V)-1):
+         for (u, v) in E:
+             if distances[u] + w < distances[v]:
+                 distances[v] = distances[u] + w
+
+     for (u, v) in E:
+         if distances[u] + w < distances[v]:
+             raise Exception("Graph contains a negative-weight cycle")
+
+     return distances    
 
      
     
