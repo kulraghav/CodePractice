@@ -4222,8 +4222,24 @@ def get_unique_element(A):
     for i in range(1, len(A)):
         unique = unique^A[i]
     return unique
-     
 
+
+"""
+    All-pair shortest paths
+"""
+def floyd_warshal(V, E, W):
+    distances = defaultdict(list:_infinity)
+
+    for (u, v) in E:
+        distances[(u,v)] = w(u,v)
+
+    for k in range(len(V)):
+        for i in range(len(V)):
+            for j in range(len(V)):
+                if distances[(i,j)] > distances[(i, k)] + distances[(k,j)]:
+                    distances[(i,j)] = distances[(i,k)] + distances[(k,j)]
+
+                    
      
 
      
