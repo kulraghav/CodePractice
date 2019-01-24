@@ -4135,11 +4135,9 @@ def rotate_matrix(M, top_left, bottom_right):
 
 def print_seq(N, stop, sign):
     print(N)
-    if sign == -1 and N == stop:
-        print(N)
+    if sign == 1 and N == stop:
         return
         
-
     if N > 0:
         N = N + sign*5
         print_seq(N, stop, sign)
@@ -4147,6 +4145,8 @@ def print_seq(N, stop, sign):
         sign = -sign
         N = N + sign*5
         print_seq(N, stop, sign)
+
+        
 
 """
      reverse words in a string
@@ -4228,7 +4228,7 @@ def get_unique_element(A):
     All-pair shortest paths
 """
 def floyd_warshall(V, E, W):
-    distances = defaultdict(list:_infinity)
+    distances = defaultdict(lambda:_infinity)
 
     for (u, v) in E:
         distances[(u,v)] = w(u,v)
@@ -4241,19 +4241,19 @@ def floyd_warshall(V, E, W):
 
                     
 
- def bellmann_ford(V, E, W):
-     distances = defaultdic(lambda:_infinity)
+def bellmann_ford(V, E, W):
+    distances = defaultdic(lambda:_infinity)
 
-     for i in range(len(V)-1):
-         for (u, v) in E:
-             if distances[u] + w < distances[v]:
-                 distances[v] = distances[u] + w
+    for i in range(len(V)-1):
+        for (u, v) in E:
+            if distances[u] + w < distances[v]:
+                distances[v] = distances[u] + w
 
-     for (u, v) in E:
-         if distances[u] + w < distances[v]:
-             raise Exception("Graph contains a negative-weight cycle")
+    for (u, v) in E:
+        if distances[u] + w < distances[v]:
+            raise Exception("Graph contains a negative-weight cycle")
 
-     return distances    
+    return distances    
 
      
     
