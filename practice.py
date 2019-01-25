@@ -4255,7 +4255,24 @@ def bellmann_ford(V, E, W):
 
     return distances    
 
-     
+"""
+    two sum practice
+"""
+def two_sum(A, target):
+    low = 0
+    high = len(A)-1
+
+    while low < high:
+        if A[low] + A[high] == target:
+            return True
+        if A[low] + A[high] > target:
+            high = high - 1
+        else:
+            low = low + 1
+
+    return False
+            
+      
     
 
 
