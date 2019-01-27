@@ -4298,7 +4298,12 @@ def four_sum(A, target):
     return False
     
     
- 
+ def generate_two_sums_distinct(A):
+    two_sums = []
+    for i in range(len(A)):
+        for j in range(i+1, len(A)):
+                two_sums.append(A[i]+A[j])
+    return two_sums
       
     
 
