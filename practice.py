@@ -363,8 +363,11 @@ def gray_code(n):
         codes.append(sub_code + [0])
 
     offset = sub_codes[-1]
-
-    for sub_code in sub_codes:
+    
+    """
+        This should be in reverse order
+    """
+    for sub_code in sub_codes[::-1]:
         codes.append(get_xor(offset, sub_code) + [1])
 
     return codes    
@@ -890,8 +893,8 @@ def collect(trie):
     if not trie:
         return []
 
-    if -1 in trie:
-        return [trie[-1]]
+    if _end in trie:
+        return [trie[_end]]
 
     sorted_first_digits = sorted(trie.keys(), reverse=True)
 
@@ -905,6 +908,8 @@ def get_largest_combination(numbers):
     trie = make_digit_trie(numbers)
 
     return collect(trie)
+
+
 
 """
     [27 Dec 2018] Encoding binary string as a graph and decoding string graph 
@@ -4271,7 +4276,28 @@ def two_sum(A, target):
             low = low + 1
 
     return False
-            
+
+def generate_two_sums(A):
+    two_sums = []
+    for i in range(len(A)):
+        for j in range(len(A)):
+            two_sums.append(A[i]+A[j])
+    return two_sums
+           
+def four_sum(A, target):
+    B = generate_two_sums(A)
+
+    seen = {}
+    output = []
+    for i in range(len(B)):
+        if target - B[i] in seen:
+            return True 
+        seen[B[i]] = i
+
+    return False
+    
+    
+ 
       
     
 
