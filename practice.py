@@ -4288,11 +4288,12 @@ def four_sum(A, target):
     B = generate_two_sums(A)
 
     seen = {}
+    
     output = []
     for i in range(len(B)):
+        seen[B[i]] = i
         if target - B[i] in seen:
             return True 
-        seen[B[i]] = i
 
     return False
     
