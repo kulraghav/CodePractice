@@ -20,12 +20,11 @@ def loss(y_pred, y):
     error = np.subtract(y, y_pred)
     return np.asscalar(np.dot(error, error)/2*len(y))
 
-"""
-
-"""
-
 def grad_W(X, error):
     return np.multiply(X, np.array([error.tolist()]*p).T)
+
+"""
+"""
   
 def grad_b(X, error):
     return error
@@ -43,6 +42,7 @@ def train(X, y, num_iterations=3, learning_rate=0.1):
         y_pred = predict(W, b, X)
         error = y - y_pred
         W, b = update_weights(W, b, X, error, learning_rate)
+        print(W, b)
 
     return W, b
 
