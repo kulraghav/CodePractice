@@ -4305,7 +4305,11 @@ def four_sum(A, target):
                 two_sums.append(A[i]+A[j])
     return two_sums
       
-    
+def three_sum(A, target):
+    for i in range(len(A)):
+        if simple_two_sum(A[i+1:], target-A[i]):
+            return True
+    return False    
 
 
     
