@@ -4284,7 +4284,7 @@ def generate_two_sums(A):
             two_sums.append(A[i]+A[j])
     return two_sums
            
-def four_sum(A, target):
+def four_sum_simple(A, target):
     B = generate_two_sums(A)
 
     seen = {}
@@ -4351,10 +4351,20 @@ def disjoint_pair(A, B, n):
                for l in trie[k]:
                    if not l == i and not l == j:
                        return True       
-
     return False
     
     
+ def four_sum(A, target):
+     two_sums = defaultdict(list)
+     for i in range(len(A)):
+         for j in range(i+1, len(A)):
+             two_sums[A[i]+A[j]].append((i,j))
+     seen = {}
+     for s in two_sums:
+         if target-s in seen:
+            return disjoint_pair(two_sums[s], two_sums[target-s], len(A))
+         seen[s] = True
+     return False
     
     
     
