@@ -4325,19 +4325,32 @@ def three_sum(A, target):
     Check if there is (i1, j1) in A and (i2, j2) in B such that 
     {i1,j1} and {i2, j2} are disjoint
 """
+
+def make_coord_trie(A):
+    trie = {}
+    for (i,j) in A:
+        if not i in trie:
+            trie[i] = {}
+        if not j in trie:
+            trie[j] = {}
+        if not j in trie[i]:
+            trie[i][j] = True
+        if not i in trie[j]:
+            trie[j][i] = True
+    return trie
+
 def disjoint_pair(A, B, n):
     if len(A) > 2*n or len(B) > 2*n:
         return True
 
-    first_coordinates = {}
-    second_coordinates = {}
-    for (i, j) in A:
-        first_coordinates[i] = True
-        second_coordinates[j] = True
+    trie = make_coord_trie(A)
 
     for (i,j) in B:
-        if not i in first_coordinates and not j in second_coordinates:
-             return True
+        for k in trie.keys():
+           if not k == i and not k == j:
+               for l in trie[k]:
+                   if not l == i and not l == j:
+                       return True       
 
     return False
     
