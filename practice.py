@@ -4319,7 +4319,27 @@ def three_sum(A, target):
             return True
     return False    
 
+"""
+    A : list of tuples [(i,j)]  0 <= i < j < n
+    B : list of tuples [(i,j)]
+    Check if there is (i1, j1) in A and (i2, j2) in B such that 
+    {i1,j1} and {i2, j2} are disjoint
+"""
+def disjoint_pair(A, B, n):
+    if len(A) > 2*n or len(B) > 2*n:
+        return True
 
+    first_coordinates = {}
+    second_coordinates = {}
+    for (i, j) in A:
+        first_coordinates[i] = True
+        second_coordinates[j] = True
+
+    for (i,j) in B:
+        if not i in first_coordinates and not j in second_coordinates:
+             return True
+
+    return False
     
     
     
