@@ -4367,7 +4367,13 @@ def disjoint_pair(A, B, n):
      return False
     
     
-    
+def two_sum(A, t):
+    low = 0
+    high = len(A)-1
+    while low < high:
+        if A[low] + A[high] = t:
+            return True
+    return False    
 
     
  
