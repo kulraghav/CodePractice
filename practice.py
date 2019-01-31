@@ -4377,3 +4377,11 @@ def two_sum(A, t):
 
     
  
+def expo(x, y):
+    if y == 0:
+        return 1
+    if y % 2 == 0:
+        z = expo(x, y//2)
+        return z*z
+    else:
+        return y*expo(x, y-1)
