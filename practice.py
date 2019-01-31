@@ -4354,7 +4354,7 @@ def disjoint_pair(A, B, n):
     return False
     
     
- def four_sum(A, target):
+def four_sum(A, target):
      two_sums = defaultdict(list)
      for i in range(len(A)):
          for j in range(i+1, len(A)):
@@ -4371,7 +4371,7 @@ def two_sum(A, t):
     low = 0
     high = len(A)-1
     while low < high:
-        if A[low] + A[high] = t:
+        if A[low] + A[high] == t:
             return True
     return False    
 
@@ -4384,4 +4384,4 @@ def expo(x, y):
         z = expo(x, y//2)
         return z*z
     else:
-        return y*expo(x, y-1)
+        return x*expo(x, y-1)
