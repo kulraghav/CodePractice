@@ -4385,3 +4385,21 @@ def expo(x, y):
         return z*z
     else:
         return x*expo(x, y-1)
+
+def binary_search(A, x):
+    begin = 0
+    end = len(A)-1
+    
+    while begin < end:
+        mid = (begin + end) // 2
+        if A[mid] == x:
+            return True
+        if A[mid] < x:
+            begin = mid + 1
+        if A[mid] > x:
+            end = mid - 1
+
+   if A[begin] == x:
+      return True
+   else:
+      return False     
