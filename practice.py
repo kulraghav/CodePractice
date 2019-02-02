@@ -4399,7 +4399,7 @@ def binary_search(A, x):
         if A[mid] > x:
             end = mid - 1
 
-   if A[begin] == x:
-      return True
-   else:
-      return False     
+    if A[begin] == x:
+        return True
+    else:
+        return False     
