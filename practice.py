@@ -4403,3 +4403,15 @@ def binary_search(A, x):
         return True
     else:
         return False     
+
+def gcd(m, n):
+   if m == 0:
+       return n
+   if n == 0:
+       return m
+   if m == n:
+       return m
+   if m > n:
+       return gcd(m-n, n)
+   if n > m:
+       return gcd(m, n-m)
