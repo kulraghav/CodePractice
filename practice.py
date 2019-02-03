@@ -4405,6 +4405,8 @@ def binary_search(A, x):
         return False     
 
 def gcd(m, n):
+   m = abs(m)
+   n = abs(n)
    if m == 0:
        return n
    if n == 0:
