@@ -16,7 +16,20 @@ def generate_samples(w, b, num_samples, low=0, high=1000, mu=0, sigma=1):
         x = np.random.uniform(low, high)
         eps = np.random.normal(mu, sigma)
         samples.append((x, w*x + b + eps))
-    return samples    
+    return samples
+
+def mse_loss(y_pred, y):
+    if not y:
+        return 0
+    sse = 0
+    for i in range(len(y)):
+        sse = sse + (y_pred[i]-y[i])**2
+    mse = sse / len(y)
+    return mse
+
+def fit(samples):
+
+    return w, b
         
 
         
