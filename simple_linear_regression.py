@@ -27,27 +27,31 @@ def mse_loss(y_pred, y):
     mse = sse / len(y)
     return mse
 
-def get_gradients(mse, samples):
-    grad_w = 0
-    grad_b = 0
-    
-    for sample in samples:
-        x = sample[0]
-        y = sample[1]
-        grad_w = grad_w + 2*(w*x + b - y)*x 
-        grad_b = grad_b + 2*(w*x + b - y)*1
+def get_gradient(w, b, sample):
+    x = sample[0]
+    y = sample[1]
+    grad_w = 2*(w*x + b - y)*x 
+    grad_b = 2*(w*x + b - y)*1
         
     return grad_w, grad_b    
 
-def sgd_update(w, b, samples, learning_rate=0.1):
+def shuffle(samples):
+    """
+        randomly shuffle the order of samples
+    """
+    return samples
+
+def sgd_update(w, b, samples, learning_rate=0.01):
+    samples = shuffle(samples)
     y = [sample[1] for sample in samples]
     y_pred = [w*sample[0] + b for sample in samples]
-    mse = mse_loss(y_pred, y)
 
-    grad_w, grad_b = get_gradients(mse, samples)
-
-    w = w - learning_rate*grad_w
-    b = b - learning_rate*grad_b
+    for sample in samples:
+        grad_w, grad_b = get_gradient(w, b, sample)
+        w = w - learning_rate*grad_w
+        b = b - learning_rate*grad_b
+        print(w, b)
+        break
 
     return w, b
 
@@ -56,11 +60,12 @@ def initialize(samples):
     b = 0
     return w, b
 
-def fit(samples, num_iterations=100):
+def fit(samples, num_iterations=100, learning_rate=0.01):
     w, b = initialize(samples)
-
+    print(w, b)
     for i in range(num_iterations):
-        w, b = sgd_update(w, b, samples)
+        w, b = sgd_update(w, b, samples, learning_rate)
+        print(w, b)
         
     return w, b
         
