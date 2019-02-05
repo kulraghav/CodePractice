@@ -36,6 +36,7 @@ def get_gradients(mse, samples):
         y = sample[1]
         grad_w = grad_w + 2*(w*x + b - y)*x 
         grad_b = grad_b + 2*(w*x + b - y)*1
+        
     return grad_w, grad_b    
 
 def sgd_update(w, b, samples, learning_rate=0.1):
@@ -49,8 +50,13 @@ def sgd_update(w, b, samples, learning_rate=0.1):
     b = b - learning_rate*grad_b
 
     return w, b
-    
-def fit(samples, num_iterations):
+
+def initialize(samples):
+    w = 0
+    b = 0
+    return w, b
+
+def fit(samples, num_iterations=100):
     w, b = initialize(samples)
 
     for i in range(num_iterations):
