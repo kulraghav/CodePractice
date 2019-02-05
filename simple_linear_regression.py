@@ -8,9 +8,11 @@
     2. Fit simple linear regression to estimate w and b
     3. Evaluate r^2/R^2
      
+
+Learning: low = 0, high = 1000 did not converge, learning_rate had to be kept very low
 """
 import numpy as np
-def generate_samples(w, b, num_samples, low=0, high=1000, mu=0, sigma=1):
+def generate_samples(w, b, num_samples, low=0, high=10, mu=0, sigma=1):
     samples = []
     for i in range(num_samples):
         x = np.random.uniform(low, high)
@@ -39,6 +41,7 @@ def shuffle(samples):
     """
         randomly shuffle the order of samples
     """
+    np.random.shuffle(samples)
     return samples
 
 def sgd_update(w, b, samples, learning_rate=0.01):
@@ -60,13 +63,14 @@ def initialize(samples):
     b = 0
     return w, b
 
-def fit(samples, num_iterations=100, learning_rate=0.01):
-    w, b = initialize(samples)
+def fit(samples, n_epochs=100, learning_rate=0.01, w_init=0, b_init=0):
+    w = w_init
+    b = b_init
+    #w, b = initialize(samples)
     print(w, b)
-    for i in range(num_iterations):
+    for i in range(n_epochs):
         w, b = sgd_update(w, b, samples, learning_rate)
-        print(w, b)
-        
+        print((w, b), mse_loss([w*sample[0] + b for sample in samples], [sample[1] for sample in samples]))
     return w, b
         
 
