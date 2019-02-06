@@ -18,7 +18,7 @@ def inner_product(w, x):
 
 from math import exp
 def sigmoid(z):
-    return exp(z)/(exp(-z) + exp(z))
+    return 1/(1+exp(-z))
 
 def generate_samples(w, b, num_samples, low=0, high=1, mu=0, sigma=0.0001):
     p = len(w)
@@ -48,8 +48,8 @@ def get_gradient(w, b, sample):
 
     y_proba = sigmoid(inner_product(w, x) + b) 
     
-    grad_w = [((1-y)*(1-y_proba) - y*y_proba)*e_x for e_x in x] 
-    grad_b = ((1-y)*(1-y_proba) - y*y_proba)*1
+    grad_w = [(y - y_proba)*e_x for e_x in x] 
+    grad_b = (y-y_proba)*1
         
     return grad_w, grad_b
 
@@ -83,8 +83,8 @@ def sgd_update(w, b, samples, learning_rate=0.001):
     for sample in samples:
         grad_w, grad_b = get_gradient(w, b, sample)
         for i in range(len(w)):
-            w[i] = w[i] - learning_rate*grad_w[i]
-        b = b - learning_rate*grad_b
+            w[i] = w[i] + learning_rate*grad_w[i]
+        b = b + learning_rate*grad_b
     return w, b
 
 def initialize(samples):
@@ -115,13 +115,15 @@ def accuracy(y_pred, y):
     for i in range(len(y)):
         if y_pred[i] == y[i]:
             count = count + 1
-    return count
+    return count/len(y)
 
 def test():
     samples = generate_samples([2, 2], 2, 1000)
     print(samples[:10])
     y = [sample[1] for sample in samples]
+    print(len([e for e in y if e == 1]))
     w, b = fit(samples, n_epochs=100, verbose=True, learning_rate=0.001)
     y_pred = predict(w, b, samples)
-    return  evaluate(y_pred, y)
+    y = [sample[1] for sample in samples]
+    return  accuracy(y_pred, y)
     
