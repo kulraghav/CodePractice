@@ -72,10 +72,11 @@ def fit(samples, n_epochs=100, learning_rate=0.01, w_init=0, b_init=0, verbose=F
 
 def evaluate(y_pred, y):
     y_avg = sum(y)/len(y)
-    TSS = sum([(y - y_avg)**2])
+    TSS = 0
     RSS = 0
     for i in range(len(y)):
         RSS = RSS + (y[i] - y_pred[i])**2
+        TSS = TSS + (y[i] - y_avg)**2
     R2 = 1 - RSS/TSS
     return R2
     
