@@ -23,10 +23,22 @@ def sigmoid(z):
 def generate_samples(w, b, num_samples, low=0, high=1, mu=0, sigma=0.0001):
     p = len(w)
     samples = []
+    xs = []
+    ys = []
     for i in range(num_samples):
         x = np.random.uniform(low, high, size=p)
-        y = chop(sigmoid(inner_product(w, x) + b))
-        eps = np.random.normal(mu, sigma)
+        xs.append(x)
+        ys.append(sigmoid(inner_product(w, x) + b))
+        #eps = np.random.normal(mu, sigma)
+
+    t = sum(ys)/len(ys)
+    
+    for i in range(len(xs)):
+        x = xs[i]
+        if ys[i] > t:
+            y = 1
+        else:
+            y = 0
         samples.append((x, y))
     return samples
 
@@ -37,7 +49,7 @@ def get_gradient(w, b, sample):
     y_proba = sigmoid(inner_product(w, x) + b) 
     
     grad_w = [((1-y)*(1-y_proba) - y*y_proba)*e_x for e_x in x] 
-    grad_b = ((1-y)*(1-y_proba) - y*y_proba))*1
+    grad_b = ((1-y)*(1-y_proba) - y*y_proba)*1
         
     return grad_w, grad_b
 
@@ -63,7 +75,7 @@ def predict_probas(w, b, samples):
     y_probas = [sigmoid(inner_product(w, sample[0]) + b) for sample in samples]
     return y_probas
 
-def sgd_update(w, b, samples, learning_rate=0.01):
+def sgd_update(w, b, samples, learning_rate=0.001):
     samples = shuffle(samples)
     y = [sample[1] for sample in samples]
     y_pred = predict(w, b, samples)
@@ -106,7 +118,7 @@ def accuracy(y_pred, y):
     return count
 
 def test():
-    samples = generate_samples([0.2, 0.2], 0.2, 100)
+    samples = generate_samples([2, 2], 2, 1000)
     print(samples[:10])
     y = [sample[1] for sample in samples]
     w, b = fit(samples, n_epochs=100, verbose=True, learning_rate=0.001)
