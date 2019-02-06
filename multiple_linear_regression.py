@@ -17,7 +17,7 @@ def inner_product(w, x):
       ip = ip + w[i]*x[i]
     return ip
 
-def generate_samples(w, b, num_samples, low=0, high=10, mu=0, sigma=0.1):
+def generate_samples(w, b, num_samples, low=0, high=1, mu=0, sigma=0.001):
     p = len(w)
     samples = []
     for i in range(num_samples):
@@ -69,7 +69,7 @@ def initialize(samples):
 """
     w_init: len of w_init has to be fixed, it is p = number of features
 """
-def fit(samples, n_epochs=30, learning_rate=0.01, w_init=[0, 0], b_init=0, verbose=False):
+def fit(samples, n_epochs=300, learning_rate=0.01, w_init=[0, 0], b_init=0, verbose=False):
     w = w_init
     b = b_init
     #w, b = initialize(samples)
@@ -87,10 +87,11 @@ def evaluate(y_pred, y):
     for i in range(len(y)):
         RSS = RSS + (y[i] - y_pred[i])**2
         TSS = TSS + (y[i] - y_avg)**2
+        # print((y[i] - y_pred[i])**2, (y[i] - y_avg)**2)
+        
     R2 = 1 - (RSS/TSS)
-
-    print(list(zip(y_pred[:10], y[:10])))
-    return R2, RSS, TSS
+    # print(list(zip(y_pred[:10], y[:10])))
+    return R2
 
 def mse_loss(y_pred, y):
     if not y:
@@ -100,13 +101,18 @@ def mse_loss(y_pred, y):
         TSS = TSS + (y_pred[i]-y[i])**2
     mse = TSS / len(y)
     return mse
-        
-    
 
+"""
+    learning: shuffle will change samples inside the function fit
+    Earlier y = [sample[1] for sample in samples] was before the fit function and y_pred was after the fit function. 
+    This was causing R^2 to be negative.
+    Once I moved y = ... after the shuffle this issue was fixed.
+"""
 def test():
-    samples = generate_samples([4, 2], 1, 100)
-    y = [sample[1] for sample in samples]
-    w, b = fit(samples, verbose=True, learning_rate=0.001)
+    samples = generate_samples([0.2, 0.2], 0.2, 100)
+    w, b = fit(samples, n_epochs=100, verbose=True, learning_rate=0.001)
     y_pred = predict(w, b, samples)
+    y = [sample[1] for sample in samples]
     R2 = evaluate(y_pred, y)
+    print("R^2 : {}".format(R2))
     return R2
