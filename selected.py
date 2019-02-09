@@ -358,6 +358,79 @@ def test_erase():
     print(".")
 
 
+"""
+   group anagrams
+   learning: sorted(word) gives a list, which is unhashable, hence can not be used as a key of dictionary
+             we need to convert this list back to string using join
+             strings are immutable and hence hashable
+
+   To DO: find reference to what is hashable and what is not hashable
+"""
+from collections import defaultdict
+
+def group_anagrams(words):
+    anagrams = defaultdict(list)
+    for word in words:
+        anagrams["".join(sorted(word))].append(word)
+    return anagrams
+
+def is_inside(x, Y):
+    for y in Y:
+        if is_equal(x, y):
+            return True
+    return False
+
+def test_group_anagrams():
+    words = ["eat", "tea", "tan", "ate", "nat", "bat"]
+    grouped = group_anagrams(words)
+    grouped_list = [grouped[ana] for ana in grouped]
+    expected_grouped_list = [["ate","eat","tea"],
+                        ["nat","tan"],
+                        ["bat"]]
+    print(grouped_list)
+    for x in grouped_list:
+        if not is_inside(x, expected_grouped_list):
+            raise Exception("Test Failed")    
+        
+    print("Successfuly passed: grouped anagram test")
+    print(".")
+
+    
+"""
+    longest substring without repeting characters
+"""        
+
+def longest_nonrep(s):
+    if not s:
+        return 0
+    
+    last_seen = {s[0]: 0}
+    
+    begin = 0
+    end = 0
+    max_nonrep = 1
+    
+    while begin < len(s) and end < len(s):  
+        if s[end] in last_seen:
+            begin = last_seen[s[end]] + 1
+        last_seen[s[end]] = end
+        end = end + 1
+        max_nonrep = max(max_nonrep, end-begin)
+    return max_nonrep
+
+def test_longest_nonrep():
+    s = "abcabcbb"
+    assert longest_nonrep(s) == 3
+    s = "bbbbb"
+    assert longest_nonrep(s) == 1
+    s = "pwwkew"
+    assert longest_nonrep(s) == 3
+    print("Successfuly passed: longest nonrep")
+    print(".")
+
+    
+        
+
     
 
     
