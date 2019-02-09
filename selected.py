@@ -428,6 +428,32 @@ def test_longest_nonrep():
     print("Successfuly passed: longest nonrep")
     print(".")
 
+"""
+    increasing triplet subsequence
+"""
+
+_infinity = 99999999
+def get_prefix_mins(A):
+    prefix_mins = {-1: _infinity}
+    for i in range(len(A)):
+        prefix_mins[i] = min(A[i], prefix_mins[i-1])
+    return prefix_mins
+
+def suffix_maxs(A):
+    suffix_maxs = {len(A): -_infinity}
+    for i in range(len(A)-1, -1, -1):
+        suffix_maxs[i] = max(A[i], suffix_maxs[i+1])
+    return suffix_maxs
+
+def contains_increasing_triplet(A):
+    prefix_mins = get_prefix_mins(A)
+    suffix_maxs = get_s
+    uffix_maxs(A)
+
+    for i in range(len(A)):
+        if prefix_mins[i-1] < A[i] < suffix_maxs[i+1]:
+            return True
+    return False     
     
         
 
