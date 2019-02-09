@@ -303,6 +303,60 @@ def test_three_sum():
     print("Successfuly completed: three sum generate all test")
     print(".")
 
+"""
+    set matrix zero: erase rows and columns
+"""
+
+_erased = -1
+def erase_row(M, i):
+    for j in range(len(M[i])):
+        if not M[i][j] == 0:
+            M[i][j] = _erased
+    return M
+
+def erase_column(M, j):
+    for i in range(len(M)):
+        if not M[i][j] == 0:
+            M[i][j] = _erased
+        
+def erase(M):
+    if not M:
+        return M
+    
+    for i in range(len(M)):
+        for j in range(len(M[0])):
+            if M[i][j] == 0:
+                erase_row(M, i)
+                erase_column(M, j)
+
+    for i in range(len(M)):
+        for j in range(len(M[0])):
+            if M[i][j] == _erased:
+                M[i][j] = 0
+    return M             
+
+
+def test_erase():
+    M = [[1,1,1],
+         [1,0,1],
+         [1,1,1]]
+
+    M_e = [[1,0,1],
+           [0,0,0],
+           [1,0,1]]
+
+    N =  [[0,1,2,0],
+          [3,4,5,2],
+          [1,3,1,5]]
+    N_e = [[0,0,0,0],
+           [0,4,5,0],
+           [0,3,1,0]]
+
+    assert is_equal(erase(M), M_e)
+    assert is_equal(erase(N), N_e)
+    print("Successfuly passed: erase test")
+    print(".")
+
 
     
 
