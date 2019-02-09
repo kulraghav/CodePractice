@@ -454,12 +454,36 @@ def contains_increasing_triplet(A):
             return True
     return False
 
+"""
+    space efficient
+"""
+def increasing_triplet(A):
+    if len(A) < 3:
+        return False
 
+    chain = [A[0]]
+    for i in range(1, len(A)):
+        if len(chain) == 1:
+            if A[i] > chain[-1]:
+                chain.append(A[i])
+            else:
+                chain[-1] = A[i]
+        elif len(chain) == 2:
+            if A[i] > chain[-1]:
+                return True # triplet found
+            else:
+                if A[i] > chain[-2]:
+                    chain[-1] = A[i]
+                else:
+                    chain[-2] = A[i]
+    return False
+                    
 def test_increasing_triplet():
     A = [1,3,2,8,4]
     B = [5,4,6,2,1]
     assert contains_increasing_triplet(A) == True
-    assert contains_increasing_triplet(B) == False
+    assert contains_increasin
+    g_triplet(B) == False
     
     print("Successfuly passed: increasing triplet")
 
