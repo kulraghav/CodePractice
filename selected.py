@@ -248,6 +248,15 @@ def get_alphabetical_order(words):
     leetcode: https://leetcode.com/explore/interview/card/top-interview-questions-medium/ 
 """
 
+"""
+    generate all distinct three sums
+    learning: in python one can check if a list is a member of another list using "in"
+    for instance: [1,3] in [[0,1], [1,3], [2,4]]
+
+    To do: 
+    1. find a reference to the membership for list of lists
+    2. how does python internally store list of list
+"""
 def two_sum(A, target):
     seen = {}
     for i in range(len(A)):
@@ -262,11 +271,39 @@ def three_sum(A):
             return True
     return False
 
+def generate_all_two_sums(A, target):
+    seen = {}
+    two_sums = []
+    for i in range(len(A)):
+        if target - A[i] in seen and sorted([A[i], target-A[i]]) not in two_sums:
+            two_sums = two_sums + [sorted([A[i], target-A[i]])]
+        seen[A[i]] = i
+    return two_sums
+
+def generate_all_three_sums(A):
+    three_sums = []
+    for i in range(len(A)):
+        two_sums = generate_all_two_sums(A[i+1:], -A[i])
+        three_sums = three_sums + [sorted([A[i]] + x) for x in two_sums if sorted([A[i]] + x) not in three_sums]
+    return three_sums    
+
+def is_equal(X, Y):
+    for x in X:
+        if not x in Y:
+            return False
+    return True
+
 def test_three_sum():
     A = [-1, 0, 1, 2, -1, -4]
     B = [1,2,3,4]
     assert three_sum(A) == True
     assert three_sum(B) == False
+    print("Successfuly completed: three sum decision test")
+    assert is_equal(generate_all_three_sums(A), [[-1, 0, 1], [-1, -1, 2], [-1, 0, 1]])
+    print("Successfuly completed: three sum generate all test")
     print(".")
+
+
+    
 
     
