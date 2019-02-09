@@ -439,7 +439,7 @@ def get_prefix_mins(A):
         prefix_mins[i] = min(A[i], prefix_mins[i-1])
     return prefix_mins
 
-def suffix_maxs(A):
+def get_suffix_maxs(A):
     suffix_maxs = {len(A): -_infinity}
     for i in range(len(A)-1, -1, -1):
         suffix_maxs[i] = max(A[i], suffix_maxs[i+1])
@@ -447,15 +447,23 @@ def suffix_maxs(A):
 
 def contains_increasing_triplet(A):
     prefix_mins = get_prefix_mins(A)
-    suffix_maxs = get_s
-    uffix_maxs(A)
+    suffix_maxs = get_suffix_maxs(A)
 
     for i in range(len(A)):
         if prefix_mins[i-1] < A[i] < suffix_maxs[i+1]:
             return True
-    return False     
+    return False
+
+
+def test_increasing_triplet():
+    A = [1,3,2,8,4]
+    B = [5,4,6,2,1]
+    assert contains_increasing_triplet(A) == True
+    assert contains_increasing_triplet(B) == False
     
-        
+    print("Successfuly passed: increasing triplet")
+
+    
 
     
 
