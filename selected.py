@@ -243,3 +243,30 @@ def get_alphabetical_order(words):
 
     alphabetical_order = top_sort(G)
     return alphabetical_order    
+
+"""
+    leetcode: https://leetcode.com/explore/interview/card/top-interview-questions-medium/ 
+"""
+
+def two_sum(A, target):
+    seen = {}
+    for i in range(len(A)):
+        if target-A[i] in seen:
+            return True
+        seen[A[i]] = i
+    return False
+
+def three_sum(A):
+    for i in range(len(A)):
+        if two_sum(A[i+1:], -A[i]):
+            return True
+    return False
+
+def test_three_sum():
+    A = [-1, 0, 1, 2, -1, -4]
+    B = [1,2,3,4]
+    assert three_sum(A) == True
+    assert three_sum(B) == False
+    print(".")
+
+    
