@@ -560,4 +560,40 @@ def test_inorder():
     print("Successfuly passed: test inorder")
 
 
-    
+"""
+  intersection of two linked lists
+"""
+
+class linkedListNode:
+    def __init__(self, value, next_node=None):
+        self.value = value
+        self.next_node = next_node
+
+def intersection(A, B):
+    values = {}
+
+    current = A
+
+    while current:
+        values[current.value] = current
+        current = current.next_node
+
+    intersection = []
+
+    current = B
+    while current:
+        if current.value in values:
+            intersection.append(current.value)
+        current = current.next_node
+
+    return intersection     
+
+
+
+def test_intersection():
+    A = linkedListNode(1, linkedListNode(2, None))
+    B = linkedListNode(2, linkedListNode(4, None))
+
+    assert is_equal(intersection(A, B), [2])
+
+    print("Successfuly passed: test intersection")
