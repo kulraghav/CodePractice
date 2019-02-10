@@ -532,4 +532,32 @@ def test_phone_number():
     print(phone_number(number))
     print("Successfuly passed: phone number test")
 
+
+
+"""
+    binary tree inorder traversal
+"""
+
+class Node:
+    def __init__(self, root_value, left=None, right=None):
+        self.root_value = root_value
+        self.left = left
+        self.right = right
+
+        
+def inorder(tree):
+    if not tree:
+        return []
+
+    return inorder(tree.left) + [tree.root_value] + inorder(tree.right)
+
+
+def test_inorder():
+    tree = Node(1, Node(2, None, None), Node(3, None, None))
+
+    assert is_equal(inorder(tree), [2, 1, 3])
+    print(inorder(tree))
+    print("Successfuly passed: test inorder")
+
+
     
