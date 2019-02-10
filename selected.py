@@ -482,13 +482,54 @@ def test_increasing_triplet():
     A = [1,3,2,8,4]
     B = [5,4,6,2,1]
     assert contains_increasing_triplet(A) == True
-    assert contains_increasin
-    g_triplet(B) == False
+    assert contains_increasing_triplet(B) == False
+    assert increasing_triplet(A) == True
+    assert increasing_triplet(B) == False
     
     print("Successfuly passed: increasing triplet")
 
-    
+"""
+    letter combinations of the phone number
+"""
+digit_to_letters = {
+        '1' : [],
+        '2' : ['a', 'b', 'c'],
+        '3' : ['d', 'e', 'f'],
+        '4' : ['g', 'h', 'i'],
+        '5' : ['j', 'k', 'l'],
+        '6' : ['m', 'n', 'o'],
+        '7' : ['p', 'q', 'r', 's'],
+        '8' : ['t', 'u', 'v'],
+        '9' : ['w', 'x', 'y', 'z']
+        }
 
-    
+def add_extensions(number, prefix, output):
+    if len(prefix) == len(number):
+        output.append(prefix)
+        return output
+
+    next_digit = number[len(prefix)]
+
+    for letter in digit_to_letters[next_digit]:
+        new_prefix = prefix + letter
+        add_extensions(number, new_prefix, output)
+
+    return output    
+
+        
+def phone_number(number):
+   
+    output = []
+    prefix = ""
+    add_extensions(number, prefix, output)
+    return output
+
+def test_phone_number():
+    number = '23'
+    output = ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
+
+    assert is_equal(phone_number(number), output)
+    print(phone_number(number))
+    print("Successfuly passed: phone number test")
 
     
