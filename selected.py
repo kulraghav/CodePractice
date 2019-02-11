@@ -569,6 +569,14 @@ class linkedListNode:
         self.value = value
         self.next_node = next_node
 
+    def show(self):
+        current = self
+        output = []
+        while current:
+            output.append(current.value)
+            current = current.next_node
+        return output
+
 def intersection(A, B):
     values = {}
 
@@ -597,3 +605,35 @@ def test_intersection():
     assert is_equal(intersection(A, B), [2])
 
     print("Successfuly passed: test intersection")
+
+
+"""
+    Add two numbers
+"""
+
+def add_carry(number, carry):
+    current = number
+    new_number = None
+    while current:
+        total = current.value + carry
+        last_digit =  total % 10
+        carry = (total - last_digit) // 10
+        print(last_digit, carry)
+        new_number = linkedListNode(last_digit, new_number)
+        current = current.next_node
+
+    if carry:    
+        new_number = linkedListNode(carry, new_number)    
+    return new_number
+
+def test_add_carry():
+    number = linkedListNode(8, linkedListNode(7, None))
+    print(add_carry(number, 5).show())
+    assert is_equal(add_carry(number, 5).show(), [8, 3])
+    print("Successfully passed: test_add_carry")
+
+
+
+
+    
+        
