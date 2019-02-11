@@ -612,13 +612,15 @@ def test_intersection():
 """
 
 def add_carry(number, carry):
+    if carry == 0:
+        return number
+    
     current = number
     new_number = None
     while current:
         total = current.value + carry
         last_digit =  total % 10
         carry = (total - last_digit) // 10
-        print(last_digit, carry)
         new_number = linkedListNode(last_digit, new_number)
         current = current.next_node
 
@@ -631,6 +633,40 @@ def test_add_carry():
     print(add_carry(number, 5).show())
     assert is_equal(add_carry(number, 5).show(), [8, 3])
     print("Successfully passed: test_add_carry")
+
+def add_numbers(A, B):
+    if not B:
+        return A
+    if not A:
+        return B
+
+    last_a = A.value
+    last_b = B.value
+
+    total = last_a + last_b
+
+    last_digit = total % 10
+    carry = (total - last_digit) // 10
+
+    
+    tail = add_numbers(A.next_node, B.next_node)
+    addition = linkedListNode(last_digit, add_carry(tail, carry))
+    return addition
+
+def test_add_numbers():
+    
+
+    A = linkedListNode(7, None)
+    B = linkedListNode(2, None)
+    print(add_numbers(A, B).show())
+    assert (is_equal(add_numbers(A, B).show(), [9]))
+
+    A = linkedListNode(8, linkedListNode(7, None))
+    B = linkedListNode(2, linkedListNode(2, None))
+    assert (is_equal(add_numbers(A, B).show(), [1,0,0]))
+    print(add_numbers(A, B).show())
+    print("Successfuly passed: test_add_numbers")
+    
 
 
 
