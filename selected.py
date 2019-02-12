@@ -608,7 +608,7 @@ def test_intersection():
 
 
 """
-    Add two numbers
+    Add two numbers: INCOMPLETE
 """
 
 def add_carry(number, carry):
@@ -654,12 +654,15 @@ def add_numbers(A, B):
     return addition
 
 def test_add_numbers():
-    
+    """
+        is_equal function seems to be buggy
+        it outputs True when comparing [0,1,0] and [1,0,0]
+    """
 
-    A = linkedListNode(7, None)
+    A = linkedListNode(8, None)
     B = linkedListNode(2, None)
     print(add_numbers(A, B).show())
-    assert (is_equal(add_numbers(A, B).show(), [9]))
+    assert (is_equal(add_numbers(A, B).show(), [1, 0]))
 
     A = linkedListNode(8, linkedListNode(7, None))
     B = linkedListNode(2, linkedListNode(2, None))
@@ -667,9 +670,39 @@ def test_add_numbers():
     print(add_numbers(A, B).show())
     print("Successfuly passed: test_add_numbers")
     
+"""
+    subsets
+"""
 
+def add_extensions(S, subsets, prefix):
+    if len(prefix) == len(S):
+        A = [S[i] for i in range(len(S)) if prefix[i] == 1]
+        subsets.append(A)
+        return subsets
 
+    for b in range(2):
+        prefix.append(b)
+        add_extensions(S, subsets, prefix)
+        prefix.pop(-1)
+    return subsets    
+           
+def generate_subsets(S):
+    subsets = []
+    add_extensions(S, subsets, prefix=[])
+    return subsets
 
+def test_generate_subsets():
+    subsets_0 = generate_subsets([])
+    subsets_1 = generate_subsets([1])
+    subsets_2 = generate_subsets([1,2])
+    
+    assert subsets_0 == [[]]
+    print(subsets_1)
+    assert is_equal(subsets_1, [[],[1]])
+    print(subsets_2)
+    assert is_equal(subsets_2, [[],[1],[2], [1,2]])
+
+    
 
     
         
