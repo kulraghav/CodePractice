@@ -715,12 +715,11 @@ def add_permutations(A, permutations, prefix):
 
     extensions = [a for a in A if a not in prefix]
 
-    new_prefix = [y for y in prefix]
     for x in extensions:
-        new_prefix = new_prefix + [x]
-        add_permutations(A, permutations, new_prefix)
-        new_prefix.remove(x)
-
+        prefix.append(x)
+        add_permutations(A, permutations, prefix)
+        prefix.remove(x)
+        
     return permutations    
 
 def generate_permutations(A):
