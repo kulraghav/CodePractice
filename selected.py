@@ -703,7 +703,49 @@ def test_generate_subsets():
     print(subsets_2)
     #assert is_equal(subsets_2, [[],[1],[2],[1,2]])
 
+
+"""
+    generate permutations
+"""
+
+def add_permutations(A, permutations, prefix):
+    if len(prefix) == len(A):
+        permutations.append(tuple(prefix))
+        return permutations
+
+    extensions = [a for a in A if a not in prefix]
+
+    new_prefix = [y for y in prefix]
+    for x in extensions:
+        new_prefix = new_prefix + [x]
+        add_permutations(A, permutations, new_prefix)
+        new_prefix.remove(x)
+
+    return permutations    
+
+def generate_permutations(A):
+    prefix = []
+    permutations = []
+    add_permutations(A, permutations, prefix)
+    return permutations
+
+
+def test_generate_permutations():
+    A = []
+    perms_0 = generate_permutations(A)
+    print(perms_0)
+    assert perms_0 == [()]
+
+    A = [1]
+    perms_1 = generate_permutations(A)
+    print(perms_1)
+    assert is_equal(perms_1, [(1,)])
+
+    A = [1,2]
+    perms_2 = generate_permutations(A)
+    print(perms_2)
+    assert is_equal(perms_2, [(1,2), (2,1)])
     
 
-    
+    print(add_permutations([1,2], [], [2]))    
         
