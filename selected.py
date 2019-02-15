@@ -748,10 +748,10 @@ def test_generate_permutations():
 
     print(add_permutations([1,2], [], [2]))    
         
-def top_k_frequent(A):
+def top_k_frequent(A, k):
     elem_to_counts = defaultdict(lambda:0)
     for i in range(len(A)):
-        counts[A[i]] = counts[A[i]] + 1
+        elem_to_counts[A[i]] = elem_to_counts[A[i]] + 1
 
     count_to_elems = defaultdict(lambda:[])
     for elem in elem_to_counts:
@@ -766,3 +766,9 @@ def top_k_frequent(A):
 
     return top_k
     
+def test_top_k_frequent():
+    A = [1,1,1,1]
+    assert top_k_frequent(A, 3) == [1]
+    
+    A = [1,2,3,4]
+    assert top_k_frequent(A, 2) == [1,2]
