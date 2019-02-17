@@ -772,3 +772,17 @@ def test_top_k_frequent():
     
     A = [1,2,3,4]
     assert top_k_frequent(A, 2) == [1,2]
+
+"""
+    powering
+"""
+
+def power(x, n):
+    if n == 0:
+        return 1
+
+    z = power(x, n//2)
+    if n % 2 == 0:
+        return z*z
+    else:
+        return x*z*z
