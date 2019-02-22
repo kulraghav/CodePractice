@@ -786,3 +786,31 @@ def power(x, n):
         return z*z
     else:
         return x*z*z
+
+
+"""
+    reverse an integer
+"""
+
+def reverse_integer(n):
+    """
+    Returns an integer obtained by reversing digits of n
+        args:
+            n : int
+        returns:
+            n_rev: int
+    """
+    if n < 0:
+        return -reverse_integer(-n)
+
+    n_rev = 0
+    while n:
+        last_digit = n % 10
+        n_rev = 10*n_rev + last_digit
+        n = (n - last_digit) // 10
+
+    return n_rev
+        
+ 
+        
+      
