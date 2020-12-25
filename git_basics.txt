@@ -1,0 +1,16 @@
+
+Setting up
+----------
+1. clone
+2. init
+3. set remote
+
+
+Adding new feature
+------------------
+1. pull master
+2. create new-branch 
+3. make changes to new-branch (add + commit + push)
+4. inspect diff between master and new-branch and resolve conflicts
+5. merge master and new-branch
+
