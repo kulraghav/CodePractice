@@ -16,6 +16,7 @@
     - finish debugging 17 06
     - added test cases and some practice with vi for search and replace 17 20
 """
+
 def remove_duplicates(numbers):
     if len(numbers) < 2:
         return len(numbers)
@@ -31,9 +32,8 @@ def remove_duplicates(numbers):
             read_index = read_index + 1
     return write_index
 
-
-if __name__ == '__main__':
-
+def test_remove_duplicates():
+    # test remove_duplicates
     numbers = [1,2,3]
     assert remove_duplicates(numbers) == 3
 
@@ -50,3 +50,68 @@ if __name__ == '__main__':
     assert remove_duplicates(numbers) == 3
 
     print('.')
+
+    return True
+
+"""
+    rotate array
+    - start 17:58
+    - finish coding 18:20
+    - finish testing 18:38 
+"""
+
+def gcd(a, b):
+    if a == 0:
+        return b
+    if b == 0:
+        return a
+    if a == 1:
+        return 1
+    if b == 1:
+        return 1
+    if a == b:
+        return a
+    if b > a:
+        return gcd(b, a)
+
+    return gcd(b, a % b)
+
+def rotate_array(numbers, k):
+    if len(numbers) < 2:
+        return numbers
+
+    n = len(numbers)
+    k = k % n
+
+    if k == 0:
+        return numbers
+
+    for i in range(gcd(n, k)):
+        current = numbers[i]
+        for j in range(n//gcd(n, k)):
+            temp = numbers[(i + (j+1)*k)%n]
+            numbers[(i+(j+1)*k)%n] = current
+            current = temp
+
+    return numbers
+
+def test_rotate_array():
+    numbers = [1,2,3]
+    k = 1
+    
+    assert rotate_array(numbers, k) == [3,1,2]
+
+    numbers = [1,2,3,4,5,6]
+    k = 3
+
+    assert rotate_array(numbers, k) == [4,5,6,1,2,3]
+
+    print('.')
+    return True
+
+
+
+if __name__ == '__main__':
+    test_remove_duplicates()
+    test_rotate_array()
+
