@@ -268,6 +268,38 @@ def test_buy_and_sell_many():
     print('.')
     return True
 
+"""
+    contains duplicate
+    start: 17 58
+    finish coding: 17:59
+    finish testing 18:01
+"""
+def contains_duplicate(numbers):
+    seen = set()
+    for number in numbers:
+        if number in seen:
+            return True
+        seen.add(number)
+    return False
+
+def test_contains_duplicate():
+    numbers = [1,2,3,1]
+    assert contains_duplicate(numbers) == True
+
+    numbers = [1,2,3,4]
+    assert contains_duplicate(numbers) == False
+
+    numbers = [1,1,1,3,3,4]
+    assert contains_duplicate(numbers) == True
+
+    numbers = []
+    assert contains_duplicate(numbers) == False
+
+    print('.')
+    return True
+
+
+
 if __name__ == '__main__':
     test_remove_duplicates()
     test_rotate_array()
@@ -276,3 +308,4 @@ if __name__ == '__main__':
     test_two_sum()
     test_rotate_image()
     test_buy_and_sell_many()
+    test_contains_duplicate()
