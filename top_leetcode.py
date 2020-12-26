@@ -242,9 +242,37 @@ def test_rotate_image():
     print('.')
     return True
 
+"""
+    buy and sell
+    start 17 46
+    finish coding 17 48
+    finish testing 17:54
+"""
+def buy_and_sell_many(prices):
+    profit = 0
+    for i in range(1, len(prices)):
+        if prices[i] - prices[i-1] > 0:
+            profit = profit + prices[i] - prices[i-1]
+    return profit
+
+def test_buy_and_sell_many():
+    prices = [7,1,5,3,6,4]
+    assert buy_and_sell_many(prices) == 7
+
+    prices = [1,2,3,4,5]
+    assert buy_and_sell_many(prices) == 4
+
+    prices = [7,6,4,3,1]
+    assert buy_and_sell_many(prices) == 0
+
+    print('.')
+    return True
+
 if __name__ == '__main__':
     test_remove_duplicates()
     test_rotate_array()
     test_single_number()
     test_plus_one()
     test_two_sum()
+    test_rotate_image()
+    test_buy_and_sell_many()
