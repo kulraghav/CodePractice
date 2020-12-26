@@ -109,9 +109,29 @@ def test_rotate_array():
     print('.')
     return True
 
+"""
+    single number: find unique number that is not duplicated
+    - start 15:30
+    - finish coding and testing 15:36 
+"""
+def single_number(numbers):
+    x = 0
+    for number in numbers:
+        x = x^number
+    return x
+
+def test_single_number():
+    numbers = [1,1,2]
+    assert single_number(numbers) == 2
+
+    numbers = [1,1,2,2,3]
+    assert single_number(numbers) == 3
+
+    print('.')
+    return True
 
 
 if __name__ == '__main__':
     test_remove_duplicates()
     test_rotate_array()
-
+    test_single_number()
