@@ -298,6 +298,36 @@ def test_contains_duplicate():
     print('.')
     return True
 
+"""
+    array intersection
+    start : 18:10
+    finish testing 18:20
+"""
+from collections import Counter
+def array_intersection(A, B):
+    counts_A = Counter(A)
+    counts_B = Counter(B)
+
+    C = []
+    for a in counts_A:
+        if a in counts_B:
+            for i in range(min(counts_A[a], counts_B[a])):
+                    C.append(a)
+
+    return C
+
+
+def test_array_intersection():
+    A = [1,2,2,1]
+    B = [2,2]
+    assert array_intersection(A, B) == [2,2]
+
+    A = [4,9,5]
+    B = [9,4,9,8,4]
+    assert array_intersection(A, B) == [4,9]
+
+    print('.')
+    return True
 
 
 if __name__ == '__main__':
@@ -309,3 +339,4 @@ if __name__ == '__main__':
     test_rotate_image()
     test_buy_and_sell_many()
     test_contains_duplicate()
+    test_array_intersection()
