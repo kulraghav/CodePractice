@@ -170,8 +170,44 @@ def test_plus_one():
     return True
 
 
+"""
+    two sum
+    start: 15:55
+    finish coding: 16:02
+    finish testing: 16:07
+"""
+
+def two_sum(numbers, target):
+    if len(numbers) < 2:
+        return []
+
+    seen = {}
+    for i, number in enumerate(numbers):
+        if target - number in seen:
+            return [seen[target-number], i]
+        seen[number] = i
+
+    return []
+
+def test_two_sum():
+    numbers = [1,2,3]
+    target = 4
+    assert two_sum(numbers, target) == [0,2]
+
+    numbers = [3,3,3]
+    target = 6
+    assert two_sum(numbers, target) == [0,1]
+
+    numbers = [2,3,4]
+    target = 8
+    assert two_sum(numbers, target) == []
+
+    print('.')
+    return True
+
 if __name__ == '__main__':
     test_remove_duplicates()
     test_rotate_array()
     test_single_number()
     test_plus_one()
+    test_two_sum()
