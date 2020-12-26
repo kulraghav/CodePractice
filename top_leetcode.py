@@ -205,6 +205,43 @@ def test_two_sum():
     print('.')
     return True
 
+"""
+    rotate image
+    start 17:11
+    finish coding 17:31
+    finish testing 17:33
+"""
+def rotate_layer(matrix, top, left, bottom, right):
+    for i in range(right-left):
+        temp = matrix[top][left+i]
+        matrix[top][left+i] = matrix[bottom-i][left]
+        matrix[bottom-i][left] = matrix[bottom][right-i]
+        matrix[bottom][right-i] = matrix[top+i][right]
+        matrix[top+i][right] = temp
+    return matrix
+
+def rotate_image(matrix):
+    top, left = 0,0
+    bottom, right = len(matrix)-1, len(matrix)-1
+
+    while top < bottom and left < right:
+        rotate_layer(matrix, top, left, bottom, right)
+        top = top + 1
+        bottom = bottom - 1
+        left = left + 1
+        right = right - 1
+    return matrix
+    
+def test_rotate_image():
+    matrix = [1]
+    assert rotate_image(matrix) == [1]
+
+    matrix = [[1,2],[3,4]]
+    assert rotate_image(matrix) == [[3,1],[4,2]]
+
+    print('.')
+    return True
+
 if __name__ == '__main__':
     test_remove_duplicates()
     test_rotate_array()
