@@ -3,6 +3,7 @@
     ----------
     - https://leetcode.com/explore/featured/card/top-interview-questions-easy/
     - https://vim.fandom.com/wiki/Search_and_replace
+    - https://www.freecodecamp.org/news/10-important-git-commands-that-every-developer-should-know/
 """
 
 """
