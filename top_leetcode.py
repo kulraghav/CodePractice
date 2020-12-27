@@ -331,6 +331,41 @@ def test_array_intersection():
     return True
 
 
+"""
+    move zeros to the end
+    start 14:38
+    finish coding 14:45
+    finish testing 14:46
+"""
+
+def move_zeros(numbers):
+    write_index = 0
+    read_index = 0
+
+    while read_index < len(numbers):
+        if numbers[read_index] == 0:
+            read_index = read_index + 1
+        else:
+            numbers[write_index] = numbers[read_index]
+            write_index = write_index + 1
+            read_index = read_index + 1
+
+    for i in range(write_index, len(numbers)):
+        numbers[i] = 0
+    return numbers
+
+def test_move_zeros():
+    numbers = [0,1,0,3,12]
+    assert move_zeros(numbers) == [1,3,12,0,0]
+
+    numbers = [1,2,3]
+    assert move_zeros(numbers) == [1,2,3]
+
+    print('.')
+    return True
+
+
+
 if __name__ == '__main__':
     test_remove_duplicates()
     test_rotate_array()
@@ -341,3 +376,4 @@ if __name__ == '__main__':
     test_buy_and_sell_many()
     test_contains_duplicate()
     test_array_intersection()
+    test_move_zeros()
