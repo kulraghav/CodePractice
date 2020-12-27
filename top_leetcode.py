@@ -364,6 +364,97 @@ def test_move_zeros():
     print('.')
     return True
 
+"""
+    valid sudoku
+    start 14:53
+    finish coding 15:12
+    finish testing 15:20
+"""
+def valid_sudoku(board):
+    # board is 9 x 9
+    n = len(board)
+    m = len(board[0])
+    if m != 9 or n != 9:
+        return False
+
+    rows = [board[i] for i in range(n)]
+
+    columns = []
+    for j in range(n):
+        columns.append([board[i][j] for i in range(n)])
+    
+    boxes = []
+    for a in range(3):
+        for b in range(3):
+            box = []
+            for i in range(9):
+                for j in range(9):
+                    if i // 3 == a and j // 3 == b:
+                        box.append(board[i][j])
+            boxes.append(box)
+    
+    # each row must contain digits 1-9 without repetition
+    for i in range(n):
+        digits = [x for x in rows[i] if x != '.']
+        for digit in digits:
+            if not digit.isdigit():
+                return False
+            if not (1 <= int(digit) <= 9):
+                return False
+        if not len(digits) == len(set(digits)):
+            return False
+
+    # each column must contain digits 1-9 without repetition
+    for j in range(n):
+        digits = [x for x in columns[i] if x != '.']
+        for digit in digits:
+            if not digit.isdigit():
+                return False
+            if not (1 <= int(digit) <= 9):
+                return False
+        if not len(digits) == len(set(digits)):
+            return False
+
+    # each of the 3x3 sub-boxes must contain digits 1-9 without repetition
+    for i in range(n):
+        digits = [x for x in boxes[i] if x != '.']
+        for digit in digits:
+            if not digit.isdigit():
+                return False
+            if not (1 <= int(digit) <= 9):
+                return False
+        if not len(digits) == len(set(digits)):
+            return False
+
+    return True
+
+def test_valid_sudoku():
+    board = [["5","3",".",".","7",".",".",".","."]
+,["6",".",".","1","9","5",".",".","."]
+,[".","9","8",".",".",".",".","6","."]
+,["8",".",".",".","6",".",".",".","3"]
+,["4",".",".","8",".","3",".",".","1"]
+,["7",".",".",".","2",".",".",".","6"]
+,[".","6",".",".",".",".","2","8","."]
+,[".",".",".","4","1","9",".",".","5"]
+,[".",".",".",".","8",".",".","7","9"]]
+
+    assert valid_sudoku(board) == True
+
+    board = [["8","3",".",".","7",".",".",".","."]
+,["6",".",".","1","9","5",".",".","."]
+,[".","9","8",".",".",".",".","6","."]
+,["8",".",".",".","6",".",".",".","3"]
+,["4",".",".","8",".","3",".",".","1"]
+,["7",".",".",".","2",".",".",".","6"]
+,[".","6",".",".",".",".","2","8","."]
+,[".",".",".","4","1","9",".",".","5"]
+,[".",".",".",".","8",".",".","7","9"]]
+
+    assert valid_sudoku(board) == False
+
+    print('.')
+    return  True
 
 
 if __name__ == '__main__':
@@ -377,3 +468,4 @@ if __name__ == '__main__':
     test_contains_duplicate()
     test_array_intersection()
     test_move_zeros()
+    test_valid_sudoku()
