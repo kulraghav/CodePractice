@@ -540,6 +540,45 @@ def test_valid_palindrome():
     print('.')
     return True
 
+"""
+    index of
+    start 21:33
+    finish coding and testing 21:41 
+"""
+def is_matching(needle, haystack, i):
+    if i + len(needle) > len(haystack):
+        return False
+
+    for j in range(len(needle)):
+        if not haystack[i+j] == needle[j]:
+            return False
+    return True
+
+def index_of(needle, haystack):
+    if not needle:
+        return 0
+
+    for i in range(len(haystack)-len(needle)):
+        if is_matching(needle, haystack, i):
+            return i
+    return -1
+
+def test_index_of():
+    needle = 'll'
+    haystack = 'hello'
+    assert index_of(needle, haystack) == 2
+
+    needle = 'bba'
+    haystack = 'aaaa'
+    assert index_of(needle, haystack) == -1
+
+    needle = ''
+    haystac = ''
+    assert index_of(needle, haystack) == 0
+
+    print('.')
+    return True
+
 if __name__ == '__main__':
     # array
     test_remove_duplicates()
@@ -558,5 +597,6 @@ if __name__ == '__main__':
     test_reverse_string()
     test_first_unique_char()
     test_valid_palindrome()
+    test_index_of()
 
 
