@@ -509,6 +509,37 @@ def test_first_unique_char():
     print('.')
     return True
 
+"""
+    valid palindrome
+    start 15:13
+    finish coding 15:16 
+    finish testing 15:20
+"""
+def valid_palindrome(s):
+    i = 0
+    j = len(s)-1
+    while i < j:
+        if not s[i].isalpha():
+            i = i + 1
+        elif not s[j].isalpha():
+            j = j - 1
+        elif not s[i].lower() == s[j].lower():
+            return False
+        else:
+            i = i + 1
+            j = j - 1
+    return True
+
+def test_valid_palindrome():
+    s = "A man, a plan, a canal: Panama"
+    assert valid_palindrome(s) == True
+
+    s = "race a car"
+    assert valid_palindrome(s) == False
+
+    print('.')
+    return True
+
 if __name__ == '__main__':
     # array
     test_remove_duplicates()
@@ -526,3 +557,6 @@ if __name__ == '__main__':
     # string
     test_reverse_string()
     test_first_unique_char()
+    test_valid_palindrome()
+
+
