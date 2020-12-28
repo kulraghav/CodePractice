@@ -487,7 +487,8 @@ def test_reverse_string():
 """
     first unique char
     start 10:10
-    finish 10:15
+    finish coding 10:15
+    finish testing 10 17
 """
 def first_unique_char(s):
     counts = Counter(s)
