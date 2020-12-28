@@ -679,6 +679,50 @@ def test_valid_anagram():
     print('.')
     return True
 
+"""
+    string to integer
+    start 22:26
+    finish 22:54
+"""
+def a_to_i(s):
+    s = s.lstrip(' ')
+    if not s:
+        return 0
+
+    if not s[0].isdigit() and not s[0] in ['+', '-']:
+        return 0
+
+    n = 1
+    for i in range(1, len(s)):
+        if not s[i].isdigit():
+            break
+        n = n + 1
+
+    if s[0].isdigit():
+        return int(s[:n])
+    elif s[0] == '+':
+        return int(s[1:n])
+    elif s[0] == '-':
+        return -int(s[1:n])
+    else:
+        return 0
+
+def test_a_to_i():
+    s = '42'
+    assert a_to_i(s) == 42
+
+    s = "   -42"
+    assert a_to_i(s) == -42
+
+    s = "4193 with words"
+    assert a_to_i(s) == 4193
+
+    s = "words and 987"
+    assert a_to_i(s) == 0
+
+    print(".")
+    return True
+
 if __name__ == '__main__':
     # array
     print("array")
@@ -703,4 +747,5 @@ if __name__ == '__main__':
     test_longest_common_prefix()
     test_reverse_integer()
     test_valid_anagram()
+    test_a_to_i()
 
