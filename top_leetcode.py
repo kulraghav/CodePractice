@@ -456,8 +456,276 @@ def test_valid_sudoku():
     print('.')
     return  True
 
+"""
+    reverse string
+    start 10:02
+    finish coding and testing 10:06
+"""
+def reverse_string(chars):
+    i = 0
+    j = len(chars)-1
+
+    while i < j:
+        temp = chars[i]
+        chars[i] = chars[j]
+        chars[j] = temp
+        i = i + 1
+        j = j - 1
+
+    return chars
+
+def test_reverse_string():
+    chars = ['h','e','l','l','o']
+    assert reverse_string(chars) == ['o','l','l','e','h']
+
+    chars = list("Hannah")
+    assert reverse_string(chars) == list("hannaH")
+
+    print('.')
+    return True
+
+"""
+    first unique char
+    start 10:10
+    finish coding 10:15
+    finish testing 10 17
+"""
+def first_unique_char(s):
+    counts = Counter(s)
+
+    for i in range(len(s)):
+        if counts[s[i]] == 1:
+            return i
+
+    return -1
+
+def test_first_unique_char():
+    s = "leetcode"
+    assert first_unique_char(s) == 0
+
+    s = "loveleetcode"
+    assert first_unique_char(s) == 2
+
+    print('.')
+    return True
+
+"""
+    valid palindrome
+    start 15:13
+    finish coding 15:16 
+    finish testing 15:20
+"""
+def valid_palindrome(s):
+    i = 0
+    j = len(s)-1
+    while i < j:
+        if not s[i].isalpha():
+            i = i + 1
+        elif not s[j].isalpha():
+            j = j - 1
+        elif not s[i].lower() == s[j].lower():
+            return False
+        else:
+            i = i + 1
+            j = j - 1
+    return True
+
+def test_valid_palindrome():
+    s = "A man, a plan, a canal: Panama"
+    assert valid_palindrome(s) == True
+
+    s = "race a car"
+    assert valid_palindrome(s) == False
+
+    print('.')
+    return True
+
+"""
+    index of
+    start 21:33
+    finish coding and testing 21:41 
+"""
+def is_matching(needle, haystack, i):
+    if i + len(needle) > len(haystack):
+        return False
+
+    for j in range(len(needle)):
+        if not haystack[i+j] == needle[j]:
+            return False
+    return True
+
+def index_of(needle, haystack):
+    if not needle:
+        return 0
+
+    for i in range(len(haystack)-len(needle)):
+        if is_matching(needle, haystack, i):
+            return i
+    return -1
+
+def test_index_of():
+    needle = 'll'
+    haystack = 'hello'
+    assert index_of(needle, haystack) == 2
+
+    needle = 'bba'
+    haystack = 'aaaa'
+    assert index_of(needle, haystack) == -1
+
+    needle = ''
+    haystac = ''
+    assert index_of(needle, haystack) == 0
+
+    print('.')
+    return True
+
+"""
+    longest common prefix
+    start 21:45
+    finish: 21:55
+"""
+def longest_common_prefix(words):
+    if not words:
+        return ""
+
+    n = min([len(word) for word in words])
+
+    for i in range(n):
+        for j in range(1, len(words)):
+            if not words[j][i] == words[0][i]:
+                return words[0][:i]
+    return words[0][:n]
+
+def test_longest_common_prefix():
+    words = ["flower", "flow", "flight"]
+    assert longest_common_prefix(words) == "fl"
+
+    words = ["dog", "racecar", "car"]
+    assert longest_common_prefix(words) == ""
+    
+    print('.')
+    return True
+
+"""
+    reverse integer
+    start 22:02
+    finish: 22:12 
+"""
+
+def reverse_integer(x):
+    if x == 0:
+        return 0
+    if x < 0:
+        return -reverse_integer(-x)
+
+    s = str(x)
+    s_rev = s[::-1]
+
+    answer = 0
+    for i in range(len(s_rev)):
+        if not s_rev[i] == 0:
+            answer = int(s_rev[i:])
+            break
+
+    return answer
+
+def test_reverse_integer():
+    x = 123
+    assert reverse_integer(x) == 321
+
+    x = -123
+    assert reverse_integer(x) == -321
+
+    x = 120
+    assert reverse_integer(x) == 21
+
+    x = 0
+    assert reverse_integer(x) == 0
+
+    print('.')
+    return True
+
+"""
+    valid anagram
+    start 22:14
+    finish coding and testing 22:19 
+"""
+def valid_anagram(s, t):
+    counts_s = Counter(s)
+    counts_t = Counter(t)
+
+    for char in counts_s:
+        if not char in counts_t:
+            return False
+        if not counts_s[char] == counts_t[char]:
+            return False
+
+    for char in counts_t:
+        if not char in counts_s:
+            return False
+        if not counts_s[char] == counts_t[char]:
+            return False
+    return True
+
+def test_valid_anagram():
+    s = "anagram"
+    t = "nagaram"
+    assert valid_anagram(s, t) == True
+
+    s = "rat"
+    t = "car"
+    assert valid_anagram(s, t) == False
+    
+    print('.')
+    return True
+
+"""
+    string to integer
+    start 22:26
+    finish 22:54
+"""
+def a_to_i(s):
+    s = s.lstrip(' ')
+    if not s:
+        return 0
+
+    if not s[0].isdigit() and not s[0] in ['+', '-']:
+        return 0
+
+    n = 1
+    for i in range(1, len(s)):
+        if not s[i].isdigit():
+            break
+        n = n + 1
+
+    if s[0].isdigit():
+        return int(s[:n])
+    elif s[0] == '+':
+        return int(s[1:n])
+    elif s[0] == '-':
+        return -int(s[1:n])
+    else:
+        return 0
+
+def test_a_to_i():
+    s = '42'
+    assert a_to_i(s) == 42
+
+    s = "   -42"
+    assert a_to_i(s) == -42
+
+    s = "4193 with words"
+    assert a_to_i(s) == 4193
+
+    s = "words and 987"
+    assert a_to_i(s) == 0
+
+    print(".")
+    return True
 
 if __name__ == '__main__':
+    # array
+    print("array")
     test_remove_duplicates()
     test_rotate_array()
     test_single_number()
@@ -469,3 +737,15 @@ if __name__ == '__main__':
     test_array_intersection()
     test_move_zeros()
     test_valid_sudoku()
+
+    # string
+    print("string")
+    test_reverse_string()
+    test_first_unique_char()
+    test_valid_palindrome()
+    test_index_of()
+    test_longest_common_prefix()
+    test_reverse_integer()
+    test_valid_anagram()
+    test_a_to_i()
+
