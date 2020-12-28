@@ -648,7 +648,7 @@ def test_reverse_integer():
 """
     valid anagram
     start 22:14
-    finish 22:19 
+    finish coding and testing 22:19 
 """
 def valid_anagram(s, t):
     counts_s = Counter(s)
