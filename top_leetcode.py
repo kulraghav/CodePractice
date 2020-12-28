@@ -579,8 +579,36 @@ def test_index_of():
     print('.')
     return True
 
+"""
+    longest common prefix
+    start 21:45
+    finish: 21:55
+"""
+def longest_common_prefix(words):
+    if not words:
+        return ""
+
+    n = min([len(word) for word in words])
+
+    for i in range(n):
+        for j in range(1, len(words)):
+            if not words[j][i] == words[0][i]:
+                return words[0][:i]
+    return words[0][:n]
+
+def test_longest_common_prefix():
+    words = ["flower", "flow", "flight"]
+    assert longest_common_prefix(words) == "fl"
+
+    words = ["dog", "racecar", "car"]
+    assert longest_common_prefix(words) == ""
+    
+    print('.')
+    return True
+
 if __name__ == '__main__':
     # array
+    print("array")
     test_remove_duplicates()
     test_rotate_array()
     test_single_number()
@@ -594,9 +622,11 @@ if __name__ == '__main__':
     test_valid_sudoku()
 
     # string
+    print("string")
     test_reverse_string()
     test_first_unique_char()
     test_valid_palindrome()
     test_index_of()
+    test_longest_common_prefix()
 
 
