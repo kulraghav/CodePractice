@@ -456,8 +456,60 @@ def test_valid_sudoku():
     print('.')
     return  True
 
+"""
+    reverse string
+    start 10:02
+    finish coding and testing 10:06
+"""
+def reverse_string(chars):
+    i = 0
+    j = len(chars)-1
+
+    while i < j:
+        temp = chars[i]
+        chars[i] = chars[j]
+        chars[j] = temp
+        i = i + 1
+        j = j - 1
+
+    return chars
+
+def test_reverse_string():
+    chars = ['h','e','l','l','o']
+    assert reverse_string(chars) == ['o','l','l','e','h']
+
+    chars = list("Hannah")
+    assert reverse_string(chars) == list("hannaH")
+
+    print('.')
+    return True
+
+"""
+    first unique char
+    start 10:10
+    finish 10:15
+"""
+def first_unique_char(s):
+    counts = Counter(s)
+
+    for i in range(len(s)):
+        if counts[s[i]] == 1:
+            return i
+
+    return -1
+
+def test_first_unique_char():
+    s = "leetcode"
+    assert first_unique_char(s) == 0
+
+    s = "loveleetcode"
+    assert first_unique_char(s) == 2
+
+    print('.')
+    return True
 
 if __name__ == '__main__':
+    # array
     test_remove_duplicates()
     test_rotate_array()
     test_single_number()
@@ -469,3 +521,7 @@ if __name__ == '__main__':
     test_array_intersection()
     test_move_zeros()
     test_valid_sudoku()
+
+    # string
+    test_reverse_string()
+    test_first_unique_char()
