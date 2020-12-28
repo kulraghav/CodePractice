@@ -606,6 +606,79 @@ def test_longest_common_prefix():
     print('.')
     return True
 
+"""
+    reverse integer
+    start 22:02
+    finish: 22:12 
+"""
+
+def reverse_integer(x):
+    if x == 0:
+        return 0
+    if x < 0:
+        return -reverse_integer(-x)
+
+    s = str(x)
+    s_rev = s[::-1]
+
+    answer = 0
+    for i in range(len(s_rev)):
+        if not s_rev[i] == 0:
+            answer = int(s_rev[i:])
+            break
+
+    return answer
+
+def test_reverse_integer():
+    x = 123
+    assert reverse_integer(x) == 321
+
+    x = -123
+    assert reverse_integer(x) == -321
+
+    x = 120
+    assert reverse_integer(x) == 21
+
+    x = 0
+    assert reverse_integer(x) == 0
+
+    print('.')
+    return True
+
+"""
+    valid anagram
+    start 22:14
+    finish 22:19 
+"""
+def valid_anagram(s, t):
+    counts_s = Counter(s)
+    counts_t = Counter(t)
+
+    for char in counts_s:
+        if not char in counts_t:
+            return False
+        if not counts_s[char] == counts_t[char]:
+            return False
+
+    for char in counts_t:
+        if not char in counts_s:
+            return False
+        if not counts_s[char] == counts_t[char]:
+            return False
+    return True
+
+def test_valid_anagram():
+    s = "anagram"
+    t = "nagaram"
+    assert valid_anagram(s, t) == True
+
+    s = "rat"
+    t = "car"
+    assert valid_anagram(s, t) == False
+    
+    print('.')
+    return True
+
 if __name__ == '__main__':
     # array
     print("array")
@@ -628,5 +701,6 @@ if __name__ == '__main__':
     test_valid_palindrome()
     test_index_of()
     test_longest_common_prefix()
-
+    test_reverse_integer()
+    test_valid_anagram()
 
