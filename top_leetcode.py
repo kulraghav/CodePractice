@@ -723,6 +723,43 @@ def test_a_to_i():
     print(".")
     return True
 
+def update(word):
+    output = []
+    count = 1
+    char = word[0]
+    for i in range(1, len(word)):
+        if word[i] == char:
+            count = count + 1
+        else:
+            output.append("{}{}".format(count, char))
+            count = 1
+            char = word[i]
+
+    output.append("{}{}".format(count, char))
+
+    return ''.join(output)
+
+"""
+    count and say
+    start 10 20
+    finish 10 26
+"""
+def count_and_say(n):
+    answer = '1'
+    for i in range(1, n):
+        answer = update(answer)
+    return answer
+
+def test_count_and_say():
+    n = 1
+    assert count_and_say(1) == '1'
+
+    n = 4
+    assert count_and_say(4) == '1211'
+
+    print('.')
+    return True
+
 if __name__ == '__main__':
     # array
     print("array")
@@ -748,4 +785,5 @@ if __name__ == '__main__':
     test_reverse_integer()
     test_valid_anagram()
     test_a_to_i()
+    test_count_and_say()
 
