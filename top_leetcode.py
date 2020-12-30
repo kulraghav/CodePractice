@@ -778,7 +778,24 @@ def delete_node(linked_list_node):
 
     prev.next_node = None
     return linked_list_node
-    
+
+def reverse(head):
+    if not head:
+        return head
+    if not head.next_node:
+        return head
+
+    prev = None
+    current = head
+    while current:
+        temp = current.next_node
+        current.next_node = prev
+        prev = current
+        current = temp
+
+    return prev
+
+
 if __name__ == '__main__':
     # array
     print("array")
