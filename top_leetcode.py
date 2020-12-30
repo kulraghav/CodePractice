@@ -760,6 +760,25 @@ def test_count_and_say():
     print('.')
     return True
 
+"""
+    delete node
+"""
+class LinkedList:
+    def __init__(self, value, next_node=None):
+        self.val = value
+        self.next_node = next_node
+
+def delete_node(linked_list_node):
+    current = linked_list_node
+    prev = None
+    while current.next_node.next_node:
+        current.value = current.next_node.value
+        prev = current
+        current = current.next_node
+
+    prev.next_node = None
+    return linked_list_node
+    
 if __name__ == '__main__':
     # array
     print("array")
