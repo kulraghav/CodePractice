@@ -795,6 +795,51 @@ def reverse(head):
 
     return prev
 
+def is_palindrome(head):
+    if not head:
+        return True
+    if not head.next_node:
+        return True
+
+    # get length
+    n = 0
+    current = head
+    while current:
+        n = n + 1
+        current = current.next_node
+
+    m = n//2
+
+    current = head
+    for i in range(m-1):
+        current = current.next_node
+
+    
+    if n % 2 == 1:
+        right_half = current.next_node.next_node
+        left_half = head
+        current.next_node = None
+    else:
+        right_half = current.next_node
+        left_half = head
+        current.next_node = None
+
+    right_half_reversed = reverse(right_half)
+
+    current_left = head
+    current_right = right_half_reversed
+
+    while current_left and current_right:
+        if not current_left.value == current_right.value:
+            return False
+        current_left = current_left.next_node
+        current_right = current_right.next_node
+
+    return True
+
+
+        
+
 
 if __name__ == '__main__':
     # array
