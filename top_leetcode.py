@@ -865,6 +865,36 @@ def test_climbing_stairs():
     print('.')
     return True
 
+def maximum_subarray(numbers):
+    """
+        table : dict
+        table[i] := maximum sum of a contiguous subarray of numbers[:i] ending in numbers[i-1]
+        returns max{table[i]: 0<= i <=n)}
+    """
+    table = {}
+    table[0] = 0
+
+    for i in range(1, len(numbers)+1):
+        if table[i-1] < 0:
+            table[i] = numbers[i]
+        else:
+            table[i] = table[i-1] + numbers[i]
+
+    return max([table[i] for i in table if i != 0])
+
+def test_maximum_subarray():
+    numbers = [-2,1,-3,4,-1,2,1-5,4]
+    assert maximum_subarray(numbers) == 6
+
+    numbers = [1]
+    assert maximum_subarray(numbers) == 1
+
+    numbers = [0]
+    assert maximum_subarray(numbers) == 0
+    
+    numbers = [-1]
+    assert maximum_subarray(numbers) == -1
+
 if __name__ == '__main__':
     # array
     print("array")
