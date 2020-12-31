@@ -838,8 +838,32 @@ def is_palindrome(head):
     return True
 
 
-        
+def climbing_stairs(n):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
 
+    lag_2 = 1
+    lag_1 = 1
+
+    for i in range(2, n+1):
+        temp = lag_1
+        lag_1 = lag_1 + lag_2
+        lag_2 = temp
+
+    return lag_1
+
+
+def test_climbing_stairs():
+    n = 2
+    assert climbing_stairs(n) == 2
+
+    n = 3
+    assert climbing_stairs(n) == 3
+
+    print('.')
+    return True
 
 if __name__ == '__main__':
     # array
@@ -867,4 +891,7 @@ if __name__ == '__main__':
     test_valid_anagram()
     test_a_to_i()
     test_count_and_say()
+    
+    # DP
+    test_climbing_stairs()
 
