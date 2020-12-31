@@ -958,6 +958,7 @@ if __name__ == '__main__':
     test_count_and_say()
     
     # DP
+    print("dynamic programming")
     test_climbing_stairs()
 
     # sorting and searching
