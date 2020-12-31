@@ -837,6 +837,41 @@ def is_palindrome(head):
 
     return True
 
+def merge(A, B):
+    write_A = len(A)-1
+    read_A = len(A)-len(B)-1
+    read_B = len(B)-1
+
+    while read_A >= 0 and read_B >=0:
+        if A[read_A] > B[read_B]:
+            A[write_A] = A[read_A]
+            write_A = write_A - 1
+            read_A = read_A - 1
+        else:
+            A[write_A] = B[read_B]
+            write_A = write_A - 1
+            read_B = read_B - 1
+
+    if read_A > 0:
+        while read_A >= 0:
+            A[write_A] = A[read_A]
+            write_A = write_A - 1
+            read_A = read_A - 1
+    if read_B > 0:
+        while read_A >=0:
+            A[write_A] = B[read_B]
+            write_A = write_A - 1
+            read_B = read_B - 1
+     
+    return A
+
+def test_merge():
+    A = [1,2,3,0,0,0]
+    B = [2,5,6]
+
+    assert merge(A, B) == [1,2,2,3,5,6]
+    print('.')
+    return True
 
 def climbing_stairs(n):
     if n == 0:
@@ -924,4 +959,8 @@ if __name__ == '__main__':
     
     # DP
     test_climbing_stairs()
+
+    # sorting and searching
+    print("sorting and searching")
+    test_merge()
 
