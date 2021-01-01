@@ -930,6 +930,75 @@ def test_maximum_subarray():
     numbers = [-1]
     assert maximum_subarray(numbers) == -1
 
+"""
+    buy and sell once
+    start 1138
+    finish 1150
+"""
+def buy_and_sell_once(prices):
+    if not prices:
+        return 0
+
+    min_price = prices[0]
+    max_profit = 0
+
+    for i in range(1, len(prices)):
+        min_price = min(min_price, prices[i])
+        max_profit = max(max_profit, prices[i]-min_price)
+
+    return max_profit
+
+def test_buy_and_sell_once():
+    prices = [7,1,5,3,6,4]
+    assert buy_and_sell_once(prices) == 5
+
+    prices = [7,6,4,3,1]
+    assert buy_and_sell_once(prices) == 0
+
+    print('.')
+    return True
+        
+
+
+
+"""
+    first bad version
+    start: 1120
+    finish: 1135 
+"""
+def is_bad_version(x, bad):
+    return (x >= bad)
+
+def first_bad_version(n, bad):
+    answer = n+1
+
+    begin = 1
+    end = n
+
+    while begin <= end:
+        mid = (begin + end)//2
+        if is_bad_version(mid, bad):
+            answer = mid
+            end = mid - 1
+        else:
+            begin = mid + 1
+
+    return answer
+
+def test_first_bad_version():
+    n = 5
+    bad = 4
+    assert first_bad_version(n, bad) == 4
+
+    n = 1
+    bad = 1
+    assert first_bad_version(n, bad) == 1
+    
+    print('.')
+    return True
+
+
+
 if __name__ == '__main__':
     # array
     print("array")
@@ -960,8 +1029,10 @@ if __name__ == '__main__':
     # DP
     print("dynamic programming")
     test_climbing_stairs()
+    test_buy_and_sell_once()
 
     # sorting and searching
     print("sorting and searching")
     test_merge()
-
+    test_first_bad_version()
+    
