@@ -935,6 +935,7 @@ def test_maximum_subarray():
     start 1138
     finish 1150
 """
+
 def buy_and_sell_once(prices):
     if not prices:
         return 0
