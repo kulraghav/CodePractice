@@ -998,11 +998,136 @@ def test_first_bad_version():
     print('.')
     return True
 
+"""
+    3 sum
+    start 11 03
+    finish coding 11 17
+    finish testing 11 25
 
+    time : O(n^2 log n)
+    space: O(1)
+"""
+
+def add_zero_triplets(numbers, i, zero_triplets):
+    a = numbers[i]
+
+    j = i + 1
+    k = len(numbers)-1
+
+    while j < k:
+        if numbers[i] + numbers[j] + numbers[k] == 0:
+            zero_triplets.add(tuple(sorted([numbers[i], numbers[j], numbers[k]])))
+            j = j + 1
+            k = k - 1
+        elif numbers[i] + numbers[i] + numbers[k] < 0:
+            j = j + 1
+        else: # numbers[i] + numbers[j] + numbers[k] > 0
+            k = k - 1
+
+    return zero_triplets
+
+def three_sum(numbers):
+    numbers.sort()
+
+    zero_triplets = set()
+
+    for i in range(len(numbers)):
+        add_zero_triplets(numbers, i, zero_triplets)
+
+    return zero_triplets
+
+def test_three_sum():
+    numbers = [-1,0,1,2,-1,-4]
+    assert three_sum(numbers) == {(-1,-1,2),(-1,0,1)}
+
+    print('.')
+    return True
+
+"""
+    group anagrams
+    start : 11 28
+    finish coding : 11 38
+    finish testing: 12 01
+"""
+from collections import defaultdict
+
+def group_anagrams(words):
+    groups = defaultdict(list)
+
+    for word in words:
+        hash_word = ''.join(sorted(list(word)))
+        groups[hash_word].append(word)
+
+    return list(groups.values())
+    
+
+def test_group_anagrams():
+    words = ["eat","tea","tan","ate","nat","bat"]
+    assert sorted([sorted(group) for group in group_anagrams(words)]) ==  [["ate","eat","tea"],["bat"],["nat","tan"]]
+
+    words = [""]
+    assert group_anagrams(words) == [[""]]
+
+    words = ["a"]
+    assert group_anagrams([["a"]])
+
+
+"""
+    longest palindromic substring
+    start : 1201
+    finish coding: 1220
+    finish testing: 12 46
+    time: O(n^2)
+    space: O(n) if we count storing the substring (can be made O(1) if we return the indices of the substring start and end)
+
+
+"""
+def longest_palindromic_substring(word):
+    longest_len = 0
+    longest_substring = ""
+
+    for i in range(len(word)):
+        # find longest palindromic substring of odd length with i in center
+        current_len = 0
+        while i - current_len - 1 >= 0 and i + current_len + 1 < len(word) and word[i-current_len-1] == word[i + current_len + 1]:
+            current_len = current_len + 1
+      
+        if 2*current_len + 1  > longest_len:
+            longest_len = 2*current_len + 1
+            longest_substring = word[i-current_len: i + current_len + 1]
+
+        # find longest palindromic substring of even length with i as left of center
+        current_len = 0
+        while i-current_len >= 0 and i+current_len+1 < len(word) and word[i-current_len] == word[i+current_len+1]:
+            current_len = current_len + 1
+
+        if 2*current_len > longest_len:
+           longest_len = 2*current_len
+           longest_substring = word[i-current_len+1: i + current_len + 1]
+        
+    return longest_substring
+
+
+
+def test_longest_palindromic_substring():
+    word = "babad"
+    assert longest_palindromic_substring(word) in ["bab", "aba"]
+
+    word = "cbbd"
+    assert longest_palindromic_substring(word) == "bb"
+
+    word = "a"
+    assert longest_palindromic_substring(word) == 'a'
+
+    word = "ac"
+    assert longest_palindromic_substring(word) == 'a'
+
+    print('.')
+    return True
 
 if __name__ == '__main__':
     # array
-    print("array")
+    print("array: easy")
     test_remove_duplicates()
     test_rotate_array()
     test_single_number()
@@ -1014,6 +1139,10 @@ if __name__ == '__main__':
     test_array_intersection()
     test_move_zeros()
     test_valid_sudoku()
+    print("array: medium")
+    test_three_sum()
+    test_group_anagrams()
+    test_longest_palindromic_substring()
 
     # string
     print("string")
@@ -1036,4 +1165,5 @@ if __name__ == '__main__':
     print("sorting and searching")
     test_merge()
     test_first_bad_version()
+   
     
