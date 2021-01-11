@@ -1107,6 +1107,21 @@ def longest_palindromic_substring(word):
         
     return longest_substring
 
+def test_longest_palindromic_substring():
+    word = "babad"
+    assert longest_palindromic_substring(word) in ["bab", "aba"]
+
+    word = "cbbd"
+    assert longest_palindromic_substring(word) == "bb"
+
+    word = "a"
+    assert longest_palindromic_substring(word) == 'a'
+
+    word = "ac"
+    assert longest_palindromic_substring(word) == 'a'
+
+    print('.')
+    return True
 """
     permutations
     start 1028
@@ -1145,18 +1160,114 @@ def test_get_all_permutations():
     print('.')
     return True
 
-def test_longest_palindromic_substring():
-    word = "babad"
-    assert longest_palindromic_substring(word) in ["bab", "aba"]
+"""
+    evaluate reverse polish
+    start 1100
+    finish writing tests 1111
+    finish coding 1118
+    finish testing 1139
 
-    word = "cbbd"
-    assert longest_palindromic_substring(word) == "bb"
+"""
 
-    word = "a"
-    assert longest_palindromic_substring(word) == 'a'
+def apply_op(op, a, b):
+    a = int(a)
+    b = int(b)
+    if op == '*':
+        return a * b
+    if op == '/':
+        if a // b >= 0:
+            return a // b
+        else:
+            return - (-a // b)
+    if op == '+':
+        return a + b
+    if op == '-':
+        return a - b
 
-    word = "ac"
-    assert longest_palindromic_substring(word) == 'a'
+def is_number(symbol):
+    if not symbol:
+        return False
+    if symbol[0] == '-':
+        return is_number(symbol[1:])
+    return symbol.isnumeric()
+
+def evaluate_reverse_polish(expression):
+    stack = []
+    for symbol in expression:
+        if is_number(symbol):
+            stack.append(int(symbol))
+        else: # symbol is an op
+            op = symbol
+            b = stack.pop()
+            a = stack.pop()
+            stack.append(apply_op(op, a, b))
+    return stack[-1]
+
+def test_evaluate_reverse_polish():
+    expression = ["2", "1", "+", "3", "*"]
+    answer = evaluate_reverse_polish(expression)
+    assert answer == 9
+
+    expression = ["4", "13", "5", "/", "+"] 
+    answer = evaluate_reverse_polish(expression) 
+    assert answer == 6
+
+    expression = ["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"]
+    answer = evaluate_reverse_polish(expression) 
+    assert answer == 22
+    print('.')
+    return True
+
+
+"""
+    generate parentheses
+    start 1258
+    finish coding 1316
+    finish testing 1326
+"""
+
+
+def add_balanced_extensions(output, prefix, open_count, close_count, n):
+    if open_count < close_count:
+        return
+    if open_count > n:
+        return
+
+    if open_count + close_count == 2*n:
+        output.add(''.join(prefix))
+        return 
+
+    if open_count == close_count:
+        prefix.append("(")
+        add_balanced_extensions(output, prefix, open_count+1, close_count, n)
+        prefix.pop()
+    else: # open_count > close_count
+        prefix.append("(")
+        add_balanced_extensions(output, prefix, open_count+1, close_count, n)
+        prefix.pop()
+
+        prefix.append(")")
+        add_balanced_extensions(output, prefix, open_count, close_count+1, n)
+        prefix.pop()
+    return 
+    
+def generate_parentheses(n):
+    if n == 0:
+        return [""]
+
+    output = set()
+    add_balanced_extensions(output, [], 0, 0, n)
+
+    return output
+
+def test_generate_parentheses():
+    n = 3
+    answer = generate_parentheses(n)
+    assert set(answer) == set(["((()))","(()())","(())()","()(())","()()()"])
+
+    n = 1
+    answer = generate_parentheses(n)
+    assert set(answer) == set(["()"])
 
     print('.')
     return True
@@ -1205,3 +1316,10 @@ if __name__ == '__main__':
     # backtracking
     print("backtracking: medium")
     test_get_all_permutations()
+    test_generate_parentheses()
+
+    # others
+    print("other: medium")
+    test_evaluate_reverse_polish()
+
+   
