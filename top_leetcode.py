@@ -1107,7 +1107,43 @@ def longest_palindromic_substring(word):
         
     return longest_substring
 
+"""
+    permutations
+    start 1028
+    finish writing test cases 1038
+    finish coding 1046
+    finish testing 1052
+"""
+def get_all_permutations(numbers):
+    if not numbers:
+        return [[]]
 
+    permutations = []
+    for i in range(len(numbers)):
+        tail_numbers = [numbers[j] for j in range(len(numbers)) if j != i]
+        tail_permutations = get_all_permutations(tail_numbers)
+        for tail_permutation in tail_permutations:
+            permutations.append([numbers[i]] + tail_permutation)
+    return permutations
+
+def test_get_all_permutations():
+    def to_set(permutations):
+        return set([tuple(permutation) for permutation in permutations])
+
+    numbers = [1]
+    answer = get_all_permutations(numbers)
+    assert to_set(answer) == to_set([[1]])
+    
+    numbers = [1,2]
+    answer = get_all_permutations(numbers)
+    assert to_set(answer) == to_set([[1,2],[2,1]])
+
+    numbers = [1,2,3]
+    answer = get_all_permutations(numbers)
+    assert to_set(answer) == to_set([[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]])
+    
+    print('.')
+    return True
 
 def test_longest_palindromic_substring():
     word = "babad"
@@ -1166,4 +1202,6 @@ if __name__ == '__main__':
     test_merge()
     test_first_bad_version()
    
-    
+    # backtracking
+    print("backtracking: medium")
+    test_get_all_permutations()
