@@ -1272,6 +1272,98 @@ def test_generate_parentheses():
     print('.')
     return True
 
+"""
+    merge intervals
+    start 1535
+    finish writing tests started coding 1540
+    finish testing 1546
+"""
+
+def merge_intervals(intervals):
+    if not intervals:
+        return intervals
+
+    intervals.sort(key=lambda x:x[0]) # sort by start time
+
+    output = [intervals[0]]
+    for i in range(1, len(intervals)):
+        prev_start = output[-1][0]
+        prev_end = output[-1][1]
+        current_start = intervals[i][0]
+        current_end = intervals[i][1]
+
+        if current_start <= prev_end:
+            output.pop()
+            output.append([prev_start, current_end])
+        else:
+            output.append([current_start, current_end])
+    return output
+
+def test_merge_intervals():
+    intervals = [[1,3],[2,6],[8,10],[15,18]]
+    assert merge_intervals(intervals) == [[1,6],[8,10],[15,18]]
+
+    intervals = [[1,4],[4,5]]
+    assert merge_intervals(intervals) == [[1,5]]
+
+
+    print('.')
+    return True
+
+"""
+    factorial trailing zeroes
+    start 1550
+    finish writing tests: 1554
+    finish coding brute force: 1559
+    finish testing brute force: 1600
+    found the answer to followup question: 1610
+    finish coding optimal solution: 1615
+"""
+
+def get_largest_expo(x, n):
+    largest_expo = 0
+    while n % x == 0:
+        largest_expo = largest_expo + 1
+        n = n // x
+    return largest_expo
+
+def factorial_trailing_zeroes_brute_force(n):
+    two_expo = 0
+    five_expo = 0
+
+    for i in range(1, n+1):
+        two_expo = two_expo + get_largest_expo(2, i)
+        five_expo = five_expo + get_largest_expo(5, i)
+
+    return min(two_expo, five_expo)
+
+def get_largest_expo_fact(x, n):
+    largest_expo_fact = 0
+    while x <= n:
+        largest_expo_fact = largest_expo_fact + n // x
+        n = n // x
+    return largest_expo_fact
+
+def factorial_trailing_zeroes(n):
+    two_expo_fact = get_largest_expo_fact(2, n)
+    five_expo_fact = get_largest_expo_fact(5, n)
+    return min(two_expo_fact, five_expo_fact)
+
+def test_factorial_trailing_zeroes():
+    n = 3
+    assert factorial_trailing_zeroes(n) == 0
+
+    n = 5
+    assert factorial_trailing_zeroes(n) == 1
+
+    n = 0
+    assert factorial_trailing_zeroes(n) == 0
+    print('.')
+    return True
+
+    
+
+
 if __name__ == '__main__':
     # array
     print("array: easy")
@@ -1309,14 +1401,21 @@ if __name__ == '__main__':
     test_buy_and_sell_once()
 
     # sorting and searching
-    print("sorting and searching")
+    print("sorting and searching: easy")
     test_merge()
     test_first_bad_version()
+
+    print("sorting and searching: medium")
+    test_merge_intervals()
    
     # backtracking
     print("backtracking: medium")
     test_get_all_permutations()
     test_generate_parentheses()
+
+    # math
+    print("math: medium")
+    test_factorial_trailing_zeroes()
 
     # others
     print("other: medium")
