@@ -1362,8 +1362,99 @@ def test_factorial_trailing_zeroes():
     return True
 
     
+"""
+    generate subsets
+    start 1135
+    finish coding recursive: 1142
+    finish testing 1145
+    finish coding space efficient version: 1157
 
+"""
 
+def add_extensions(prefix, numbers, output):
+    if len(prefix) == len(numbers):
+        output.append([numbers[i] for i in range(len(numbers)) if prefix[i]==1])
+        return 
+
+    prefix.append(0)
+    add_extensions(prefix, numbers, output)
+    prefix.pop()
+
+    prefix.append(1)
+    add_extensions(prefix, numbers, output)
+    prefix.pop()
+    return
+
+    
+def generate_subsets(numbers):
+    output = []
+    prefix = []
+    add_extensions(prefix, numbers, output)
+    return output
+
+def generate_subsets_brute_force(numbers):
+    if not numbers:
+        return [[]]
+
+    output = []
+    tail_subsets = generate_subsets(numbers[:-1])
+    for tail_subset in tail_subsets:
+        output.append(tail_subset)
+        output.append(tail_subset + [numbers[-1]])
+    return output
+
+def test_generate_subsets():
+    def to_set(A):
+        return set([tuple(a) for a in A])
+
+    numbers = [1,2,3]
+    answer = generate_subsets(numbers)
+    assert to_set(answer) == to_set([[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]])
+
+    numbers = [0]
+    answer = generate_subsets(numbers)
+    assert to_set(answer) == to_set([[],[0]])
+    print('.')
+    return True
+
+"""
+    top k most frequent
+    start: 1200
+    finished nlogn : 1208
+
+"""
+
+from collections import Counter
+from heapq import heapify, heappush, heappop
+def top_k_most_freq(numbers, k):
+    counts = Counter(numbers)
+    heap = []
+    heapify([])
+    for number in counts:
+        heappush(heap, (counts[number], number))
+        if len(heap) > k:
+            heappop(heap)
+
+    heap.sort(reverse=True)
+    return [x[1] for x in heap]
+
+def top_k_most_freq_nlogn(numbers, k):
+    counts = Counter(numbers)
+    output = sorted([x for x in counts], key=lambda x:counts[x], reverse=True)
+    return output[:k]
+
+def test_top_k_most_freq():
+    numbers = [1,1,1,2,2,3]
+    k = 2
+    answer = top_k_most_freq(numbers, k)
+    print(answer)
+    assert top_k_most_freq(numbers, k) == [1,2]
+
+    numbers = [1]
+    k = 1
+    assert top_k_most_freq(numbers, k) == [1]
+    print('.')
+    
 if __name__ == '__main__':
     # array
     print("array: easy")
@@ -1407,11 +1498,13 @@ if __name__ == '__main__':
 
     print("sorting and searching: medium")
     test_merge_intervals()
+    test_top_k_most_freq()
    
     # backtracking
     print("backtracking: medium")
     test_get_all_permutations()
     test_generate_parentheses()
+    test_generate_subsets()
 
     # math
     print("math: medium")
