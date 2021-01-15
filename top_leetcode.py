@@ -1454,7 +1454,187 @@ def test_top_k_most_freq():
     k = 1
     assert top_k_most_freq(numbers, k) == [1]
     print('.')
+
+"""
+    bfs:
+    start 1555
+    end 1603
+"""
+from collections import deque
+def bfs(G, s):
+    if not s in G:
+        return {}
+
+    queue = deque([])
+    distances = {s: 0}
+
+    while queue:
+        u = queue.popleft()
+        for v in G[u]:
+            if not v in distances:
+                distances[v] = distances[u] + 1
+                queue.append(v)
+
+    return distances
+
+"""
+    dfs
+    start: 1605
+    end: 1615
+"""
+import math
+_undefined = math.inf
+
+def get_next_unvisited_neighbor(u, G, visits):
+    for v in G[u]:
+        if not v in visits:
+            return v
+    return None
+
+def dfs(G, s):
+    stack = [s]
+    t = 0
+    visits = {s: [0, _undefined]}
+
+    while stack:
+        t = t + 1
+        u = stack[-1]
+        v = get_next_unvisited_neighbor(u, G, visits)
+        if not v:
+            visits[v] = [t, _undefined]
+        else:
+            visits[u][1] = t
+            stack.pop()
+    return visits
+
+"""
+    topo sort
+"""
+def topo_sort_quadratic(G):
+    if not G:
+        return []
+
+    output = []
+    while G:
+        sink = get_next_sink(G)
+        output.append(sink)
+
+        for v in G:
+            G[v].remove(sink)
+        del G[sink]
+
+    return output
+"""
+    word search
+    start : 1028
+    finish writing test: 1037
+    finish coding: 1046
+    finish testing: 1103
+"""
+def get_next_cells(prefix, prefix_set, board, word):
+    i, j = prefix[-1][0], prefix[-1][1]
+
+    m = len(board)
+    n = len(board[0])
+
+    next_cells = []
+    candidates = [(i+1,j), (i-1,j), (i,j+1),(i,j-1)]
+    for candidate in candidates:
+        a,b = candidate
+        if not (a,b) in prefix_set and 0<= a < m and 0<= b < n and board[a][b]==word[len(prefix)]:
+            next_cells.append((a,b))
+
+    return next_cells
     
+def search_extension(prefix, prefix_set, board, word):
+    if len(prefix) == len(word):
+        return True
+    
+    next_cells = get_next_cells(prefix, prefix_set, board, word)
+
+    for next_cell in next_cells:
+        prefix.append(next_cell)
+        prefix_set.add(next_cell)
+        if search_extension(prefix, prefix_set, board, word):
+            return True
+        prefix.pop()
+        prefix_set.discard(next_cell)
+    return False
+
+def word_search(board, word):
+    if not board:
+        return False
+
+    m = len(board)
+    n = len(board[0])
+
+    for i in range(m):
+        for j in range(n):
+            prefix = [(i,j)]
+            prefix_set = set(prefix)
+            if search_extension(prefix, prefix_set, board, word):
+                return True
+    return False
+
+def test_word_search():
+    board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]]
+    word = "ABCCED"
+    assert word_search(board, word) == True
+
+    board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]]
+    word = "SEE" 
+    assert word_search(board, word) == True
+
+    board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]]
+    word = "ABCB"
+    assert word_search(board, word) == False
+    print('.')
+    return True
+
+
+def binary_left_search(target, numbers):
+    begin_index = 0
+    end_index = len(numbers)-1
+
+    left_search_index = -1
+    while begin_index <= end_index:
+        mid_index = (begin_index + end_index) // 2
+        if numbers[mid_index] == target:
+            left_search_index = mid_index
+            end_index = mid_index-1
+        elif numbers[mid_index] > target:
+            end_index = mid_index-1
+        else: # numbers[mid_index] < target
+            begin_index = mid_index + 1
+    return left_search_index
+
+def binary_left_search_djn(key, nums):
+    """search for left most position of key in sorted array nums[start:stop]"""
+    if len(nums) == 0:
+        return -1
+    left, right = 0, len(nums)
+    while left < right:
+        mid = (left + right) // 2
+        if key <= nums[mid]:
+            if nums[mid] == key and (mid == 0 or nums[mid - 1] < key):
+                return mid
+            right = mid
+        else:
+            left = mid + 1
+    return -1
+
+def test_binary_left_search():
+    key = 1
+    nums = [1,1,1]
+    assert binary_left_search(1, nums) == 0
+
+    key = 2
+    nums = [1,1,1]
+    assert binary_left_search(2, nums) == -1
+
+    print('.')
+    return True
+
 if __name__ == '__main__':
     # array
     print("array: easy")
@@ -1495,6 +1675,7 @@ if __name__ == '__main__':
     print("sorting and searching: easy")
     test_merge()
     test_first_bad_version()
+    test_binary_left_search()
 
     print("sorting and searching: medium")
     test_merge_intervals()
@@ -1505,6 +1686,7 @@ if __name__ == '__main__':
     test_get_all_permutations()
     test_generate_parentheses()
     test_generate_subsets()
+    test_word_search()
 
     # math
     print("math: medium")
