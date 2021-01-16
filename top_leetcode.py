@@ -1635,6 +1635,29 @@ def test_binary_left_search():
     print('.')
     return True
 
+from collections import deque
+def topo_sort(G):
+    G_inv = {}
+    for u in G:
+        G_inv[u] = []
+    for u in G:
+        for v in G[u]:
+            G_inv[v].append(u)
+
+    outdegrees = [len(v) for v in G]
+    zero_outdegree_vertices = deque([v for v in G if len(G[v]) == 0])
+    output = []
+    while zero_outdegree_vertices:
+        u = outdegrees.popleft()
+        output.append(u)
+        for v in G_inv[u]:
+            outdegrees[v] = outdegrees[v] - 1
+            if outdegrees[v] == 0:
+                zero_outdegree_vertices.append(v)
+    return output
+
+
+
 if __name__ == '__main__':
     # array
     print("array: easy")
