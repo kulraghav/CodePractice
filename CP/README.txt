@@ -1,4 +1,4 @@
-This folder contains python implementations of the basic algorithms that are useful for competitive programming.
+This folder contains python implementations of some of the basic algorithms. These algorithms might be useful in the context of competitive programming.
 
 References:
 	- https://cp-algorithms.com/
