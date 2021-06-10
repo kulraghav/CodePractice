@@ -1,6 +1,13 @@
 """
     This file contains tests for the functions in algo.py
 """
+
+def test_always_fails():
+    assert False
+
+def test_always_passes():
+    assert True
+
 def test_expo():
     from algo import expo
 
