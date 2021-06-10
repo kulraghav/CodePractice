@@ -36,4 +36,39 @@ def test_expo():
     b = 2 
     assert expo(a, b) == 9
 
+    print('.')
+    return
+
+def test_expo_iterative():
+    from algo import expo_iterative
+
+    a = 0
+    b = 0
+    assert expo_iterative(a, b) == 1
+
+    a = 1
+    b = 1
+    assert expo_iterative(a, b) == 1
+
+    a = 2
+    b = 0
+    assert expo_iterative(a, b) == 1
+
+    a = 5
+    b = 0
+    assert expo_iterative(a, b) == 1
+
+    a = 4
+    b = 1
+    assert expo_iterative(a, b) == 4
+
+    a = 7
+    b = 1
+    assert expo_iterative(a, b) == 7
+
+    a = 2
+    b = 3
+    assert expo_iterative(a, b) == 8
+
+    print('.')
     return

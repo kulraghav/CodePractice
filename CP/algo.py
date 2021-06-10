@@ -21,3 +21,11 @@ def expo(a, b):
         return half_expo*half_expo*a
 
 
+def expo_iterative(a, b):
+    answer = 1
+    while b > 0:
+        if b % 2 == 1:
+            answer = answer * a
+        a = a * a
+        b = b//2
+    return answer
