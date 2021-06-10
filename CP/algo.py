@@ -110,4 +110,12 @@ def gcd_coef_iterative(a, b):
     g, x, y = b, x_b, y_b
     return g, x, y
 
+if __name__ == '__main__':
+    from line_profiler import LineProfiler
+    lp = LineProfiler()
+    
+    lp(expo)(2,30)
+    lp.print_stats()
 
+    lp(expo_iterative)(2,30)
+    lp.print_stats()
