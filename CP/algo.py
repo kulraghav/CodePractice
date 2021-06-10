@@ -165,6 +165,36 @@ def fibo(n):
     
     return f
 
+"""
+    min-stack
+"""
+import math
+class MinStack:
+    _infinity = math.inf
+
+    def __init__(self):
+        self.elems = []
+        self.mins = []
+
+    def push(self, elem):
+        min_below = self.get_min()
+
+        self.elems.append(elem)
+        self.mins.append(min(elem, min_below))
+
+    def pop(self):
+        answer = self.elems.pop()
+        self.mins.pop()
+        return answer
+
+    def get_min(self):
+        if not self.mins:
+            return self._infinity
+
+        answer = self.mins[-1]
+        return answer
+
+
 if __name__ == '__main__':
     from line_profiler import LineProfiler
     lp = LineProfiler()

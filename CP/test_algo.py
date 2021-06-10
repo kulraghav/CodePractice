@@ -204,3 +204,29 @@ def test_fibo():
     assert fibo(n) == 5
     
     return
+
+
+def test_min_stack():
+    from algo import MinStack
+    import math
+
+    ms = MinStack()
+    assert ms.get_min() == math.inf
+
+    ms.push(3)
+    assert ms.get_min() == 3
+
+    ms.push(2)
+    assert ms.get_min() == 2
+
+    ms.push(5)
+    assert ms.get_min() == 2
+
+    ms.pop()
+    assert ms.get_min() == 2
+
+    ms.pop()
+    assert ms.get_min() == 3
+
+    return
+
