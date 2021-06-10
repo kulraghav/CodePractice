@@ -230,3 +230,26 @@ def test_min_stack():
 
     return
 
+def test_min_queue():
+    from algo import MinQueue
+    import math
+
+    ms = MinQueue()
+    assert ms.get_min() == math.inf
+
+    ms.push(3)
+    assert ms.get_min() == 3
+
+    ms.push(2)
+    assert ms.get_min() == 2
+
+    ms.push(5)
+    assert ms.get_min() == 2
+
+    ms.pop()
+    assert ms.get_min() == 2
+
+    ms.pop()
+    assert ms.get_min() == 5
+
+    return

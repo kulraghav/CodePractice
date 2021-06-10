@@ -194,6 +194,31 @@ class MinStack:
         answer = self.mins[-1]
         return answer
 
+    def is_empty(self):
+        if not self.elems:
+            return True
+        return False
+
+class MinQueue:
+    def __init__(self):
+        self.push_min_stack = MinStack()
+        self.pop_min_stack = MinStack()
+
+    def push(self, elem):
+        self.push_min_stack.push(elem)
+
+    def pop(self):
+        if self.pop_min_stack.is_empty():
+            while not self.push_min_stack.is_empty():
+                self.pop_min_stack.push(self.push_min_stack.pop())
+
+        return self.pop_min_stack.pop()
+
+    def get_min(self):
+        return min(self.push_min_stack.get_min(), self.pop_min_stack.get_min())
+
+    def is_empty(self):
+        return self.push_min_stack.is_empty() and self.pop_min_stack.is_empty()
 
 if __name__ == '__main__':
     from line_profiler import LineProfiler
