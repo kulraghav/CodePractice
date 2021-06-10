@@ -110,6 +110,61 @@ def gcd_coef_iterative(a, b):
     g, x, y = b, x_b, y_b
     return g, x, y
 
+
+def transpose(A):
+    A_t = []
+    m = len(A)
+    n = len(A[0])
+
+    for i in range(m):
+        A_t.append([])
+        for j in range(n):
+            A_t[i].append(A[j][i])
+    return A_t
+
+def dot(u, v):
+    answer = 0
+    for i in range(len(u)):
+        answer = answer + u[i]*v[i]
+    return answer
+
+def matrix_mult(A, B):
+    B_t = transpose(B)
+
+    m = len(A)
+    n = len(A[0])
+
+    C = []
+    for i in range(m):
+        C.append([])
+        for j in range(n):
+            C[i].append(dot(A[i], B_t[j]))
+    return C
+
+def matrix_expo(M, n):
+    I = [[1,0],[0,1]]
+    answer = I
+   
+    while n > 0:
+        if n % 2 == 1:
+            answer = matrix_mult(answer, M)
+        M = matrix_mult(M, M)
+        n = n // 2
+    return answer
+
+def fibo(n):
+    """
+        (f_n, f_n+1) = (f_0, f_1) x ((0, 1),(1, 0))
+    """
+
+    M = [[0, 1],[1, 1]]
+    P = matrix_expo(M, n)
+
+    f_0, f_1 = 0, 1
+    [[f, f_next]] = matrix_mult([[f_0, f_1]], P)
+    
+    return f
+
 if __name__ == '__main__':
     from line_profiler import LineProfiler
     lp = LineProfiler()
@@ -119,3 +174,5 @@ if __name__ == '__main__':
 
     lp(expo_iterative)(2,30)
     lp.print_stats()
+
+    fibo(2)

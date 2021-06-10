@@ -179,3 +179,28 @@ def test_gcd_coef_iterative():
     g, x, y = gcd_coef_iterative(a, b)
     assert x*a + y*b == g
     assert g == 7
+
+    return
+
+def test_fibo():
+    from algo import fibo
+
+    n = 0
+    assert fibo(n) == 0
+
+    n = 1
+    assert fibo(n) == 1
+
+    n = 2
+    assert fibo(n) == 1
+
+    n = 3
+    assert fibo(n) == 2
+
+    n = 4
+    assert fibo(n) == 3
+
+    n = 5
+    assert fibo(n) == 5
+    
+    return
