@@ -166,7 +166,7 @@ def fibo(n):
     return f
 
 """
-    min-stack
+    min-stack, min-queue, and rolling min
 """
 import math
 class MinStack:
@@ -201,24 +201,40 @@ class MinStack:
 
 class MinQueue:
     def __init__(self):
-        self.push_min_stack = MinStack()
-        self.pop_min_stack = MinStack()
+        self.push_stack = MinStack()
+        self.pop_stack = MinStack()
 
     def push(self, elem):
-        self.push_min_stack.push(elem)
+        self.push_stack.push(elem)
 
     def pop(self):
-        if self.pop_min_stack.is_empty():
-            while not self.push_min_stack.is_empty():
-                self.pop_min_stack.push(self.push_min_stack.pop())
+        if self.pop_stack.is_empty():
+            while not self.push_stack.is_empty():
+                self.pop_stack.push(self.push_stack.pop())
 
-        return self.pop_min_stack.pop()
+        return self.pop_stack.pop()
 
     def get_min(self):
-        return min(self.push_min_stack.get_min(), self.pop_min_stack.get_min())
+        return min(self.push_stack.get_min(), self.pop_stack.get_min())
 
     def is_empty(self):
-        return self.push_min_stack.is_empty() and self.pop_min_stack.is_empty()
+        return self.push_stack.is_empty() and self.pop_stack.is_empty()
+
+def rolling_min(A, k):
+    if not A:
+        return []
+
+    mq = MinQueue()
+    for i in range(min(len(A), k)):
+        mq.push(A[i])
+    
+    output = []
+    output.append(mq.get_min())
+    for i in range(k, len(A)):
+        mq.pop()
+        mq.push(A[i])
+        output.append(mq.get_min())
+    return output
 
 if __name__ == '__main__':
     from line_profiler import LineProfiler
@@ -230,4 +246,4 @@ if __name__ == '__main__':
     lp(expo_iterative)(2,30)
     lp.print_stats()
 
-    fibo(2)
+    

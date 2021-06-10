@@ -205,7 +205,6 @@ def test_fibo():
     
     return
 
-
 def test_min_stack():
     from algo import MinStack
     import math
@@ -253,3 +252,22 @@ def test_min_queue():
     assert ms.get_min() == 5
 
     return
+
+def test_rolling_min():
+    from algo import rolling_min
+
+    A = []
+    k = 1
+    assert rolling_min(A, k) == []
+
+    A = [3,2,1]
+    k = 1
+    assert rolling_min(A, k) == [3,2,1]
+
+    A = [5,3,1,2,4]
+    k = 2
+    assert rolling_min(A, k) == [3, 1, 1, 2] 
+
+    A = [1,2,3]
+    k = 3
+    assert rolling_min(A, k) == [1]
