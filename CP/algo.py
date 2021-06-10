@@ -43,3 +43,36 @@ def gcd(a, b):
     r = b % a
     return gcd(r, a)
 
+
+def gcd_coef(a, b):
+    if a > b:
+        g, x, y = gcd_cof(b, a)
+        return g, y, x
+
+    if a == 0:
+        return b, 0, 1
+
+    r = b % a
+    d = b // a
+
+    g, x, y = gcd_coef(r, a)
+
+    """
+        x*r + y*a = g
+        x*(b - d*a) + y*a = g
+        x*b + (y-d*x)a = g
+        => return g, (y-d*x), x
+    """
+    return g, (y-d*x), x
+    
+
+def gcd_iterative(a, b):
+    a, b = min(a, b), max(a, b)
+    while a > 0:
+        r = b % a
+        b = a
+        a = r
+    return b
+
+
+
