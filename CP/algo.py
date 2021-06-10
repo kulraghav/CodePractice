@@ -25,7 +25,21 @@ def expo_iterative(a, b):
     answer = 1
     while b > 0:
         if b % 2 == 1:
-            answer = answer * a
-        a = a * a
+            answer = answer*a
+        a = a*a
         b = b//2
     return answer
+
+
+"""
+    Extended Euclidean Algorithm (gcd)
+"""
+
+def gcd(a, b):
+    a, b = min(a, b), max(a, b)
+    if a == 0:
+        return b
+
+    r = b % a
+    return gcd(r, a)
+

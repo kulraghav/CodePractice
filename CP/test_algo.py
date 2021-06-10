@@ -36,7 +36,6 @@ def test_expo():
     b = 2 
     assert expo(a, b) == 9
 
-    print('.')
     return
 
 def test_expo_iterative():
@@ -70,5 +69,25 @@ def test_expo_iterative():
     b = 3
     assert expo_iterative(a, b) == 8
 
-    print('.')
+    return
+
+def test_gcd():
+    from algo import gcd
+
+    a = 0
+    b = 2
+    assert gcd(a, b) == 2
+
+    a = 1
+    b = 4
+    assert gcd(a, b) == 1
+
+    a = 6
+    b = 8
+    assert gcd(a, b) == 2
+
+    a = 7
+    b = 7
+    assert gcd(a, b) == 7
+
     return
