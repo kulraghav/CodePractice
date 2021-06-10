@@ -20,7 +20,6 @@ def expo(a, b):
     else:
         return half_expo*half_expo*a
 
-
 def expo_iterative(a, b):
     answer = 1
     while b > 0:
@@ -29,7 +28,6 @@ def expo_iterative(a, b):
         a = a*a
         b = b//2
     return answer
-
 
 """
     Extended Euclidean Algorithm (gcd)
@@ -65,7 +63,6 @@ def gcd_coef(a, b):
     """
     return g, (y-d*x), x
     
-
 def gcd_iterative(a, b):
     a, b = min(a, b), max(a, b)
     while a > 0:
@@ -74,5 +71,43 @@ def gcd_iterative(a, b):
         a = r
     return b
 
+def gcd_coef_iterative(a, b):
+    x_a, y_a = 1, 0
+    x_b, y_b = 0, 1
+
+    """
+        (a, b) -> (b % a, a)
+
+        a = x_a*a_init + y_a*a_init
+        b = x_b*b_init + y_b*b_init
+
+        r = b % a
+        d = b // a
+
+        r = b - d*a
+          = (x_b*a_init + y_b*b_init) - d*(x_a*a_init + y_a*b_init)
+
+        a = x_a*a_init + y_a*a_init
+
+        =>
+        x_a, y_a = x_b - d*x_a, y_b - d*y_a
+        x_b, y_b = x_a, y_a
+        
+    """
+
+    while a > 0:
+        r = b % a
+        d = b // a
+        b = a
+        a = r
+        
+        x_a_temp, y_a_temp = x_a, y_a
+        x_b_temp, y_b_temp = x_b, y_b
+
+        x_a, y_a = x_b_temp - d*x_a_temp, y_b_temp - d*y_a_temp
+        x_b, y_b = x_a_temp, y_a_temp
+
+    g, x, y = b, x_b, y_b
+    return g, x, y
 
 

@@ -143,3 +143,32 @@ def test_gcd_coef():
     assert g == 7
 
     return
+
+def test_gcd_coef_iterative():
+    from algo import gcd_coef_iterative
+
+    a = 0
+    b = 2
+
+    g, x, y = gcd_coef_iterative(a, b)
+    assert g == 2
+    assert x*a + y*b == g
+
+    a = 1
+    b = 4
+    g, x, y = gcd_coef_iterative(a, b)
+    assert x*a + y*b == g
+    assert g == 1
+    
+
+    a = 6
+    b = 8
+    g, x, y = gcd_coef_iterative(a, b)
+    assert x*a + y*b == g
+    assert g == 2
+
+    a = 7
+    b = 7
+    g, x, y = gcd_coef_iterative(a, b)
+    assert x*a + y*b == g
+    assert g == 7
