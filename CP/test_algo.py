@@ -290,3 +290,22 @@ def test_rolling_min_monotone_deque():
     A = [1,2,3]
     k = 3
     assert rolling_min_monotone_deque(A, k) == [1]
+
+from algo import SparseRangeMin
+class TestSparseRangeMin:
+
+    def test_range_min(self):
+        numbers = [0,1,2,3,4,5]
+        srm = SparseRangeMin(numbers)
+
+        assert srm.range_min(0, 5) == 0
+        assert srm.range_min(1, 4) == 1
+        assert srm.range_min(2, 3) == 2
+        assert srm.range_min(4, 4) == 4
+        
+        return
+
+
+if __name__ == '__main__':
+    test = TestSparseRangeMin()
+    test.test_range_min()

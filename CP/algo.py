@@ -293,6 +293,44 @@ def rolling_min_monotone_deque(A, k):
         output.append(monotone_deque.min())
     return output
 
+import math
+class SparseRangeMin:
+    def __init__(self, numbers):
+        self.numbers = numbers
+
+        """
+            segment_mins[(i,j)] = min(A[i:i+2**j])
+
+            min(A[i:i+2**j]) = min(min(A[i:i+2**(j-1)]), 
+                                   min(A[i+2**(j-1):i+2**j]))
+
+            segment_mins[(i,j)] = min(segment_mins[(i,j-1)],
+                                      segment_mins[(i+2**(j-1),j-1)]
+        """
+        self.n = len(self.numbers)
+        self.k = math.ceil(math.log2(self.n))
+        
+        self.segment_mins = {}
+        for i in range(self.n):
+            self.segment_mins[(i, 0)] = self.numbers[i]
+
+        for j in range(1, self.k):
+            for i in range(self.n):
+                self.segment_mins[(i, j)] = self.segment_mins[(i, j-1)]
+
+                i_next =  i + 2**(j-1) 
+                if i_next < self.n:
+                    self.segment_mins[(i, j)] = min(self.segment_mins[(i, j-1)],
+                                                    self.segment_mins[(i_next, j-1)])
+
+    def range_min(self, l, r):
+        answer = math.inf
+        for j in range(self.k, -1, -1):
+            if 2**j <= r - l + 1:
+                answer = min(answer, self.segment_mins[(l, j)])
+                l = l + 2**j
+        return answer
+
 if __name__ == '__main__':
     #from line_profiler import LineProfiler
     #lp = LineProfiler()
