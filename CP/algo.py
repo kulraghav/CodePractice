@@ -236,14 +236,74 @@ def rolling_min(A, k):
         output.append(mq.get_min())
     return output
 
+
+from collections import deque
+class MonotoneDeque:
+    def __init__(self):
+        self.deque = deque()
+
+    def is_empty(self):
+        if not self.deque:
+            return True
+        return False
+
+    def peek_right(self):
+        if self.is_empty():
+            raise Exception('deque is empty')
+        return self.deque[-1]
+
+    def peek_left(self):
+        if self.is_empty():
+            raise Exception('deque is empty')
+        return self.deque[0]
+
+    def pop_right(self, x):
+        if self.peek_right() == x:
+            self.deque.pop()
+        return
+
+    def pop_left(self, x):
+        if self.peek_left() == x:
+            self.deque.popleft()
+        return
+
+    def push_right(self, x):
+        while not self.is_empty() and self.peek_right() > x:
+            self.pop_right(self.peek_right())
+        self.deque.append(x)
+
+    def min(self):
+        if self.is_empty():
+            raise Exception('stack is empty')
+        return self.deque[0]
+
+def rolling_min_monotone_deque(A, k):
+    if not A:
+        return []
+
+    monotone_deque = MonotoneDeque()
+    for i in range(min(len(A), k)):
+        monotone_deque.push_right(A[i])
+
+    output = []
+    output.append(monotone_deque.min())
+    for i in range(k, len(A)):
+        monotone_deque.pop_left(A[i-k])
+        monotone_deque.push_right(A[i])
+        output.append(monotone_deque.min())
+    return output
+
 if __name__ == '__main__':
-    from line_profiler import LineProfiler
-    lp = LineProfiler()
+    #from line_profiler import LineProfiler
+    #lp = LineProfiler()
     
-    lp(expo)(2,30)
-    lp.print_stats()
+    #lp(expo)(2,30)
+    #lp.print_stats()
 
-    lp(expo_iterative)(2,30)
-    lp.print_stats()
+    #lp(expo_iterative)(2,30)
+    #lp.print_stats()
 
-    
+    A = [5, 3, 1, 2, 4]
+    k = 2
+    rolling_min_monotone_deque(A, k)
+
