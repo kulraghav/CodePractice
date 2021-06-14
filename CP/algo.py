@@ -339,6 +339,22 @@ def fact_pow_prime(n, p):
         n = n // p
     return power
     
+def choose(n, k):
+    answer = 1
+    for i in range(n, n-k, -1):
+        answer = answer*i
+
+    for i in range(1, k+1):
+        answer = answer/i
+    return answer
+
+def choose_stable(n, k):
+    _epsilon = 0.01
+
+    answer = 1
+    for i in range(k):
+        answer = answer*((n-i)/(k-i))
+    return math.floor(answer + _epsilon)
 
 if __name__ == '__main__':
     #from line_profiler import LineProfiler

@@ -325,6 +325,55 @@ def test_fact_pow_prime():
     assert fact % p**(max_pow+1) != 0
     return
 
+def test_choose():
+    from algo import choose
+
+    n = 0
+    k = 0
+    assert choose(n, k) == 1
+
+    n = 3
+    k = 2
+    assert choose(n, k) == 3
+
+    n = 5
+    k = 3
+    assert choose(n, k) == 10
+
+    n = 10
+    k = 3
+    assert choose(n, k) == 120
+
+    n = 100
+    k = 4
+    assert choose(n, k) == 100*99*98*97/(4*3*2*1)
+
+    return
+
+def test_choose_stable():
+    from algo import choose_stable
+
+    n = 0
+    k = 0
+    assert choose_stable(n, k) == 1
+
+    n = 3
+    k = 2
+    assert choose_stable(n, k) == 3
+
+    n = 5
+    k = 3
+    assert choose_stable(n, k) == 10
+
+    n = 10
+    k = 3
+    assert choose_stable(n, k) == 120
+
+    n = 100
+    k = 4
+    assert choose_stable(n, k) == 100*99*98*97/(4*3*2*1)
+
+    return
 if __name__ == '__main__':
     test = TestSparseRangeMin()
     test.test_range_min()
