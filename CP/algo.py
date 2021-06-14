@@ -331,6 +331,15 @@ class SparseRangeMin:
                 l = l + 2**j
         return answer
 
+
+def fact_pow_prime(n, p):
+    power = 0
+    while p <= n:
+        power = power + n // p
+        n = n // p
+    return power
+    
+
 if __name__ == '__main__':
     #from line_profiler import LineProfiler
     #lp = LineProfiler()

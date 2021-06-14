@@ -305,6 +305,25 @@ class TestSparseRangeMin:
         
         return
 
+def test_fact_pow_prime():
+    import math
+    from algo import fact_pow_prime
+
+    n = 3
+    p = 2
+    assert fact_pow_prime(n, p) == 1
+
+    n = 5
+    p = 2
+    assert fact_pow_prime(n, p) == 3
+
+    n = 10
+    p = 3
+    max_pow = fact_pow_prime(n, p)
+    fact = math.factorial(n)
+    assert fact % p**max_pow == 0
+    assert fact % p**(max_pow+1) != 0
+    return
 
 if __name__ == '__main__':
     test = TestSparseRangeMin()
