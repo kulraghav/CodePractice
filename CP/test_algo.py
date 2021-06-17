@@ -426,6 +426,26 @@ def test_binomial_mod_large_p():
     with pytest.raises(Exception, match=r".*must be a prime.*"):
         binomial_mod_large_p(n, k, p)
 
+def test_catalan():
+    from algo import catalan
+
+    n = 0
+    assert catalan(n) == 1
+
+    n = 1
+    assert catalan(n) == 1
+
+    n = 2
+    assert catalan(n) == 2
+
+    n = 3
+    assert catalan(n) == 5
+
+    n = 4
+    assert catalan(n) == 14
+
+    return
+
 if __name__ == '__main__':
     test = TestSparseRangeMin()
     test.test_range_min()

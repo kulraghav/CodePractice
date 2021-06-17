@@ -398,7 +398,17 @@ def binomial_mod_large_p(n, k, p):
 
     return (n_fact * inverse_mod_p(k_fact * n_minus_k_fact, p)) % p
 
-    
+   
+def catalan(n):
+    C = {}
+    C[0] = 1
+
+    for k in range(1, n+1):
+        C[k] = 0
+        for i in range(0, k):
+            C[k] = C[k] + C[i]*C[k-i-1]
+    return C[n]
+
 if __name__ == '__main__':
     #from line_profiler import LineProfiler
     #lp = LineProfiler()
