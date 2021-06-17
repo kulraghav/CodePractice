@@ -374,6 +374,32 @@ def test_choose_stable():
     assert choose_stable(n, k) == 100*99*98*97/(4*3*2*1)
 
     return
+
+def test_binomial_pascal():
+    from algo import binomial_pascal
+
+    n = 0
+    k = 0
+    assert binomial_pascal(n, k) == 1
+
+    n = 0
+    k = 1
+    assert binomial_pascal(n, k) == 0
+
+    n = 3
+    k = 1
+    assert binomial_pascal(n, k) == 3
+
+    n = 5
+    k = 2
+    assert binomial_pascal(n, k) == 10
+
+    n = 5
+    k = 3
+    assert binomial_pascal(n, k) == 10
+
+    return
+
 if __name__ == '__main__':
     test = TestSparseRangeMin()
     test.test_range_min()

@@ -370,3 +370,19 @@ if __name__ == '__main__':
     k = 2
     rolling_min_monotone_deque(A, k)
 
+def binomial_pascal(n, k):
+    """
+        C[(n, k)] := n choose k
+    """
+    C = {}
+    C[(0, 0)] = 1
+    for i in range(1, n+1):
+        C[(i,0)] = 1
+    for j in range(1, k+1):
+        C[(0, j)] = 0
+
+    for j in range(1, k+1):
+        for i in range(1, n+1):
+            C[(i, j)] = C[(i-1, j-1)] + C[(i-1, j)]
+    return C[(n, k)]
+    
