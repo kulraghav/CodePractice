@@ -446,6 +446,26 @@ def test_catalan():
 
     return
 
+def test_count_distinct():
+    from algo import count_distinct
+
+    strings = []
+    assert count_distinct(strings) == 0
+
+    strings = ['a']
+    assert count_distinct(strings) == 1
+
+    strings = ['ab', 'ab']
+    assert count_distinct(strings) == 1
+
+    strings = ['a', 'ab', 'ab', 'abc']
+    assert count_distinct(strings) == 3
+
+    strings = ['1', '2', '3', '4', '5']
+    assert count_distinct(strings) == 5
+    
+    return
+
 if __name__ == '__main__':
     test = TestSparseRangeMin()
     test.test_range_min()

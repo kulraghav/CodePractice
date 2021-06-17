@@ -409,6 +409,26 @@ def catalan(n):
             C[k] = C[k] + C[i]*C[k-i-1]
     return C[n]
 
+def compute_hash(s, p=31, m=10**9+1):
+    total_mod_m = 0
+    p_power = 1
+    for i in range(len(s)):
+        total_mod_m = (total_mod_m + ord(s[i])*p_power) % m
+        p_power = p_power*p
+    return total_mod_m
+
+def count_distinct(strings):
+    seen = set()
+    count = 0
+    for s in strings:
+        h = compute_hash(s)
+        if not h in seen:
+            count = count + 1
+        seen.add(h)
+    return count
+
+
+
 if __name__ == '__main__':
     #from line_profiler import LineProfiler
     #lp = LineProfiler()
