@@ -356,20 +356,6 @@ def choose_stable(n, k):
         answer = answer*((n-i)/(k-i))
     return math.floor(answer + _epsilon)
 
-if __name__ == '__main__':
-    #from line_profiler import LineProfiler
-    #lp = LineProfiler()
-    
-    #lp(expo)(2,30)
-    #lp.print_stats()
-
-    #lp(expo_iterative)(2,30)
-    #lp.print_stats()
-
-    A = [5, 3, 1, 2, 4]
-    k = 2
-    rolling_min_monotone_deque(A, k)
-
 def binomial_pascal(n, k):
     """
         C[(n, k)] := n choose k
@@ -385,4 +371,46 @@ def binomial_pascal(n, k):
         for i in range(1, n+1):
             C[(i, j)] = C[(i-1, j-1)] + C[(i-1, j)]
     return C[(n, k)]
+
+def factorial_mod_p(n, p):
+    answer = 1
+    for i in range(1, n+1):
+        answer = (answer * i) % p
+    return answer
+
+def inverse_mod_p(x, p):
+    x = x % p
+    if x == 0:
+        raise Exception('{} is not invertible modulo {}'.format(x, p))
+
+    for y in range(1, p):
+        if (x*y) % p == 1:
+            return y
+
+    raise Exception('{} must be a prime number'.format(p))
+
+def binomial_mod_large_p(n, k, p):
+    assert p > n, "{} must be larger than {}".format(p, n)
+
+    n_fact = factorial_mod_p(n, p)
+    k_fact = factorial_mod_p(k, p)
+    n_minus_k_fact = factorial_mod_p(n-k, p)
+
+    return (n_fact * inverse_mod_p(k_fact * n_minus_k_fact, p)) % p
+
+    
+if __name__ == '__main__':
+    #from line_profiler import LineProfiler
+    #lp = LineProfiler()
+    
+    #lp(expo)(2,30)
+    #lp.print_stats()
+
+    #lp(expo_iterative)(2,30)
+    #lp.print_stats()
+
+    A = [5, 3, 1, 2, 4]
+    k = 2
+    rolling_min_monotone_deque(A, k)
+
     

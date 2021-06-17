@@ -400,6 +400,32 @@ def test_binomial_pascal():
 
     return
 
+import pytest
+def test_binomial_mod_large_p():
+    from algo import binomial_mod_large_p
+    
+    n = 3
+    k = 1
+    p = 5
+    assert binomial_mod_large_p(n, k, p) == 3
+
+    n = 5
+    k = 2
+    p = 7
+    assert binomial_mod_large_p(n, k, p) == 3
+
+    n = 3
+    k = 1
+    p = 2
+    with pytest.raises(AssertionError, match=r".*must be larger.*"):
+        binomial_mod_large_p(n, k, p)
+
+    n = 5
+    k = 2
+    p = 8
+    with pytest.raises(Exception, match=r".*must be a prime.*"):
+        binomial_mod_large_p(n, k, p)
+
 if __name__ == '__main__':
     test = TestSparseRangeMin()
     test.test_range_min()
