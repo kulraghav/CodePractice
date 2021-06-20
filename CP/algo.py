@@ -5,10 +5,6 @@
         - https://cp-algorithms.com/
 """
 
-"""
-    Binary Exponentiation (repeated squaring)
-"""
-
 def expo(a, b):
     if b == 0:
         return 1
@@ -29,10 +25,6 @@ def expo_iterative(a, b):
         b = b//2
     return answer
 
-"""
-    Extended Euclidean Algorithm (gcd)
-"""
-
 def gcd(a, b):
     a, b = min(a, b), max(a, b)
     if a == 0:
@@ -43,6 +35,12 @@ def gcd(a, b):
 
 
 def gcd_coef(a, b):
+    """
+        x*r + y*a = g
+        x*(b - d*a) + y*a = g
+        x*b + (y-d*x)a = g
+        => return g, (y-d*x), x
+    """
     if a > b:
         g, x, y = gcd_cof(b, a)
         return g, y, x
@@ -54,13 +52,6 @@ def gcd_coef(a, b):
     d = b // a
 
     g, x, y = gcd_coef(r, a)
-
-    """
-        x*r + y*a = g
-        x*(b - d*a) + y*a = g
-        x*b + (y-d*x)a = g
-        => return g, (y-d*x), x
-    """
     return g, (y-d*x), x
     
 def gcd_iterative(a, b):
@@ -72,9 +63,6 @@ def gcd_iterative(a, b):
     return b
 
 def gcd_coef_iterative(a, b):
-    x_a, y_a = 1, 0
-    x_b, y_b = 0, 1
-
     """
         (a, b) -> (b % a, a)
 
@@ -91,9 +79,11 @@ def gcd_coef_iterative(a, b):
 
         =>
         x_a, y_a = x_b - d*x_a, y_b - d*y_a
-        x_b, y_b = x_a, y_a
-        
+        x_b, y_b = x_a, y_a    
     """
+
+    x_a, y_a = 1, 0
+    x_b, y_b = 0, 1
 
     while a > 0:
         r = b % a
@@ -165,9 +155,6 @@ def fibo(n):
     
     return f
 
-"""
-    min-stack, min-queue, and rolling min
-"""
 import math
 class MinStack:
     _infinity = math.inf
@@ -295,18 +282,19 @@ def rolling_min_monotone_deque(A, k):
 
 import math
 class SparseRangeMin:
+    """
+        segment_mins[(i,j)] = min(A[i:i+2**j])
+
+        min(A[i:i+2**j]) = min(min(A[i:i+2**(j-1)]), 
+                                   min(A[i+2**(j-1):i+2**j]))
+
+        segment_mins[(i,j)] = min(segment_mins[(i,j-1)],
+                                      segment_mins[(i+2**(j-1),j-1)]
+    """
+
     def __init__(self, numbers):
         self.numbers = numbers
 
-        """
-            segment_mins[(i,j)] = min(A[i:i+2**j])
-
-            min(A[i:i+2**j]) = min(min(A[i:i+2**(j-1)]), 
-                                   min(A[i+2**(j-1):i+2**j]))
-
-            segment_mins[(i,j)] = min(segment_mins[(i,j-1)],
-                                      segment_mins[(i+2**(j-1),j-1)]
-        """
         self.n = len(self.numbers)
         self.k = math.ceil(math.log2(self.n))
         
@@ -426,20 +414,28 @@ def count_distinct(strings):
         seen.add(h)
     return count
 
-
-
 if __name__ == '__main__':
-    #from line_profiler import LineProfiler
-    #lp = LineProfiler()
+    """
+    Examples:
+
+    test case for one of the algos
+    ------------------------------
+    >>A = [5, 3, 1, 2, 4]
+    >>k = 2
+    >>rolling_min_monotone_deque(A, k)
+
+
+    profiling code using line profiler
+    ----------------------------------
+    >>from line_profiler import LineProfiler
+    >>lp = LineProfiler()
     
-    #lp(expo)(2,30)
-    #lp.print_stats()
+    >>lp(expo)(2,30)
+    >>lp.print_stats()
 
-    #lp(expo_iterative)(2,30)
-    #lp.print_stats()
+    >>lp(expo_iterative)(2,30)
+    >>lp.print_stats()
+    """
 
-    A = [5, 3, 1, 2, 4]
-    k = 2
-    rolling_min_monotone_deque(A, k)
 
     
