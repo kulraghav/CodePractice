@@ -417,6 +417,7 @@ def count_distinct(strings):
 if __name__ == '__main__':
     """
     Examples:
+    ---------
 
     test case for one of the algos
     ------------------------------
