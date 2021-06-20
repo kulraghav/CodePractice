@@ -397,8 +397,7 @@ def binomial_mod_large_p(n, k, p):
     n_minus_k_fact = factorial_mod_p(n-k, p)
 
     return (n_fact * inverse_mod_p(k_fact * n_minus_k_fact, p)) % p
-
-   
+ 
 def catalan(n):
     C = {}
     C[0] = 1
